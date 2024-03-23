@@ -1,0 +1,8 @@
+// Check Weak Cipher such as Kerberos Authentication 
+IdentityLogonEvents
+| where Timestamp >= ago(1d)
+| where Protocol == @"Kerberos"
+| extend ParsedFields=parse_json(AdditionalFields)
+| extend EncryptionType = tostring(ParsedFields.EncryptionType)
+| project Timestamp, ActionType, DeviceName, IPAddress, DestinationDeviceName,AccountName, AccountDomain,EncryptionType 
+//| summarize count() by AccountName, AccountDomain, EncryptionType

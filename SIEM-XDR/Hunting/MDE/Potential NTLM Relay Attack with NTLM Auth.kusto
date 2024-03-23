@@ -1,0 +1,19 @@
+// Potential NTLM Relay Attack with NTLM Auth
+let DCS = dynamic([
+     "add your dc name here",
+     "add your dc name here"
+     ]);
+DeviceLogonEvents
+| where Protocol == "NTLM"
+| where AccountName endswith "$"
+| where DCS has replace_string(AccountName,"$","")
+// | where DCS has replace_string(AccountName,"$","")
+//| project TimeGenerated, AccountName, DCS, DeviceName, 
+     DeviceType, DeviceOS, DeviceOSVersion, DeviceIPAddress, 
+     DeviceMACAddress, DeviceID, DeviceLogonType, DeviceLogonResult, 
+     DeviceLogonFailureReason, DeviceLogonFailureReasonDetail, 
+     DeviceLogonFailureReasonDetailCode, DeviceLogonFailureReasonDetailMessage, 
+     DeviceLogonFailureReasonDetailMessageCode, DeviceLogonFailureReasonDetailMessageDetail, 
+     DeviceLogonFailureReasonDetailMessageDetailCode, DeviceLogonFailureReasonDetailMessageDetailMessage, 
+     DeviceLogonFailureReasonDetailMessageDetailMessageCode, DeviceLogonFailureReasonDetailMessageDetailMessageDetail, 
+     DeviceLogonFailureReasonDetailMessageDetailMessageDetailCode, DeviceLogonFailureReasonDetailMessageDetailMessageDetailMessage

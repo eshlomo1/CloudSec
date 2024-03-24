@@ -1,0 +1,16 @@
+// Suspicious Driver Load with Time conditions and Prevalence 
+DeviceEvents
+| where ActionType == "DriverLoad"
+| where Timestamp >= ago(1d)
+| distinct SHA1 
+| join kind=inner
+    (
+DeviceFileCertificateInfo 
+    | where CertificateCreationTime < todatetime("x/x/xxxx") 
+         or CertificateExpirationTime < todatetime("x/xx/xxxx")
+    ) on SHA1 
+    | summarize dcount(DeviceId) by SHA1
+    | where dcount_DeviceId <= 1 
+    | invoke FileProfile(SHA1,1000) 
+    | where GlobalPrevalence <= 300 
+    | join DeviceFileCertificateInfo on SHA1 

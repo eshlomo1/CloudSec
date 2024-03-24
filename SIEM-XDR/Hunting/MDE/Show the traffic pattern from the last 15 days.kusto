@@ -1,0 +1,8 @@
+// Show the traffic pattern from the last 15 days
+DeviceNetworkEvents
+| where ActionType == "NetworkSignatureInspected"
+| where Timestamp > ago(15d)
+| extend SigName = parse_json(AdditionalFields).SignatureName,
+     SigMatchedContent = parse_json(AdditionalFields).SignatureMatchedContent,
+     SigSampleContent = parse_json(AdditionalFields).SignatureSampleContent
+| project Timestamp, DeviceName, ActionType,SigName, RemoteIP, RemotePort

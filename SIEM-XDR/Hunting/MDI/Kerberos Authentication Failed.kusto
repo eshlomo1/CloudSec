@@ -1,0 +1,5 @@
+// Kerberos Authentication Failed
+IdentityLogonEvents
+| where ActionType == "LogonFailed"
+| where Application == "Active Directory"
+| where Protocol == "Kerberos"

@@ -1,0 +1,6 @@
+// SAMR and LDAP action in Active Directory
+let MalActions = pack_array('SAMR','LDAP');
+IdentityQueryEvents
+| where Application == @"Active Directory"
+| where ActionType has_any (MalActions)
+| project Timestamp,DeviceName,DestinationDeviceName,AccountDisplayName, ActionType, QueryType, QueryTarget

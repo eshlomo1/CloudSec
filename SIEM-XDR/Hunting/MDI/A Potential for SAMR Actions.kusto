@@ -1,0 +1,11 @@
+// This query returns the SAMR queries that were successful in the last 5 hours.
+// The query will also return the IdentityDirectoryEvents that are related to the SAMR queries.
+// The query will return the columns: Timestamp, ActionType, QueryType, QueryTarget, and Protocol.
+IdentityQueryEvents
+| where Timestamp >= ago(5h) | order by Timestamp
+| where ActionType in ("SAMR query","SamrQuerySuccess")
+| join kind=inner (
+IdentityDirectoryEvents
+| where Timestamp > ago(5d)
+) on AccountName
+| project Timestamp, ActionType, QueryType, QueryTarget, Protocol

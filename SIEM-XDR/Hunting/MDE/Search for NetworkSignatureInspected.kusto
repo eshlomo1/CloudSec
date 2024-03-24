@@ -1,0 +1,9 @@
+// Search for NetworkSignatureInspected  
+// This query will return the unique network signatures that have been inspected in the last 24 hours
+DeviceNetworkEvents 
+| where ActionType == "NetworkSignatureInspected"
+| where Timestamp > ago(1d)
+| extend SigName = parse_json(AdditionalFields).SignatureName,
+    SigMatchedContent = parse_json(AdditionalFields).SignatureMatchedContent,
+    SigSampleContent = parse_json(AdditionalFields).SignatureSampleContent
+| distinct tostring(SigName)

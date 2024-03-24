@@ -1,0 +1,26 @@
+// This query looks for multiple indicators of potentially malicious activity, 
+// including suspicious commands, process names, and file extensions.
+let suspiciousCommands = dynamic([
+     "iex", 
+     "New-Object", 
+     "Start-Process", 
+     "Invoke-Expression", 
+     "Invoke-Command", 
+     "Invoke-Item"
+]);
+let suspiciousProcesses = dynamic([
+     "powershell.exe", 
+     "cmd.exe"
+]);
+let suspiciousFileExtensions = dynamic([
+     ".ps1", 
+     ".exe", 
+     ".vbs", 
+     ".js"
+]);
+DeviceEvents
+| where InitiatingProcessCommandLine has_any (suspiciousCommands) 
+    or InitiatingProcessFileName in (suspiciousProcesses)
+    or (InitiatingProcessFileName endswith (suspiciousFileExtensions))
+| where InitiatingProcessParentFileName <> "SenseIR.exe"   
+| summarize count () by InitiatingProcessCommandLine, ActionType, Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessAccountDomain

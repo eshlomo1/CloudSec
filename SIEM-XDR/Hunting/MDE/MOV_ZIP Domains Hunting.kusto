@@ -1,0 +1,22 @@
+// Search for users who clicked on ZIP/MOV Domains
+
+UrlClickEvents
+| extend domain = tostring(parse_url(Url).Host)
+| where domain endswith ".zip" or domain endswith ".mov"
+| project Timestamp, NetworkMessageId, Clicked_Url = Url
+| join EmailEvents on NetworkMessageId
+| project Timestamp, Clicked_Url, RecipientEmailAddress, SenderMailFromAddress, SenderFromAddress, Subject, AttachmentCount, UrlCount
+
+// Search for domain extensions that end with ZIP/MOV domains.
+
+DeviceNetworkEvents
+| extend domain = tostring(extract("https?://([^:/]*)(:?)(/|$)", 1, RemoteUrl))
+| where domain endswith ".zip" or domain endswith ".mov"
+
+// Detect devices that are blocked from accessing ZIP/MOV domains
+
+DeviceNetworkEvents
+| where Timestamp >= ago(1h)
+| extend domain = tostring(extract("https?://([^:/]*)(:?)(/|$)",1,RemoteUrl))
+| where domain endswith ".zip" or domain endswith ".mov"
+| where ActionType != @"ConnectionSuccess"

@@ -1,0 +1,8 @@
+// Unknown User Failed Logon from Unknown Device with Unknown Protocol
+IdentityLogonEvents
+| where Timestamp > ago(1h)
+| where ActionType == "LogonFailed"
+| where LogonType == "Failed logon"
+| where FailureReason == "UnknownUser" 
+| extend TO_DEVICE = tostring(AdditionalFields.["TO.DEVICE"])
+| summarize count() by DeviceName, FailureReason, Protocol, AccountName, DestinationDeviceName

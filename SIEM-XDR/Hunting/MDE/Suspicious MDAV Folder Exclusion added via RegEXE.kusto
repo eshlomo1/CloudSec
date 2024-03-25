@@ -1,0 +1,13 @@
+// Suspicious MDAV Folder Exclusion added via Reg.EXE
+// https://thedfirreport.com/2022/02/07/qbot-likes-to-move-it-move-it/ 
+DeviceProcessEvents 
+| where TimeGenerated >= ago(31d)
+| where (FolderPath endswith @'\reg.exe' 
+     and (ProcessCommandLine contains @'SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths' 
+     or ProcessCommandLine contains @'SOFTWARE\Microsoft\Microsoft Antimalware\Exclusions\Paths') 
+     and ProcessCommandLine contains @'ADD ' 
+     and ProcessCommandLine contains @'/t ' 
+     and ProcessCommandLine contains @'REG_DWORD ' 
+     and ProcessCommandLine contains @'/v ' 
+     and ProcessCommandLine contains @'/d ' 
+     and ProcessCommandLine contains '0')

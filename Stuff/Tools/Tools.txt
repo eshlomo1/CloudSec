@@ -1,0 +1,33 @@
+
+Json Crack: https://jsoncrack.com/editor
+JWT MS: https://jwt.ms
+JSON Web Tokens: https://jwt.io
+
+Magnet AXIOM: A cloud forensic tool that allows you to extract and analyze data from cloud services such as Google Drive, Dropbox, and Office 365.
+
+Blackbag Blacklight: A cloud forensic tool that allows you to acquire, analyze, and report on data from cloud services such as iCloud, Google Drive, and Microsoft OneDrive.
+
+Belkasoft Cloud Extractor: A cloud forensic tool that specializes in extracting and analyzing data from cloud services such as Google Drive, Dropbox, and OneDrive.
+
+Cellebrite Cloud Analyzer: A cloud forensic tool that allows you to extract and analyze data from cloud services such as iCloud, Google Drive, and Microsoft OneDrive.
+
+AccessData Cloud Forensics: A cloud forensic tool that allows you to acquire, analyze, and report on data from cloud services such as iCloud, Google Drive, and Microsoft OneDrive.
+
+Oxygen Cloud Analyzer: A cloud forensic tool that allows you to extract and analyze data from cloud services such as Google Drive, Dropbox, and OneDrive.
+
+Elcomsoft Cloud eXplorer: A cloud forensic tool that allows you to extract and analyze data from cloud services such as iCloud, Google Drive, and Microsoft OneDrive.
+
+Paraben Cloud Analyzer: A cloud forensic tool that allows you to extract and analyze data from cloud services such as iCloud, Google Drive, and Microsoft OneDrive.
+
+EnCase Cloud Forensics: A cloud forensic tool that allows you to acquire, analyze, and report on data from cloud services such as iCloud, Google Drive, and Microsoft OneDrive.
+
+MSAB Cloud Analyzer: A cloud forensic tool that specializes in extracting and analyzing data from cloud services such as Google Drive, Dropbox, and OneDrive
+
+
+Cloud Forensic Utils: https://github.com/google/cloud-forensics-utils
+Prowler: https://github.com/prowler-cloud/prowler
+varc: https://github.com/cado-security/varc
+ThreatResponse: https://www.threatresponse.cloud/ - https://github.com/ThreatResponse
+Automated Forensics Orchestrator for Amazon EC2: https://github.com/aws-solutions/automated-forensic-orchestrator-for-amazon-ec2
+Cado Response: https://www.cadosecurity.com/
+ 

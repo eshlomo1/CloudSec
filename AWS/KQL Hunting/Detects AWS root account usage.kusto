@@ -1,0 +1,6 @@
+// Detects AWS root account usage
+// references: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html
+
+AWSCloudTrail 
+| where (UserIdentityType =~ @'Root' 
+     and not (EventTypeName =~ @'AwsServiceEvent'))

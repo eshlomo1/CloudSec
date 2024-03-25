@@ -1,0 +1,29 @@
+// Renamed PingCastle Binary Execution
+// Detects the execution of a renamed "PingCastle" binary based on the PE metadata fields
+// Based on the followign report: https://thedfirreport.com/2023/10/30/netsupport-intrusion-results-in-domain-compromise/
+DeviceProcessEvents
+| where ((ProcessVersionInfoOriginalFileName in~ (@'PingCastleReporting.exe', @'PingCastleCloud.exe', @'PingCastle.exe') 
+     or (ProcessCommandLine contains @'--scanner aclcheck' 
+     or ProcessCommandLine contains @'--scanner antivirus' 
+     or ProcessCommandLine contains @'--scanner computerversion' 
+     or ProcessCommandLine contains @'--scanner foreignusers' 
+     or ProcessCommandLine contains @'--scanner laps_bitlocker' 
+     or ProcessCommandLine contains @'--scanner localadmin' 
+     or ProcessCommandLine contains @'--scanner nullsession' 
+     or ProcessCommandLine contains @'--scanner nullsession-trust' 
+     or ProcessCommandLine contains @'--scanner oxidbindings' 
+     or ProcessCommandLine contains @'--scanner remote' 
+     or ProcessCommandLine contains @'--scanner share' 
+     or ProcessCommandLine contains @'--scanner smb' 
+     or ProcessCommandLine contains @'--scanner smb3querynetwork' 
+     or ProcessCommandLine contains @'--scanner spooler' 
+     or ProcessCommandLine contains @'--scanner startup' 
+     or ProcessCommandLine contains @'--scanner zerologon') 
+     or ProcessCommandLine contains @'--no-enum-limit' 
+     or (ProcessCommandLine contains @'--healthcheck' 
+     and ProcessCommandLine contains @'--level Full') 
+     or (ProcessCommandLine contains @'--healthcheck' 
+     and ProcessCommandLine contains @'--server ')) 
+     and not ((FolderPath endswith @'\PingCastleReporting.exe' 
+     or FolderPath endswith @'\PingCastleCloud.exe' 
+     or FolderPath endswith @'\PingCastle.exe')))

@@ -1,0 +1,13 @@
+// Detects the use of SharpUp, a tool for local privilege escalation
+// https://github.com/GhostPack/SharpUp
+DeviceProcessEvents 
+| where (FolderPath endswith @'\SharpUp.exe' 
+     or InitiatingProcessVersionInfoFileDescription =~ @'SharpUp' 
+     or ProcessVersionInfoFileDescription =~ @'SharpUp' 
+     or (ProcessCommandLine contains @'HijackablePaths' 
+     or ProcessCommandLine contains @'UnquotedServicePath' 
+     or ProcessCommandLine contains @'ProcessDLLHijack' 
+     or ProcessCommandLine contains @'ModifiableServiceBinaries' 
+     or ProcessCommandLine contains @'ModifiableScheduledTask' 
+     or ProcessCommandLine contains @'DomainGPPPassword' 
+     or ProcessCommandLine contains @'CachedGPPPassword'))

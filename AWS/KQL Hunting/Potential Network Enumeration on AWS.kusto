@@ -1,0 +1,6 @@
+// Potential Network Enumeration on AWS
+// https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/
+AWSCloudTrail 
+| where (EventSource =~ @'ec2.amazonaws.com' 
+    and EventName in~ (@'DescribeCarrierGateways', @'DescribeVpcEndpointConnectionNotifications', @'DescribeTransitGatewayMulticastDomains', @'DescribeClientVpnRoutes', @'DescribeDhcpOptions', @'GetTransitGatewayRouteTableAssociations')) 
+| summarize count() by EventName, bin(TimeGenerated, 10m) 

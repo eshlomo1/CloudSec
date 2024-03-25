@@ -1,0 +1,6 @@
+// AWS S3 Data Management Tampering
+// Detects when a user tampers with S3 data management in Amazon Web Services.
+
+AWSCloudTrail 
+| where (EventSource =~ @'s3.amazonaws.com' and EventName in~ (@'PutBucketLogging', @'PutBucketWebsite', @'PutEncryptionConfiguration', @'PutLifecycleConfiguration', @'PutReplicationConfiguration', @'ReplicateObject', @'RestoreObject'))
+// | extend Description = strcat("User ", userIdentity.userName, " attempted to tamper with S3 data management by ", EventName)

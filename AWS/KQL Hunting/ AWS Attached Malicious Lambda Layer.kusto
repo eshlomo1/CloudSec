@@ -1,0 +1,8 @@
+// AWS Attached Malicious Lambda Layer
+// Detects when an user attached a Lambda layer to an existing function to override a 
+// library that is in use by the function, where their malicious codecould utilize the function''s IAM 
+// role for AWS API calls.
+
+AWSCloudTrail 
+| where (EventSource =~ @'lambda.amazonaws.com' 
+    and EventName startswith @'UpdateFunctionConfiguration')

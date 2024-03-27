@@ -1,0 +1,12 @@
+// Adversaries may abuse PowerShell commands and scripts for execution
+// of malicious payloads. PowerShell is a powerful interactive command-line
+// interface and scripting environment, included in the Windows operating
+// system. Adversaries can use PowerShell to perform a number of actions,
+// including discovery of information and execution of code.
+
+DeviceEvents
+| where ActionType == "PowerShellCommand"
+| where ((AdditionalFields contains @'New-PSSession' 
+or InitiatingProcessCommandLine contains @'New-PSSession') 
+and (AdditionalFields contains @'-ComputerName ' 
+or InitiatingProcessCommandLine contains @'-ComputerName '))

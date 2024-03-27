@@ -1,0 +1,16 @@
+// Detects the use of getsystem Meterpreter/Cobalt Strike command by detecting
+// the use of the getsystem command in a command shell launched by services.exe
+// and the use of rundll32 to load a DLL with the getsystem command.
+// https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
+
+DeviceProcessEvents
+| where ((InitiatingProcessFolderPath endswith @'\services.exe' 
+    and ((ProcessCommandLine contains @'/c' 
+    and ProcessCommandLine contains @'echo' 
+    and ProcessCommandLine contains @'\pipe\' 
+    and (ProcessCommandLine contains @'cmd' 
+    or ProcessCommandLine contains @'%COMSPEC%')) 
+    or (ProcessCommandLine contains @'rundll32' 
+    and ProcessCommandLine contains @'.dll,a' 
+    and ProcessCommandLine contains @'/p:'))) 
+    and not (ProcessCommandLine contains @'MpCmdRun'))

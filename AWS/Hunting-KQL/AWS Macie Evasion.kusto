@@ -1,0 +1,9 @@
+// AWS Macie detection Evasion detection
+// https://docs.aws.amazon.com/macie/latest/user/findings-filter.html
+// https://cloud.hacktricks.xyz/pentesting-cloud/aws-security/aws-services/aws-security-and-detection-services/aws-macie-enum
+
+AWSCloudTrail
+| where EventName in~ (@'ArchiveFindings', @'CreateFindingsFilter', @'DeleteMember', @'DisassociateFromMasterAccount', @'DisassociateMember', @'DisableMacie', @'DisableOrganizationAdminAccount', @'UpdateFindingsFilter', @'UpdateMacieSession', @'UpdateMemberSession', @'UpdateClassificationJob')
+| summarize count() by SourceIpAddress, bin(TimeGenerated, 10m)
+//| order by TimeGenerated desc
+//| render table

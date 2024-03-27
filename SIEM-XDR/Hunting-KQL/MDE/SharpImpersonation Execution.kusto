@@ -1,0 +1,12 @@
+// Detects execution of the SharpImpersonation tool. Which can be used to
+// manipulate tokens on a Windows computers remotely (PsExec/WmiExec) or interactively
+
+DeviceProcessEvents
+| where (FolderPath endswith @'\SharpImpersonation.exe' 
+    or ProcessVersionInfoOriginalFileName =~ @'SharpImpersonation.exe' 
+    or (ProcessCommandLine contains @' user:' 
+    and ProcessCommandLine contains @' binary:') 
+    or (ProcessCommandLine contains @' user:' 
+    and ProcessCommandLine contains @' shellcode:') 
+    or (ProcessCommandLine contains @' technique:CreateProcessAsUserW' 
+    or ProcessCommandLine contains @' technique:ImpersonateLoggedOnuser'))

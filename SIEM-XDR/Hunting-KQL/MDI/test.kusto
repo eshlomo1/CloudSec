@@ -1,0 +1,6 @@
+// Potential NTLM Relay Attack and detects NTLM auth traffic
+let DCS = dynamic(["type dc name","type dc name"]);
+DeviceLogonEvents
+| where Protocol == "NTLM"
+| where AccountName endswith "$"
+| where DCS has_any replace_string(AccountName,"$","")

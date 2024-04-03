@@ -1,0 +1,7 @@
+// Multiple Accounts/Devices deleted within 30 in 5 Mintues
+// Use-Case: This query will return the number of accounts or devices that have been deleted within 30 minutes in 5 minutes intervals.
+// MITRE ATT&CK T1070.001 
+DeviceEvents
+| where TimeGenerated >= ago(30m)
+| summarize count() by ActionType == "UserAccountDeleted", bin(TimeGenerated, 5m)| count 
+| where Count >= 29

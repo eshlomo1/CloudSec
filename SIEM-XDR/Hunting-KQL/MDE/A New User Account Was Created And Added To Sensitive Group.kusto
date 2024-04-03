@@ -1,0 +1,35 @@
+// A New User Account Was Created And Added To Sensitive Group
+// Use-Cases: Detects when a new user account is created and added to a sensitive group.
+// MITRE ATT&CK: T1087.002
+// Mitre tactics: Defense Evasion, Privilege Escalation, Persistence, Initial Access
+// Reference: https://attack.mitre.org/techniques/T1087/002/
+let SensitiveGroups = dynamic([
+'Account Operators',
+'Backup Operators',
+'Domain Admins',
+'Domain Controllers',
+'Administrators',
+'Enterprise Admins',
+'Group Policy Creator Owners',
+'Incoming Forest Trust Builders',
+'Network Configuration Operators',
+'Microsoft Exchange Servers',
+'Enterprise Read-only Domain Controllers',
+'Print Operators',
+'Schema Admins',
+'Read-only Domain Controllers',
+'Microsoft Exchange Servers',
+'Replicator',
+'Server Operators'
+]);
+IdentityDirectoryEvents
+| where Timestamp >= ago(3h)
+| where ActionType == "Group Membership changed" // and ActionType == "User Account Created"
+| where DestinationDeviceName != ""
+| extend ToGroup = tostring(parse_json(AdditionalFields).["TO.GROUP"])
+| extend FromGroup = tostring(parse_json(AdditionalFields).["FROM.GROUP"])
+| extend Action = iff(isempty(ToGroup), "Add", "Remove")
+| extend GroupModified = iff(isempty(ToGroup), FromGroup, ToGroup)
+| extend Target_Group = tostring(parse_json(AdditionalFields).["TARGET_OBJECT.GROUP"])
+| extend TARGET_ACCOUNT = tostring(AdditionalFields.["TARGET_OBJECT.ACCOUNT"])
+| where GroupModified has_any (SensitiveGroups)

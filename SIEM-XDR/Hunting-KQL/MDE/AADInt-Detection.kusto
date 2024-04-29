@@ -1,4 +1,10 @@
 // Detect if the AADInternal module exists on Devices
+// MITRE ATT&CK: T1218, T1082
+// mitre tactic: Defense Evasion, Execution, Persistence
+// mitre description: The AADInternals module is a PowerShell module that can be used to interact with Azure Active Directory. This query will detect if the AADInternals module is present on devices.
+// use-case: monitor for the presence of the AADInternals module on devices
+// description: The AADInternals module is a PowerShell module that can be used to interact with Azure Active Directory. This query will detect if the AADInternals module is present on devices.
+
 let AADINTFiles = dynamic([
 "BouncyCastle.Crypto.dll",
 "Win32Ntv.dll",
@@ -9,3 +15,4 @@ DeviceImageLoadEvents
 | where FolderPath contains "AADInternals"
 | join DeviceRegistryEvents on DeviceName
 | where RegistryValueData contains "AADInternals"
+| project DeviceName, RegistryKey, RegistryValueName, RegistryValueData, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessCommandLine, EventTime

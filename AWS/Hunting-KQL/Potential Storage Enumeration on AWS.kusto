@@ -1,9 +1,11 @@
-// Potential Storage Enumeration on AWS
-// https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/
-
+// Title: Potential Storage Enumeration on AWS
+// Description: Detects potential storage enumeration activity on AWS S3 buckets.
+// MITRE: T1533
+// MITRE Tactics: Collection 
+// Reference: https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/
 AWSCloudTrail
 | where (EventSource =~ @'s3.amazonaws.com' 
     and EventName in~ (@'ListBuckets', @'GetBucketCors', @'GetBucketInventoryConfiguration', @'GetBucketPublicAccessBlock', @'GetBucketMetricsConfiguration',@'GetBucketPolicy', @'GetBucketTagging'))
 | summarize count() by SourceIpAddress, bin(TimeGenerated, 15m)
-
-
+| extend Report = strcat("Potential storage enumeration activity detected on AWS S3 bucket from IP address ", SourceIpAddress, ".")
+| project TimeGenerated, SourceIpAddress, Report

@@ -1,8 +1,13 @@
-// Detects when the email sending feature is enabled for an AWS account and the email address verification request is dispatched in quick succession
-// https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/
-
+// Title: Potential AWS Cloud Email Service Abuse
+// Description: Detects when the email sending feature is enabled for an AWS account and the email address verification request is dispatched in quick succession
+// MITRE: T1190
+// MITRE Tactics: Defense Evasion
+//Reference:  https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/
 AWSCloudTrail
 | where TimeGenerated >= ago(31d)
 | where (EventSource =~ @'ses.amazonaws.com' 
     and EventName =~ @'UpdateAccountSendingEnabled' 
     and EventName =~ @'VerifyEmailIdentity')
+| summarize count() by bin(TimeGenerated, 1h), ResourceId, EventName
+| order by count_ desc
+| project TimeGenerated, ResourceId, EventName, count_

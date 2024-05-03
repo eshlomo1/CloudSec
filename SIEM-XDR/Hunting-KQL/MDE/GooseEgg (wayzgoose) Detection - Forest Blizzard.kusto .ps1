@@ -1,0 +1,12 @@
+// Title: GooseEgg (wayzgoose) Detection - Forest Blizzard    
+// Description: Detects GooseEgg (wayzgoose) from C:\ProgramData\ folder. 
+// MITRE: T1190
+// MITRE Tactics: Persistence
+// References: https://www.microsoft.com/en-us/security/blog/2024/04/22/analyzing-forest-blizzards-custom-post-compromise-tool-for-exploiting-cve-2022-38028-to-obtain-credentials
+let filenames = dynamic(["execute.bat","doit.bat","servtask.bat"]);
+DeviceFileEvents
+  | where TimeGenerated > ago(60d) // change the duration according to your requirement
+  | where ActionType == "FileCreated"
+  | where FolderPath == "C:\\ProgramData\\"
+  | where FileName in~ (filenames) or FileName endswith ".save" or FileName endswith ".zip" or ( FileName startswith "wayzgoose" and FileName endswith ".dll") or SHA256 == "7d51e5cc51c43da5deae5fbc2dce9b85c0656c465bb25ab6bd063a503c1806a9" // hash value of execute.bat/doit.bat/servtask.bat
+  | project TimeGenerated, DeviceId, DeviceName, ActionType, FolderPath, FileName, InitiatingProcessAccountName,InitiatingProcessAccountUpn

@@ -1,0 +1,12 @@
+// Title: Detect custom protocol handler - Forest Blizzard    
+// Description: Detects the creation of a custom protocol handler in the registry. This is a common technique used by malware to register a custom protocol handler to execute code when a user clicks on a link.   
+// MITRE: T1210
+// MITRE Tactics: Defense Evasion
+// References: https://www.microsoft.com/en-us/security/blog/2024/04/22/analyzing-forest-blizzards-custom-post-compromise-tool-for-exploiting-cve-2022-38028-to-obtain-credentials
+DeviceRegistryEvents
+  | where TimeGenerated > ago(31d) 
+  | where ActionType == "RegistryValueSet"
+  | where RegistryKey contains "HKEY_CURRENT_USER\\Software\\Classes\\PROTOCOLS\\Handler\\rogue"
+  | where RegistryValueName has "CLSID"
+  | where RegistryValueData contains "{026CC6D7-34B2-33D5-B551-CA31EB6CE345}"
+  | project TimeGenerated, Computer, RegistryKey, RegistryValueName, RegistryValueData, RegistryValueDataType

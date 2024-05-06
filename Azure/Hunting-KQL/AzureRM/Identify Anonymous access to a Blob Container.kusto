@@ -1,4 +1,8 @@
-// Identify Anonymous access to a Blob Container 
+// Title: Identify Anonymous access to a Blob Container 
+// Description: This query identifies anonymous access to a Blob Container.
+// MITRE: T1087
+// MITRE Tactics: Initial Access
+// Reference: https://docs.microsoft.com/en-us/azure/storage/common/storage-monitor-storage-logs
 StorageBlobLogs
 | where TimeGenerated > ago(15d)
 | where ServiceType == "blob"

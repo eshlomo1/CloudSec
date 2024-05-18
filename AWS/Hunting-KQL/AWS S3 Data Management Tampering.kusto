@@ -2,6 +2,7 @@
 // Description: Detects when a user tampers with S3 data management in Amazon Web Services. 
 // MITRE: T1070
 // MITRE Tactics: Defense Evasion
+// Reference: https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudtrail-logging.html
 AWSCloudTrail 
 | where (EventSource =~ @'s3.amazonaws.com' and EventName in~ (@'PutBucketLogging', @'PutBucketWebsite', @'PutEncryptionConfiguration', @'PutLifecycleConfiguration', @'PutReplicationConfiguration', @'ReplicateObject', @'RestoreObject'))
 | extend Description = strcat("User ", userIdentity.userName, " attempted to tamper with S3 data management by ", EventName)

@@ -1,4 +1,8 @@
-// Detect SQL injection techniques
+// Title: Detect SQL injection techniques
+// Description: Detects SQL injection techniques in the Application Gateway firewall logs
+// Mitre ATT&CK: T1190
+// Mitre tactics: Defense Evasion
+// Reference: https://docs.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-web-application-firewall-overview
 AzureDiagnostics
 | where ResourceType == "APPLICATIONGATEWAYS"
 | where Category == "ApplicationGatewayFirewallLog"

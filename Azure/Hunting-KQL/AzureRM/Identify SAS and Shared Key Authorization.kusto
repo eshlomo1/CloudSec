@@ -1,4 +1,8 @@
-// Identify SAS and Shared Key Authorization
+// Title: Identify SAS and Shared Key Authorization
+// Description: Identify SAS and Shared Key Authorization
+// Mitre ATT&CK: T1071
+// Mitre tactic: Credential Access
+// Reference: https://docs.microsoft.com/en-us/azure/storage/common/storage-monitor-storage-logs
 StorageBlobLogs  
 | where AuthenticationType == 'OAuth' 
     and RequesterUpn contains '@' 

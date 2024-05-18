@@ -1,4 +1,8 @@
-// Scan Detection by OWASP ZAP
+// Title: Scan Detection by OWASP ZAP
+// Description: Detects scans by OWASP ZAP
+// Mitre ATT&CK: T1110
+// Mitre tactics: Discovery
+// Reference: https://owasp.org/www-project-zap/
 AppServiceHTTPLogs 
 | where TimeGenerated >= ago(1h)
 | summarize WebSite = count(CsHost) by Result,CIp,CsMethod

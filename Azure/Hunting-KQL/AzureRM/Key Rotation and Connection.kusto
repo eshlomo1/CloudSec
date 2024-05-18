@@ -1,4 +1,8 @@
-// Key Rotation and Connection
+// Title: Key Rotation and Connection
+// Description: This query provides information about key rotation and connection strings.
+// Mitre ATT&CK: TA0006
+// Mitre tactics: Credential Access
+// Reference: https://docs.microsoft.com/en-us/azure/key-vault/general/rotate-keys
 AzureActivity
 | where OperationName in ('Rotate keys','Get Connection Strings')
 | project TimeGenerated, OperationName, ActivityStatus  

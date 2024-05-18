@@ -1,4 +1,7 @@
-// Detect web scanner tool 
+// Title: Detect web scanner tool 
+// Description: This query will help you to detect web scanner tool like nikto, nmap, burpsuite etc.
+// Mitre ATT&CK: T1110
+// Mitre tactic: Credential Access 
 AzureDiagnostics
 | where ResourceType == "APPLICATIONGATEWAYS"
 | where Category == "ApplicationGatewayFirewallLog"

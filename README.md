@@ -10,13 +10,13 @@ Note: This repositoty is under development. Pages, links, and resources are bein
 
 Packed with an extensive array of resources, tools and insights, this toolkit includes:
 
-🔍 Kusto Queries
-🛠️ PowerShell Script & Commands
-🐍 Python Scripts 
-🏗️ Architecture Diagrams
-🌐 Links to Top External Repos and Sites
-📖 Comprehensive Guides
-📚 And So Much More!
+- 🔍 Kusto Queries
+- 🛠️ PowerShell Script & Commands
+- 🐍 Python Scripts 
+- 🏗️ Architecture Diagrams
+- 🌐 Links to Top External Repos and Sites
+- 📖 Comprehensive Guides
+- 📚 And So Much More!
 
 Every piece of content here is battle-tested, drawn from real-world incident responses (IR), cloud penetration tests (PT), security assessments, and more. This is practical knowledge, not just theory!
 

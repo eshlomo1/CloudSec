@@ -22,12 +22,12 @@ Every piece of content here is battle-tested, drawn from real-world incident res
 
 In addition to the core resources, this repo features tools and scripts specifically designed for:
 
-🛡️ Microsoft Sentinel
-🔐 Defender XDR
-🆔 Entra ID
-🔍 Azure Security 
-🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP)
-🌟 And other essential cloud security tools
+- 🛡️ Microsoft Sentinel
+- 🔐 Defender XDR
+- 🆔 Entra ID
+- 🔍 Azure Security 
+- 🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP)
+- 🌟 And other essential cloud security tools
 
 ### Join the Cloud Security Revolution
 

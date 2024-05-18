@@ -1,5 +1,8 @@
-// A query to find a specific actions on a Azure Cosmos DB
-// based on the ChaosDB - A critical Vulnerability in Microsoft Azure Cosmos DB
+// Title: A query to find a specific actions on a Azure Cosmos DB
+// Description: based on the ChaosDB - A critical Vulnerability in Microsoft Azure Cosmos DB
+// Mitre ATT&CK: T1078
+// Mitre Tactic: Defense Evasion
+// Reference: https://www.wiz.io/blog/chaosdb-critical-vulnerability-in-azure-cosmos-db
 let KeyActions = ('regenerateKey');
 let errorCode = ('PreconditionFailed');
 let Operation = dynamic(["Rotate keys","Get Connection Strings"]);

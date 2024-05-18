@@ -1,3 +1,15 @@
+# This script includes a brute-force attack against the AWS Management Console.
+# The script generates random usernames and passwords and attempts to login to the AWS Management Console.
+# If the login is successful, the script prints the credentials and makes a random URL request to the AWS Management Console.
+# The script uses the requests library to send HTTP requests and the tqdm library to display a progress bar. 
+# The script also uses the Faker library to generate random names and usernames and the secrets library to generate random passwords.
+# The script uses the argparse library to parse command-line arguments.
+# The script uses the string library to generate random characters.
+# The script uses the urllib3 library to disable warnings.
+# The script uses the generate_typical_password function to generate a random password that contains at least one lowercase letter, one uppercase letter, one digit, and one special character.
+# The script uses the generate_real_name function to generate a random name.
+# The script uses the generate_random_username function to generate a random username.
+# -----------------------
 #!/usr/bin/python3
 import argparse
 import requests

@@ -1,4 +1,8 @@
-// Detect XSS techniques
+// Title: Detect XSS techniques
+// Description: Detects XSS attacks in Application Gateway logs
+// Mitre ATT&CK: T1059.003
+// Mitre tactics: Defense Evasion
+// Reference: https://docs.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-waf-overview
 AzureDiagnostics
 | where ResourceType == "APPLICATIONGATEWAYS"
 | where Category == "ApplicationGatewayFirewallLog"

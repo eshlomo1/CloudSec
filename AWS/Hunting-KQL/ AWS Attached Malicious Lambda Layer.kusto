@@ -1,7 +1,8 @@
 // Title: AWS Attached Malicious Lambda Layer
 // Description: Detects when an user attached a Lambda layer to an existing function to override a
-// MITRE: 1216 
-// MITRE Tactics: Defense Evasion   
+// MITRE: T1584
+// MITRE Tactics: Resource Development
+// Reference: https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 AWSCloudTrail 
 | where (EventSource =~ @'lambda.amazonaws.com' 
     and EventName startswith @'UpdateFunctionConfiguration')

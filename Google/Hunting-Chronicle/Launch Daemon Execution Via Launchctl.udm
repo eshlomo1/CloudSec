@@ -1,0 +1,5 @@
+// Title: Launch Agent Execution Via Launchctl
+// Description: Detects execution of programs as Launch Agents or Daemons using launchctl on macOS devices.
+// MITRE: T1569
+// Mitre Tactics: Persistence 
+target.process.file.full_path = /.*\/launchctl$/ nocase and (target.process.command_line = /.*submit.*/ nocase or target.process.command_line = /.*load.*/ nocase or target.process.command_line = /.*start.*/ nocase)

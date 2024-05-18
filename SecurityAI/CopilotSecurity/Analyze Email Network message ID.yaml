@@ -1,0 +1,11 @@
+# Title: Analyze Email Network message ID
+# Description: Analyze specific Network message IDs from Exchange Online using Defender XDR, urlscan, etc.''
+#  
+Plugins: Natural language to KQL for Microsoft Defender XDR, Microsoft Defender XDR
+
+Prompts
+
+1. Summarize Network message ID: <message id> using Defender XDR
+2. Tell me about the sender associated with that NetworkMessageId.
+3. What is the resolution history of this sender's address?
+4. Check the email sender with MDTI and provide information.

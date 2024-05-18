@@ -1,0 +1,17 @@
+# Title: Analyzing identity incident with Defender for Identity
+# Description: Analyzing identity incidents with Defender for Identity, Defender XDR, and Microsoft Entra ID.
+
+Plugins:Defender for Identity, Defender XDR, and Microsoft Entra ID.
+
+Prompts
+
+1.Summarize Defender for Identity Incident <DEFENDER_INCIDENT_NAME>
+2. Tell me about What happened in this incident.
+3. Tell me about the Important information.
+4. Give me the Activity Details.
+5. From that information, what are the entities?
+6. From that information, what actions were taken?
+7. From that information, what is the evidence?
+8. If a user is listed in the incident details, show which devices they have used recently and indicate whether they comply with policies.
+9. Do the entities have action in the Microsoft Entra ID
+10. Write an executive report summarizing this investigation. It should be suited for a non-technical audience.

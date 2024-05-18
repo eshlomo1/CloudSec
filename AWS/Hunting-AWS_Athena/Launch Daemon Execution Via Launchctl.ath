@@ -1,0 +1,5 @@
+// Title: Launch Agent Execution Via Launchctl
+// Description: Detects execution of programs as Launch Agents or Daemons using launchctl on macOS devices.
+// MITRE: T1569
+// Mitre Tactics: Persistence 
+SELECT * FROM eventlog WHERE (unmapped.Image LIKE '%/launchctl' ESCAPE '\' AND (unmapped.CommandLine LIKE '%submit%' ESCAPE '\' OR unmapped.CommandLine LIKE '%load%' ESCAPE '\' OR unmapped.CommandLine LIKE '%start%' ESCAPE '\'))

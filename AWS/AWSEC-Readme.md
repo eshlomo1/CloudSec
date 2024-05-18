@@ -1,4 +1,4 @@
-# AWS Security Resources
+# AWS Security Hub
 
 Welcome to the AWS Security page, where every threat becomes an opportunity and every incident is a chance to shine! Get ready to level up your skills in threat hunting, incident response, and the thrilling world of attack and defense in the AWS cloud environment.
 

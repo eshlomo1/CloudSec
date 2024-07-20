@@ -30,12 +30,6 @@ In addition to the core resources, this repo features tools and scripts specific
 - 🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP, GWS)
 - 🌟 And other essential cloud security tools
 
-### Join the Cloud Security Revolution
-
-Ready to take your cloud security skills to the next level? Jump in and explore the resources tailored for you. If you find this repo valuable, hit that star button ⭐ and share it with your friends and colleagues.
-
-Let's spread the knowledge and fortify the cloud security community together. Thank you for your support!
-
 Stay secure and happy exploring! 🌐🔐
 
 Note: This Hub replace the Microsoft-Sentinel-SecOps repo. The content from the Microsoft-Sentinel-SecOps repo is being migrated to this new repository. 

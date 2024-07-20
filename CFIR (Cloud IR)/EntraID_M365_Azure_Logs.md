@@ -1,5 +1,5 @@
 # Microsoft Cloud Logs 
-## A primary logs for Entra ID, Microsoft 365 and Azure
+## A primary and security logs for Entra ID, Microsoft 365 and Azure
 
 ### Microsoft 365 
 Unified Audit Logs - Enabled by default with 90 days retention. The log contain logs of user and admin activity in Microsoft 365. The log is used to track user and admin activity in Microsoft 365. The log is stored in the Microsoft 365 tenant and can be accessed through the Microsoft 365 Security & Compliance Center. 
@@ -12,9 +12,7 @@ Subscription logs - Also called Azure Activity logs. The log enabled by default 
 
 ### Azure Resource Manager (Azure)
 
-Resource logs (Diagnostic) - This logs contain logs about operations on each Azure service at the data plane level. These logs are used to track events such as database requests or key vault access attempts. The content of resource logs varies by service and resource type. Resource logs are stored in a storage account or Log Analytics workspace. The retention period for resource logs is configurable and can be set between 30 and 730 days.
-
-The Resource Logs can be configured for any Azure services. It can be configured for any Azure services. The content of resource logs varies by service and resource type. 
+Resource logs (Diagnostic) - This logs contain logs about operations on each Azure service at the data plane level. These logs are used to track events such as database requests or key vault access attempts. The content of resource logs varies by service and resource type. Resource logs are stored in a storage account or Log Analytics workspace. The retention period for resource logs is configurable and can be set between 30 and 730 days. The Resource Logs can be configured for any Azure services. It can be configured for any Azure services. The content of resource logs varies by service and resource type. 
      
 Azure Virtual machines and services - Captures system data and logging data on the virtual machines and transfers that data into a storage account of your choice. 
 

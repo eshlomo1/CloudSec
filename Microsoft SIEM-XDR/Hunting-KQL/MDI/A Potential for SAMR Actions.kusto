@@ -6,6 +6,6 @@ IdentityQueryEvents
 | where ActionType in ("SAMR query","SamrQuerySuccess")
 | join kind=inner (
 IdentityDirectoryEvents
-| where Timestamp > ago(5d)
+| where Timestamp > ago(5h)
 ) on AccountName
 | project Timestamp, ActionType, QueryType, QueryTarget, Protocol

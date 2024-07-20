@@ -1,11 +1,10 @@
 // Search for Reconnaissance in Active Directory
 // This query will return all alerts with the Reconnaissance category in the last 24 hours
-let TimeRange = 1d;
 AlertInfo
 | where Timestamp > ago(TimeRange)
 | where DetectionSource == "Microsoft Defender for Identity"
 | join (AlertEvidence
-| where Timestamp > ago(TimeRange)
+| where Timestamp > ago(1h)
 | where EntityType == "Machine" 
     and EvidenceDirection == "Source" 
     and ServiceSource == "Microsoft Defender for Identity" 

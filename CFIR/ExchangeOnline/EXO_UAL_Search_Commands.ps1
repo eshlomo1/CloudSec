@@ -1,5 +1,5 @@
-# 
-Get-Mailbox -Identity Yvan.b@datagroupit.com |fl ForwardingAddress, ForwardingSmtpAddress, DeliverToMailboxAndForward
+# Description: This script contains the commands to search the Unified Audit Log in Exchange Online.
+Get-Mailbox -Identity Yvan.b@datagroupit.com | fl ForwardingAddress, ForwardingSmtpAddress, DeliverToMailboxAndForward
 
 $mailboxes = Get-Mailbox
 foreach ($mailbox in $mailboxes) {get-InboxRule -Mailbox $mailbox.UserPrincipalName | export-csv "/users/ellishlomo/Downloads/mailbox.csv"} 

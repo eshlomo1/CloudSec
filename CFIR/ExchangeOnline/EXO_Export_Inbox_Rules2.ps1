@@ -1,4 +1,4 @@
-#
+# Description: This script will export all the inbox rules from all the mailboxes in the tenant to a CSV  
 Get-Mailbox -resultsize unlimited  |
 foreach {
     Write-Verbose "Checking $($_.alias)..." -Verbose

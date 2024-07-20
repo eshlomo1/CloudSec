@@ -15,3 +15,5 @@
 📈 Best Practices: Expert tips and strategies to optimize your XDR setup.
 
 🔥 Sample Use Cases: Real-world scenarios showcasing DefenderXDR's power in action.
+
+Note: In development. Stay tuned for more updates!

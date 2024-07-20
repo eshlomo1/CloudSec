@@ -23,3 +23,5 @@ Whether you're a seasoned investigator or just starting your journey, this hub i
 🚀 Secure, investigate, and conquer the cloud with the knowledge and insights shared here. Are you ready to unlock the secrets of the cloud?
 
 Stay vigilant, stay unstoppable! 🌐🔒
+
+Note: In development. Stay tuned for updates!

@@ -28,7 +28,7 @@ In addition to the core resources, this repo features tools and scripts specific
 - 🔐 Microsoft Defender XDR
 - 🆔 Entra ID
 - 🔍 Azure Security 
-- 🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP, GWES)
+- 🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP, GWS)
 - 🌟 And other essential cloud security tools
 
 ### Join the Cloud Security Revolution

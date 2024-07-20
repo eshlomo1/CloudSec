@@ -31,7 +31,7 @@ Log type is JSON format, shows outbound and inbound flows on a per-rule basis.
 
 * Defender for Cloud Apps – 180 days of data is available here and this length of retention can be critical in an investigation. Data enrichment for IP addresses and other data points is also incredibly useful and the portal makes it very easy to pivot from one data point to another.
 
-* Advanced Hunting – Advanced hunting follows the maximum data retention period configured for the Defender XDR tables (see Understand quotas). If you stream Defender XDR tables to Microsoft Sentinel and have a data retention period longer than 30 days for said tables, you can query for the longer period in advanced hunting.
+* Advanced Hunting – Advanced hunting follows the maximum data retention period configured for the Defender XDR tables. If you stream Defender XDR tables to Microsoft Sentinel and have a data retention period longer than 30 days for said tables, you can query for the longer period in advanced hunting.
 
 #### A general architecture of Forensic artifacts in Microsoft 365 and Entra ID (The image is from the Microsoft techcommunity blog)
 ![alt text](image.png)

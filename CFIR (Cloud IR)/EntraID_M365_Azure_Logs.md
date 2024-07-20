@@ -4,7 +4,7 @@
 
 ### Microsoft 365 
 
-* Unified Audit Logs - Enabled by default with 90 days retention. The log contain logs of user and admin activity in Microsoft 365. The log is used to track user and admin activity in Microsoft 365. The log is stored in the Microsoft 365 tenant and can be accessed through the Microsoft 365 Security & Compliance Center. 
+* Unified Audit Logs - Enabled by default with 90 or 365 days retention (depending on license). The log contain logs of user and admin activity in Microsoft 365. The log is used to track user and admin activity in Microsoft 365. The log is stored in the Microsoft 365 tenant and can be accessed through the Microsoft 365 Security & Compliance Center. 
 
 ### Entra ID (Azure AD)
 
@@ -26,3 +26,11 @@ Log type is JSON format, shows outbound and inbound flows on a per-rule basis.
 * Azure Kubernetes Service - This log contains the Activity Logs and platform metrics. The Control plane logs for AKS clusters are implemented as resource logs. Resource logs aren’t collected and stored until you create a diagnostic setting. 
 
 * Azure Cosmo DB - Diagnostic settings can be used to log events from the following fields: CollectionName, DatabaseName, OperationType, Region, StatusCode. Logs are not collected and stored by default and should be via diagnostic setting. 
+
+### Defender XDR
+
+* Defender for Cloud Apps – 180 days of data is available here and this length of retention can be critical in an investigation. Data enrichment for IP addresses and other data points is also incredibly useful and the portal makes it very easy to pivot from one data point to another.
+
+* Advanced Hunting – Advanced hunting follows the maximum data retention period configured for the Defender XDR tables (see Understand quotas). If you stream Defender XDR tables to Microsoft Sentinel and have a data retention period longer than 30 days for said tables, you can query for the longer period in advanced hunting.
+
+![alt text](image.png)

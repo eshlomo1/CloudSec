@@ -16,6 +16,8 @@ Packed with an extensive array of resources, tools and insights, this toolkit in
 - 🏗️ Architecture Diagrams
 - 🌐 Links to Top External Repos and Sites
 - 📖 Comprehensive Guides
+- 📊 Data Analysis & Visualization
+- 📝 AI Security Hacking and Tips 
 - 📚 And So Much More!
 
 Every piece of content here is battle-tested, drawn from real-world incident responses (IR), cloud penetration tests (PT), security assessments, and more. This is practical knowledge, not just theory!
@@ -26,7 +28,12 @@ In addition to the core resources, this repo features tools and scripts specific
 - 🔐 Defender XDR
 - 🆔 Entra ID
 - 🔍 Azure Security 
-- 🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP)
+- 🔒 Multi-Cloud Security
+     Microsoft 365
+     Azure
+     AWS
+     GCP
+     GWS
 - 🌟 And other essential cloud security tools
 
 ### Join the Cloud Security Revolution
@@ -36,3 +43,5 @@ Ready to take your cloud security skills to the next level? Jump in and explore 
 Let's spread the knowledge and fortify the cloud security community together. Thank you for your support!
 
 Stay secure and happy exploring! 🌐🔐
+
+Note: This Hub replace the Microsoft-Sentinel-SecOps repo. The content from the Microsoft-Sentinel-SecOps repo is being migrated to this new repository. 

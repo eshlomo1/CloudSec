@@ -21,4 +21,6 @@ Azure Storage - logging, provides metrics data for a storage account. Provides i
 NSG flow logs - Contains information about ingress and egress IP traffic through a Network Security Group.
 Log type is JSON format, shows outbound and inbound flows on a per-rule basis.
 
+Azure Kubernetes Service - This log contains the usual Activity Logs and platform metrics automatically. Control plane logs for AKS clusters are implemented as resource logs in Azure Monitor. Resource logs aren’t collected and stored until you create a diagnostic setting.
 
+Azure Cosmo DB - Diagnostic settings can be used to log events from the following fields: CollectionName, DatabaseName, OperationType, Region, StatusCode. Logs are not collected and stored by default and should be via diagnostic setting. 

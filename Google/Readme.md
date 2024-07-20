@@ -17,3 +17,5 @@ Become the ultimate guardian of your Google Cloud fortress by mastering the art 
 🚀 Secure, defend, and conquer the Google cloud with the knowledge and insights shared here. Are you ready to rise to the challenge?
 
 Stay secure, stay unstoppable! 🌐🔒
+
+Note: In development. Stay tuned for updates!

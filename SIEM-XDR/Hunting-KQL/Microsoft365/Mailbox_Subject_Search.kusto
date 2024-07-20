@@ -1,4 +1,5 @@
-// Search for Mail item by Subject
+// This query will search for mail items with a specific subject in the last 3 days
+// Ref: https://techcommunity.microsoft.com/t5/exchange-team-blog/using-the-search-mailbox-cmdlet-to-look-for-items-with-a/ba-p/607507
 OfficeActivity
 | where TimeGenerated > ago(3d) 
 | where OfficeWorkload == "Exchange"

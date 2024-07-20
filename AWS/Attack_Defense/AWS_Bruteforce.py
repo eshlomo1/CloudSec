@@ -10,6 +10,7 @@
 # The script uses the generate_real_name function to generate a random name.
 # The script uses the generate_random_username function to generate a random username.
 # -----------------------
+
 #!/usr/bin/python3
 import argparse
 import requests

@@ -2,7 +2,6 @@
 // the use of the getsystem command in a command shell launched by services.exe
 // and the use of rundll32 to load a DLL with the getsystem command.
 // https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
-
 DeviceProcessEvents
 | where ((InitiatingProcessFolderPath endswith @'\services.exe' 
     and ((ProcessCommandLine contains @'/c' 

@@ -1,3 +1,4 @@
+# Description: This script exports user login history from Exchange Online Unified Audit Log.
 # Define parameters
 $StartDate = (Get-Date).AddDays(-30)  # Adjust this as needed
 $EndDate = Get-Date

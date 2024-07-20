@@ -1,4 +1,5 @@
 # Microsoft Cloud Logs 
+
 ## A primary and security logs for Entra ID, Microsoft 365 and Azure
 
 ### Microsoft 365 

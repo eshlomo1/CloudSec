@@ -16,11 +16,6 @@ When incidents strike, be the hero with lightning-fast response tactics tailored
 
 Become the guardian of your cloud fortress by mastering the art of attack and defense. Learn to fortify your cloud infrastructure, secure identities and access controls, and stay one step ahead of adversaries with proactive defense strategies.
 
-💪 Join the Cloud Forensics Revolution
-
-Whether you're a seasoned investigator or just starting your journey, this hub is your passport to cloud forensic excellence. Explore curated resources, engage with fellow investigators, and contribute to the collective defense of cloud environments worldwide.
-
-🚀 Secure, investigate, and conquer the cloud with the knowledge and insights shared here. Are you ready to unlock the secrets of the cloud?
 
 Stay vigilant, stay unstoppable! 🌐🔒
 

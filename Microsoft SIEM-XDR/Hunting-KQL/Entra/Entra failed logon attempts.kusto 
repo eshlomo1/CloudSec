@@ -1,3 +1,4 @@
+# Entra failed logon attempts with specific result type
 SigninLogs
 | where TimeGenerated >= ago(1d)
 | where ResultType in ('50126','50020') 
@@ -5,7 +6,6 @@ SigninLogs
          Browser = DeviceDetail.browser,
          StatusCode = tostring(Status.errorCode), 
          StatusDetails = tostring(Status.additionalDetails), 
-         State = tostring(LocationDetails.state), 
          City = tostring(LocationDetails.city)
 | summarize StartTime = min(TimeGenerated), 
          EndTime = max(TimeGenerated), 
@@ -19,7 +19,6 @@ SigninLogs
          ResultDescription, 
          StatusCode, 
          StatusDetails, 
-         Location, 
-         State
-| extend timestamp = StartTime, AccountCustomEntity = UserPrincipalName, IPADDR = tostring(IPAddresses[0])
-| project timestamp,UserDisplayName, AppDisplayName, ResultType, IPADDR,AttemptCount,DistinctIPCount,ResultDescription
+         Location
+| extend Timestamp = StartTime, AccountEntity = UserPrincipalName, IPAddress = tostring(IPAddresses[0])
+| project Timestamp,UserDisplayName, AccountEntity, AppDisplayName, ResultType, IPAddress, AttemptCount, DistinctIPCount, ResultDescription

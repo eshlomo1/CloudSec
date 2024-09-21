@@ -1,5 +1,7 @@
+// Sharpup detection
 // Detects the use of SharpUp, a tool for local privilege escalation
-// https://github.com/GhostPack/SharpUp
+// Mitre ATT&CK: T1218
+// Reference: https://github.com/GhostPack/SharpUp
 DeviceProcessEvents 
 | where (FolderPath endswith @'\SharpUp.exe' 
      or InitiatingProcessVersionInfoFileDescription =~ @'SharpUp' 

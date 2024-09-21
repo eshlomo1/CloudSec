@@ -1,4 +1,7 @@
 // Check Weak Cipher such as Kerberos Authentication 
+// Description: This query will help you to identify the weak cipher used in Kerberos Authentication
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4769
+// Mitre ATT&CK: T1558.003
 IdentityLogonEvents
 | where Timestamp >= ago(1d)
 | where Protocol == @"Kerberos"

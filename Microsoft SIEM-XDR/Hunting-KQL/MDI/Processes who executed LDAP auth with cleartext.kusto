@@ -1,5 +1,7 @@
 // Processes who executed LDAP Auth with Cleartext for the last 31 days
-// 
+// Description: This query will return the processes who executed LDAP Auth with Cleartext for the last 31 days
+// Reference: https://techcommunity.microsoft.com/t5/azure-sentinel/leveraging-azure-sentinel-to-detect-ldap-cleartext-authentication/ba-p/1233660
+// Mitre ATT&CK: T1078
 IdentityLogonEvents
 | where TimeGenerated > ago(31d) 
 | where LogonType == "LDAP cleartext" 

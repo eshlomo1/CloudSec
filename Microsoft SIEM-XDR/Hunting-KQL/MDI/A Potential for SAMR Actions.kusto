@@ -1,6 +1,7 @@
 // This query returns the SAMR queries that were successful in the last 5 hours.
-// The query will also return the IdentityDirectoryEvents that are related to the SAMR queries.
-// The query will return the columns: Timestamp, ActionType, QueryType, QueryTarget, and Protocol.
+// Description: This query returns the SAMR queries that were successful in the last 5 hours.
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4698
+// Mitre ATT&CK: T1003.003
 IdentityQueryEvents
 | where Timestamp >= ago(5h) | order by Timestamp
 | where ActionType in ("SAMR query","SamrQuerySuccess")

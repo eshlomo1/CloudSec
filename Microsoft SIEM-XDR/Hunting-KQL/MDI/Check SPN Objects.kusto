@@ -1,8 +1,7 @@
 // Check SPNs objects in Active Directory
-// MITRE ATT&CK: T1207
 // Description: This query returns all the SPN objects in Active Directory.
-// The following query returns all the SPN objects in Active Directory.
-// It is important to note that the SPN objects are used to uniquely identify an instance of a service.
+// Reference: https://docs.microsoft.com/en-us/windows/win32/ad/service-principal-names
+// MITRE ATT&CK: T1207
 let SPN = dynamic([
 "AcronisAgent",
 "AdtServer",

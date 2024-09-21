@@ -1,4 +1,7 @@
-// Identify Lockbit with MDE // Simple query with DeviceProcessEvents and DeviceFileEvents tables only
+// Identify Lockbit with MDE 
+// Description: This query is used to identify Lockbit ransomware using MDE. The query uses DeviceProcessEvents and DeviceFileEvents tables to identify the ransomware. The query looks for the presence of the ransomware in the system by checking the SHA256 hash of the ransomware in the DeviceFileEvents table and the presence of the ransomware in the system by checking the command line of the ransomware in the DeviceProcessEvents table. The query uses the SHA256 hash of the ransomware and the command line of the ransomware to identify the ransomware in the system. The query returns the details of the ransomware if it is found in the system.
+// Reference: https://www.microsoft.com/security/blog/2021/09/08/lockbit-ransomware-what-you-need-to-know/
+// Mitre ATT&CK: https://attack.mitre.org/software/S0363/
 let Lockbit = dynamic ([
     "b3faf5d8cbc3c75d4c3897851fdaf8d7a4bd774966b4c25e0e4617546109aed5",
     "b4f8f77dac0609f9e8fb24d85d5b4234deee2a96d8776e75895d779490a91073",

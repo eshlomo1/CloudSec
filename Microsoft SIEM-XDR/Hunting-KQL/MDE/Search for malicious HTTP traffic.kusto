@@ -1,4 +1,6 @@
 // Search for malicious HTTP traffic
+// This query searches for HTTP traffic that matches the HTTP_Client signature. This signature is triggered when a client sends an HTTP request to a server. The query extracts the HTTP request method and the remote URL from the signature matched content.
+// Mitre ATT&CK: T1071
 DeviceNetworkEvents
 | where TimeGenerated >= ago(15d)
 | where ActionType == "NetworkSignatureInspected"

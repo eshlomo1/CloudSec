@@ -1,6 +1,6 @@
 // Detects execution of the SharpImpersonation tool. Which can be used to
 // manipulate tokens on a Windows computers remotely (PsExec/WmiExec) or interactively
-
+// Mitre ATT&CK: T1134
 DeviceProcessEvents
 | where (FolderPath endswith @'\SharpImpersonation.exe' 
     or ProcessVersionInfoOriginalFileName =~ @'SharpImpersonation.exe' 

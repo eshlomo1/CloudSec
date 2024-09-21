@@ -1,10 +1,8 @@
 // SAMR and LDAP action in Active Directory
-// MITRE ATT&CK: T1003 
 // Description: SAMR and LDAP are used to query information from Active Directory. This query will return all SAMR and LDAP queries in Active Directory.
-// Reference: https://attack.mitre.org/techniques/T1003/
 // REFERENCE: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4698
 // REFERENCE: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5136    
-
+// MITRE ATT&CK: T1003 - Credential Dumping
 let MalActions = pack_array('SAMR','LDAP');
 IdentityQueryEvents
 | where Application == @"Active Directory"

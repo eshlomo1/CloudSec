@@ -1,4 +1,7 @@
 // Potential NTLM Relay Attack with NTLM Auth
+// This query is used to detect potential NTLM relay attacks by looking for NTLM authentications from computer accounts.
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624
+// Mitre ATT&CK: T1557.001
 let DCS = dynamic([
      "add your dc name here",
      "add your dc name here"

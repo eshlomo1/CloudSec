@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
-# This PowerShell commands demonstrates how to investigate user activity in Entra ID using the Microsoft Graph PowerShell SDK.
-# It covers various scenarios such as analyzing sign-in logs, conditional access policies, role assignments, and more.
-# The commands provides querying audit logs, filtering data, and exporting results to CSV files.
+# This PowerShell command provides instructions on investigating user activity in Entra ID using the Microsoft Graph PowerShell SDK.
+# It covers scenarios like analyzing sign-in logs, conditional access policies, role assignments, etc.
+# The commands provide querying audit logs, filtering data, and exporting results to CSV files.
 
 .NOTES
 # File Name      : Entra_ID_IR.ps1

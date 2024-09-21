@@ -9,7 +9,7 @@
 # Author         : Elli Shlomo
 # Prerequisite   : Install the Microsoft Graph PowerShell SDK
 #                  https://docs.microsoft.com/en-us/powershell/module/microsoft.graph/?view=graph-powershell
-# Description    : Investigate user activity in Microsoft 365 using the Microsoft Graph PowerShell SDK.
+# Description    : Investigate user activity in Entra ID using the Microsoft Graph PowerShell and Signin logs.
 # Version        : 1.0
 #>
 

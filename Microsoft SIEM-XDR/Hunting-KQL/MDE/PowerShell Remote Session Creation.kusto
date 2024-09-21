@@ -1,9 +1,7 @@
-// Adversaries may abuse PowerShell commands and scripts for execution
-// of malicious payloads. PowerShell is a powerful interactive command-line
-// interface and scripting environment, included in the Windows operating
-// system. Adversaries can use PowerShell to perform a number of actions,
-// including discovery of information and execution of code.
-
+// PowerShell remote session creation
+// Description: This query will return all PowerShell commands that create a remote session.
+// Reference: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/new-pssession?view=powershell-7.1
+// Mitre ATT&CK: https://attack.mitre.org/techniques/T1021/001/
 DeviceEvents
 | where ActionType == "PowerShellCommand"
 | where ((AdditionalFields contains @'New-PSSession' 

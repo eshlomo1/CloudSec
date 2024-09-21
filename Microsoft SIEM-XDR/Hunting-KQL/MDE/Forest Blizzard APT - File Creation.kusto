@@ -1,7 +1,6 @@
 // Title: A potential creation of specific files in ProgramData - Forest Blizzard
 // Description: This query retrieves device file events that match specific folder paths and file names.
 // MITRE ATT&CK: T1003.003, T1003.002, T1003.001 
-// MITRE Tactics: Execution, Persistence, Privilege Escalation 
 // References: https://www.microsoft.com/en-us/security/blog/2024/04/22/analyzing-forest-blizzards-custom-post-compromise-tool-for-exploiting-cve-2022-38028-to-obtain-credentials
 DeviceFileEvents
 | where (

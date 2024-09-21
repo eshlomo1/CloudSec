@@ -1,4 +1,7 @@
 // Potential NTLM Relay Attack and detects NTLM auth traffic
+// Description: This query detects potential NTLM relay attacks by looking for NTLM authentication traffic and filtering out computer accounts.
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624
+// Mitre ATT&CK: T1557.001
 let DCS = dynamic(["type dc name","type dc name"]);
 DeviceLogonEvents
 | where Protocol == "NTLM"

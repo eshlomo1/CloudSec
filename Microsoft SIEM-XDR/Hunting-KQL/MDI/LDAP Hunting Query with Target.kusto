@@ -1,5 +1,6 @@
-// This query is designed to search for LDAP queries that are targeting specific LDAP filters and targets
-// This query can be used to detect potential reconnaissance activity fr recon tools such ADExplorer, SharpHound and others.
+// LDAP Hunting Query with Target
+// Description: This query is designed to detect LDAP queries with specific targets and filters.
+// Mitre ATT&CK Tactic: Discovery 
 let LDAP_Filter = dynamic([
 "objectGUID=*",
 "(objectClass=*)",

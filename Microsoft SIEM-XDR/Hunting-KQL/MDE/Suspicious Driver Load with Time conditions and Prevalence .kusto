@@ -1,4 +1,6 @@
 // Suspicious Driver Load with Time conditions and Prevalence 
+// description: This query will return all the drivers that were loaded in the last 24 hours, and have a certificate that was created or expired before a specific date, and have a global prevalence of less than 300.
+// Mitre: T1218
 DeviceEvents
 | where ActionType == "DriverLoad"
 | where Timestamp >= ago(1d)

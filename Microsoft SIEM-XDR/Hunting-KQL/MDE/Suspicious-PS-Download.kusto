@@ -1,5 +1,7 @@
-// This query looks for multiple indicators of potentially malicious activity, 
-// including suspicious commands, process names, and file extensions.
+// Suspicious PowerShell Download
+// Description: This query looks for suspicious PowerShell commands that download files from the internet.
+// Reference: https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/hunting-for-evil-script-downloads/ba-p/1169241
+// Mitre ATT&CK: T1105 
 let suspiciousCommands = dynamic([
      "iex", 
      "New-Object", 

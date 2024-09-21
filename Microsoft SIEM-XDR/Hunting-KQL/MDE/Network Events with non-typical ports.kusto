@@ -1,5 +1,7 @@
 // Network Events with non-typical ports
 // This query will return network events with non-typical ports for SMB and DNS protocols
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/advanced-hunting-schema-reference
+// Mitre ATT&CK: https://attack.mitre.org/techniques/T1043/
 DeviceNetworkEvents 
 | where ActionType == "NetworkSignatureInspected" 
 | where Timestamp > ago(1d)

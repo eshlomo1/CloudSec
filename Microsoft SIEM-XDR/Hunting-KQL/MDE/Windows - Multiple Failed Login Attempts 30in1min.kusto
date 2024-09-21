@@ -1,8 +1,7 @@
+// Multiple failed login attempts in 30 minutes
 // Description: This query will return the logon failures for a specific device and process
 // MITRE ATT&CK: T1110
 // Reference: https://attack.mitre.org/techniques/T1110/
-// MITRE ATT&CK: Credential Access, 
-// You can also change the time range from 30 minutes to any other value
 DeviceLogonEvents
 | where TimeGenerated > ago(30m)
 | where ActionType == "LogonAttempted"

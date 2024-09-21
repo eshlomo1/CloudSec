@@ -1,4 +1,6 @@
 // Suspicious MDAV Folder Exclusion added via Reg.EXE
+// Description: This query detects the addition of exclusions to the Windows Defender or Microsoft Antimalware exclusion list using reg.exe. This is a common technique used by Qakbot (Qbot) malware to evade detection.
+// MITRE:T1112 
 // https://thedfirreport.com/2022/02/07/qbot-likes-to-move-it-move-it/ 
 DeviceProcessEvents 
 | where TimeGenerated >= ago(31d)

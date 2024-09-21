@@ -1,4 +1,7 @@
 // General search for NetworkSignatureInspected for the last 15 days
+// Description: This query provides a general search for NetworkSignatureInspected for the last 15 days
+// Reference: https://docs.microsoft.com/en-us/azure/sentinel/quickstart-detect-threats-kusto
+// Mitre ATT&CK: https://attack.mitre.org/techniques/T1048/
 DeviceNetworkEvents 
 | where ActionType == "NetworkSignatureInspected"
 | where Timestamp > ago(15d)

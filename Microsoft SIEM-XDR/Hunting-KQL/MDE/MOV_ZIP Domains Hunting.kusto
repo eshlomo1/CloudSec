@@ -1,5 +1,7 @@
 // Search for users who clicked on ZIP/MOV Domains
-
+// Description: This query searches for users who clicked on URLs with ZIP/MOV domains in their emails.
+// Reference: https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/defender-for-office-365-and-microsoft-defender-for-endpoint/ba-p/2266241
+// Mitre ATT&CK Techniques: T1204
 UrlClickEvents
 | extend domain = tostring(parse_url(Url).Host)
 | where domain endswith ".zip" or domain endswith ".mov"

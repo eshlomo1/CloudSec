@@ -1,4 +1,6 @@
 // Finds PowerShell execution events that could involve a download.
+// Description: This query finds PowerShell execution events that could involve a download. It looks for PowerShell execution events that contain the following strings: Net.WebClient, DownloadFile, Invoke-WebRequest, Invoke-Shellcode, http, IEX, Start-BitsTransfer, and mpcmdrun.exe.
+// Mitre ATT&CK Techniques: T1105
 SentinelOne_CL
 | extend ProcessCommandLine  = tostring(parse_json(DataFields_s).sourceprocesscommandline)
 | extend FileName = tostring(parse_json(DataFields_s).sourceprocessfilepath)

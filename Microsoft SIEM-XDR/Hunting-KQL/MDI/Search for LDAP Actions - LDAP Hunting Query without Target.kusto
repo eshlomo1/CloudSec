@@ -1,4 +1,6 @@
 // Search for LDAP Actions - LDAP Hunting Query without Target
+// Description: This query searches for LDAP queries that do not have a target specified.
+// Mitre ATT&CK Techniques: T1003.003
 let LDAP_Filter = dynamic([
 "objectGUID=*",
 "(objectClass=*)",

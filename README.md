@@ -4,11 +4,11 @@
 
 Welcome to the Cloud Security Toolkit repository, your all-in-one destination for cutting-edge cloud security resources! Whether you're diving into offensive strategies, mastering threat hunting, or bolstering your blue-team defenses, this repo has you covered.
 
-Note: This repositoty is under development. Queries (KQL), scripts, pages, links, and resources are being added and updated continuously. Please check back soon for more infromation and updates.
+Note: This repository is under development. Queries (KQL), scripts, pages, links, and resources are continuously added and updated. Please check back soon for more information and updates.
 
 ### Why You'll Love This Repo ❤️
 
-Packed with an extensive array of resources, tools and insights, this toolkit includes:
+Packed with an extensive array of resources, tools, and insights, this toolkit includes:
 
 - 🔍 Kusto Queries
 - 🛠️ PowerShell Script & Commands
@@ -32,4 +32,4 @@ In addition to the core resources, this repo features tools and scripts specific
 
 Stay secure and happy exploring! 🌐🔐
 
-Note: This Hub replace the Microsoft-Sentinel-SecOps repo. The content from the Microsoft-Sentinel-SecOps repo is being migrated to this new repository. 
+Note: This Hub replaces the Microsoft-Sentinel-SecOps repo. The content from the Microsoft-Sentinel-SecOps repo is being migrated to this new repository. 

@@ -129,7 +129,7 @@ $signInLogs | Export-Csv -Path "SignInLogsForUser.csv" -NoTypeInformation
 Get-MgAuditLogDirectoryAudit -Filter "activityDisplayName eq 'Update MFA Factors'" |
     Select-Object userPrincipalName, activityDisplayName, targetResources, initiatedBy, activityDateTime
 
-## Get a sample of audit logs
+## Get a top 1000 of audit logs
 $auditLogs = Get-MgAuditLogDirectoryAudit -Top 1000
 
 ## Get a distinct list of activity display names

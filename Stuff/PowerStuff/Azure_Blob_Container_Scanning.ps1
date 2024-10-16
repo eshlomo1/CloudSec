@@ -1,3 +1,4 @@
+### Elli Shlomo
 # Generate a list of dynamic storage account names based on common patterns
 function Generate-ThousandsOfDynamicStorageNames {
     $prefixes = @("storage", "blob", "cloud", "sql", "snowfl", "data", "archive")  # Common prefixes for storage names

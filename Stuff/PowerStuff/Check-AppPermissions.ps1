@@ -1,6 +1,7 @@
 # Title: Retrieve App Registrations with 'User.DeleteRestore.All' Permissions
 # Description: This script retrieves all App Registrations that have requested the 'User.DeleteRestore.All' permission. This permission allows the app to delete and restore users in the directory. The script uses the Microsoft Graph PowerShell module to connect to Microsoft Graph and retrieve the required information.
 # Author: Elli Shlomo 
+# Note: The PowerShell script runs from MacOS 
 
 # --------------------------------------------------------------------------------
 

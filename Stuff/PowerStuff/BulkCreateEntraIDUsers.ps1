@@ -1,6 +1,8 @@
 # BulkCreateEntraIDUsers.ps1
 # Title: Bulk create users in Microsoft Graph using PowerShell
-# Description: This script demonstrates how to bulk create users in Microsoft Graph using PowerShell. The script creates 10 users with a display name, user principal name, mail nickname, account enabled status, and password profile settings.
+
+# ------------------------------------------------------------------
+
 # Import the Microsoft Graph Users module
 Import-Module Microsoft.Graph.Users
 

@@ -22,7 +22,7 @@ $PasswordProfile = @{
         MailNickname      = "user$Index"
         AccountEnabled    = $true
         PasswordProfile   = @{
-            Password = "SecurePass123!"
+            Password = "Your_Password"
             ForceChangePasswordNextSignIn = $true
         }
     }

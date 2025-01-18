@@ -5,35 +5,37 @@
 
 # ----------------------------------------------------------------------------------------------
 
-$DeletedItems = Get-MgDirectoryDeletedItemAsUser -All -Property 'Id', 'userPrincipalName', 'displayName', 'isLicensed', 'deletedDateTime', 'userType'
+# Retrieve Deleted Users from AAD Recycle Bin
+$DeletedUsers = Get-MgDirectoryDeletedItemAsUser -All -Property 'Id', 'userPrincipalName', 'displayName', 'isLicensed', 'deletedDateTime', 'userType'
 
-# Check if there are no deleted accounts
-if ($DeletedItems.Count -eq 0) {
-    Write-Host "No deleted accounts found in the recycle bin." -ForegroundColor Cyan
+# Check if the Recycle Bin is Empty
+if ($DeletedUsers.Count -eq 0) {
+    Write-Host "No deleted user accounts found in the AAD recycle bin." -ForegroundColor Cyan
 } else {
-    # Create a List to store the report
-    $DeletedUserReport = [System.Collections.Generic.List[Object]]::new()
+    # Initialize a List for Deleted Users Report
+    $DeletedUsersReport = [System.Collections.Generic.List[Object]]::new()
 
-    # Loop through the deleted items
-    foreach ($DeletedUser in $DeletedItems) {
-        $DeletedDate = Get-Date($DeletedUser.DeletedDateTime)
-        $DaysSinceDeletion = (New-TimeSpan $DeletedDate).Days
+    # Process Each Deleted User
+    foreach ($User in $DeletedUsers) {
+        $DeletionDate = Get-Date($User.DeletedDateTime)
+        $DaysSinceRemoval = (New-TimeSpan $DeletionDate).Days
 
-        # Create a custom object for each item
-        $ReportLine = [PSCustomObject]@{
-            Id                    = $DeletedUser.Id
-            UserPrincipalName     = $DeletedUser.UserPrincipalName
-            'Display Name'        = $DeletedUser.DisplayName
-            Deleted               = $DeletedDate
-            'Days Since Deletion' = $DaysSinceDeletion
-            'Is Licensed'         = $DeletedUser.IsLicensed
-            Type                  = $DeletedUser.UserType
+        # Create a Custom Object for the Report
+        $UserReportEntry = [PSCustomObject]@{
+            'User ID'             = $User.Id
+            'Principal Name'      = $User.UserPrincipalName
+            'Full Name'           = $User.DisplayName
+            'Deleted Date'        = $DeletionDate
+            'Days Since Removal'  = $DaysSinceRemoval
+            'License Status'      = $User.IsLicensed
+            'Account Type'        = $User.UserType
         }
-        # Add the report line to the List
-        $DeletedUserReport.Add($ReportLine)
+
+        # Add the Entry to the Report
+        $DeletedUsersReport.Add($UserReportEntry)
     }
 
-    # Display the report in a table
-    Write-Host "`nDeleted Accounts Report:" -ForegroundColor Yellow
-    $DeletedUserReport | Sort-Object 'Display Name' | Format-Table -AutoSize
+    # Display the Deleted Users Report
+    Write-Host "`nActive Directory Deleted Users Report:" -ForegroundColor Yellow
+    $DeletedUsersReport | Sort-Object 'Full Name' | Format-Table -AutoSize
 }

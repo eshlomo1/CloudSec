@@ -1,7 +1,6 @@
-# BulkDeleteLabUsers.ps1
+# Bulk_Delete_LabUsers.ps1
 # Bulk Deletion of Entra ID Users in the 'Lab' Department
 # This PowerShell script retrieves all users from the Entra ID whose department is set to 'Lab' and deletes them. 
-# The script provides real-time feedback with color-coded status for each deletion—green for success and red for failure.
 
 # ----------------------------------------------------
 

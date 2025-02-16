@@ -3,6 +3,8 @@
 # It dynamically handles different rule types (Scheduled, Fusion, MLBehaviorAnalytics, MicrosoftSecurityIncidentCreation) and ensures correct configurations while bypassing unsupported parameters. 
 # With built-in error handling, it continues execution even if some tables are missing, making it an efficient tool for SOC teams and Azure Security Engineers to quickly operationalize Sentinel detections.
 
+# Running this script modifies Microsoft Sentinel analytics rules. Please consider the following important warnings before execution:Run a Dry Run First, Be Aware of Null Values, and Changes May Take Time to Reflect in the Portal.
+
 # --------------
 
 # Install Az.SecurityInsights module if not installed

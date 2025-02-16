@@ -104,4 +104,4 @@ foreach ($template in $ruleTemplates) {
     }
 }
 
-Write-Host "🚀 All built-in analytics rules have been processed."
+Write-Host "All built-in analytics rules have been processed."

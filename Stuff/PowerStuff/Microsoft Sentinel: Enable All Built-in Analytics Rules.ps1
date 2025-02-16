@@ -14,8 +14,8 @@ if (-not (Get-Module -ListAvailable -Name Az.SecurityInsights)) {
 Connect-AzAccount
 
 # Set required variables
-$resourceGroupName = "securityrg"
-$workspaceName = "PurpleX-SIEM"
+$resourceGroupName = "XXXXXX"
+$workspaceName = "XXXXXX"
 
 # Get all built-in rule templates
 $ruleTemplates = Get-AzSentinelAlertRuleTemplate -ResourceGroupName $resourceGroupName -WorkspaceName $workspaceName

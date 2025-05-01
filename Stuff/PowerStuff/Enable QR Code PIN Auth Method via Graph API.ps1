@@ -44,7 +44,7 @@ if (-not $matchingGroup) {
     return
 }
 
-Write-Host "✅ Found correct group '$groupName' with ID: $expectedGroupId"
+Write-Host " Found correct group '$groupName' with ID: $expectedGroupId"
 
 # Prepare PATCH body
 $patchBody = @{
@@ -74,7 +74,7 @@ $verify = Invoke-MgGraphRequest -Method GET -Uri $policyUri
 $includedIds = $verify.includeTargets | ForEach-Object { $_.id }
 
 if ($verify.state -eq "enabled" -and ($includedIds -contains $expectedGroupId)) {
-    Write-Host "`n✅ Validation passed. Policy is enabled and group is targeted."
+    Write-Host "`n Validation passed. Policy is enabled and group is targeted."
 } else {
-    Write-Warning "`n⚠️ Validation failed: Policy not enabled or group ID not present."
+    Write-Warning "`n⚠ Validation failed: Policy not enabled or group ID not present."
 }

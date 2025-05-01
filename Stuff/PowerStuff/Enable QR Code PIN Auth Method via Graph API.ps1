@@ -1,42 +1,52 @@
 <#
 .SYNOPSIS
-
-# Enable QR Code PIN Auth Method via Graph API
-Enable QR Code (PIN) Authentication Method via Microsoft Graph API (beta)
+Enable QR Code PIN auth method for a specific Entra ID group by verified display name and ID.
 
 .DESCRIPTION
-Enables the qrCodePin method with a 10-digit PIN and a 395-day QR code lifetime for a specified group.
-
-.REQUIREMENTS
-- Microsoft.Graph module
-- Beta endpoint access
-- Scopes: Policy.ReadWrite.AuthenticationMethod, Directory.Read.All
+- Resolves all groups with display name 'QRCode_Groups'
+- Ensures the resolved group ID matches the expected target
+- Applies QR Code PIN policy only if validation passes
 
 .NOTES
 Author: Elli Shlomo
-Version: 1.0
+Version: 1.8
 #>
 
-# ---------------------
-# PREPARE GRAPH
+# Import and connect
 if (-not (Get-Module -ListAvailable -Name Microsoft.Graph)) {
     Install-Module Microsoft.Graph -Scope CurrentUser -Force
 }
 Import-Module Microsoft.Graph
 
-# ---------------------
-# CONNECT TO GRAPH
 Connect-MgGraph -Scopes @(
     "Policy.ReadWrite.AuthenticationMethod",
     "Directory.Read.All"
 )
 
-# ---------------------
-# SET TARGET GROUP ID (replace with your actual group ID)
-$groupId = "586216f8-5c95-4ee2-a405-0e1691193cd6"  # QR code-enabled group
+# Define your known target
+$groupName = "QRCode_Groups"
+$expectedGroupId = "586216f8-5c95-4ee2-a405-0e1691193cd6"
 
-# ---------------------
-# PREPARE PATCH BODY
+# Resolve all groups with that display name
+Write-Host "Searching for all groups named '$groupName'..."
+$groups = Invoke-MgGraphRequest -Method GET -Uri "https://graph.microsoft.com/v1.0/groups`?$filter=displayName eq '$groupName'"
+
+if (-not $groups.value) {
+    Write-Error "No group found with name '$groupName'."
+    return
+}
+
+# Check for a matching group ID
+$matchingGroup = $groups.value | Where-Object { $_.id -eq $expectedGroupId }
+
+if (-not $matchingGroup) {
+    Write-Error "Group '$groupName' found, but expected ID '$expectedGroupId' was not matched. Aborting."
+    return
+}
+
+Write-Host "✅ Found correct group '$groupName' with ID: $expectedGroupId"
+
+# Prepare PATCH body
 $patchBody = @{
     "@odata.type" = "microsoft.graph.qrCodePinAuthenticationMethodConfiguration"
     id = "qrCodePin"
@@ -44,7 +54,7 @@ $patchBody = @{
     includeTargets = @(
         @{
             targetType = "group"
-            id = $groupId
+            id = $expectedGroupId
         }
     )
     excludeTargets = @()
@@ -52,10 +62,19 @@ $patchBody = @{
     pinLength = 10
 } | ConvertTo-Json -Depth 10
 
-# ---------------------
-# PATCH REQUEST
-$uri = "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations/qrCodePin"
+# Apply the policy
+$policyUri = "https://graph.microsoft.com/beta/policies/authenticationMethodsPolicy/authenticationMethodConfigurations/qrCodePin"
+Invoke-MgGraphRequest -Method PATCH -Uri $policyUri -Body $patchBody -ContentType "application/json"
+Write-Host "Policy updated. Validating..."
 
-Invoke-MgGraphRequest -Method PATCH -Uri $uri -Body $patchBody -ContentType "application/json"
+Start-Sleep -Seconds 5
 
-Write-Host "QR Code (PIN) authentication method enabled for group ID $groupId"
+# Validation
+$verify = Invoke-MgGraphRequest -Method GET -Uri $policyUri
+$includedIds = $verify.includeTargets | ForEach-Object { $_.id }
+
+if ($verify.state -eq "enabled" -and ($includedIds -contains $expectedGroupId)) {
+    Write-Host "`n✅ Validation passed. Policy is enabled and group is targeted."
+} else {
+    Write-Warning "`n⚠️ Validation failed: Policy not enabled or group ID not present."
+}

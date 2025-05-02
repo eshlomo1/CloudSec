@@ -9,7 +9,9 @@ Enable QR Code PIN auth method for a specific Entra ID group by verified display
 
 .NOTES
 Author: Elli Shlomo
-Version: 1.8
+Version: 1.2
+This script worked on masOS with PowerShell 7.3.1 and Microsoft.Graph module version 1.10.0.
+the QRCode is in preview mode so it is not fully copatible with PowerShell.
 #>
 
 # Import and connect

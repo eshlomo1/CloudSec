@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+Provide a brief overview of what the script does.
+
+.DESCRIPTION
+This PowerShell script is designed to [insert detailed description of the script's purpose and functionality]. It performs [specific tasks or operations] to achieve [desired outcome].
+
+.PARAMETER [ParameterName]
+[Description of the parameter, its purpose, and expected input.]
+
+.EXAMPLE
+[Provide an example of how to use the script, including input and expected output.]
+
+.NOTES
+Author: Elli Shlomo
+Version: 1.1
+This script worked on masOS with PowerShell 7.3.1 and Microsoft.Graph module version 1.10.0.
+
+.LINK
+#>
 # Script Name: Set-EntraIDQRCodePin.ps1
 # Official Title: Configure QR Code and PIN for Entra ID User Authentication
 

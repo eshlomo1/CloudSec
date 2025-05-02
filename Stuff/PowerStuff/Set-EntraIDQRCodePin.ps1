@@ -20,7 +20,7 @@ This script worked on masOS with PowerShell 7.3.1 and Microsoft.Graph module ver
 #>
 # Script Name: Set-EntraIDQRCodePin.ps1
 # Official Title: Configure QR Code and PIN for Entra ID User Authentication
-
+# the QRCode is in preview mode so it is not fully copatible with PowerShell.
 # Entra App Credentials
 $tenantId     = "dbf22f42-add tenant id here" 
 $clientId     = "a4721e68-putt app registartion here" 

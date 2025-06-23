@@ -1,0 +1,17 @@
+// Rare Service Creation including dMSA
+IdentityDirectoryEvents
+| where ActionType == "Service creation"
+| extend ParsedFields = parse_json(AdditionalFields)
+| extend 
+    ServiceName = tostring(ParsedFields.ServiceName),
+    ServiceCommand = tostring(ParsedFields.ServiceCommand),
+    ActionTypeInner = tostring(ParsedFields.ActionTypeInner),
+    Category = tostring(ParsedFields.Category),
+    Technique = tostring(ParsedFields.AttackTechniques),
+    Task = tostring(ParsedFields.["ARG.TASK"])
+| where isnotempty(ServiceCommand)
+// Optional: filter suspicious service commands (LOLBins or rare cases)
+| where ServiceCommand has_any ("cmd.exe", "powershell.exe", "regsvr32", "rundll32", "mshta", "certutil", "curl", "wget") 
+   or ServiceCommand !has "svchost.exe -k" // Suspicious svchost patterns
+| project Timestamp, AccountName, TargetDeviceName, ServiceName, ServiceCommand, Technique, Category, Task, ActionTypeInner
+| order by Timestamp desc

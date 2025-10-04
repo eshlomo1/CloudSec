@@ -1,0 +1,28 @@
+// Incident Timeline Analysis  
+// Creates a chronological view of incident progression with key milestones
+// Time Range: Last 30 days (configurable)
+// Purpose: Track incident lifecycle and response effectiveness
+
+let timeRange = 30d;
+
+SecurityIncident
+| where TimeGenerated > ago(timeRange)
+| extend 
+    ResponseTime = datetime_diff('minute', LastModifiedTime, CreatedTime),
+    TimeToFirstUpdate = datetime_diff('minute', FirstModifiedTime, CreatedTime),
+    IncidentAge = datetime_diff('hour', now(), CreatedTime)
+| project 
+    IncidentNumber,
+    Title,
+    Severity,
+    Status,
+    Owner,
+    CreatedTime,
+    FirstModifiedTime, 
+    LastModifiedTime,
+    ResponseTime,
+    TimeToFirstUpdate,
+    IncidentAge,
+    Classification,
+    AlertIds
+| sort by CreatedTime desc

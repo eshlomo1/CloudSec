@@ -1,0 +1,22 @@
+// Incident Correlation Analysis
+// Links SecurityIncident with related SecurityAlert records for comprehensive investigation
+// Time Range: Last 7 days (configurable)
+// Purpose: Provide enriched incident context with alert details
+
+let timeRange = 7d;
+let incidents = SecurityIncident 
+| where TimeGenerated > ago(timeRange)
+| extend AlertIdList = split(AlertIds, ",")
+| mv-expand AlertId = AlertIdList to typeof(string)
+| project IncidentNumber, Title, Severity, Status, Owner, CreatedTime, LastModifiedTime, AlertId, Classification;
+
+let alerts = SecurityAlert
+| where TimeGenerated > ago(timeRange)
+| project SystemAlertId, AlertName, AlertSeverity, AlertType, CompromisedEntity, 
+         Tactics, Techniques, Description, ConfidenceScore, RemediationSteps, ProductName;
+
+incidents
+| join kind=inner alerts on $left.AlertId == $right.SystemAlertId
+| project-reorder IncidentNumber, Title, Severity, Status, Owner, CreatedTime,
+                   AlertName, AlertSeverity, CompromisedEntity, Tactics, Techniques, Description
+| sort by CreatedTime desc

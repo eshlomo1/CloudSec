@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "environment": "development",
+    "description": "Development environment configuration for Sentinel MCP"
+  },
+  "servers": {
+    "sentinel-mcp-primary": {
+      "rateLimits": {
+        "requestsPerMinute": 50,
+        "maxConcurrentQueries": 3
+      }
+    }
+  },
+  "analysisProfiles": {
+    "incidentAnalysis": {
+      "timeRange": "3d"
+    },
+    "threatHunting": {
+      "timeRange": "7d"
+    },
+    "riskAssessment": {
+      "timeRange": "7d"
+    }
+  },
+  "operationalMetrics": {
+    "responseMetrics": {
+      "slaThresholds": {
+        "critical": "2h",
+        "high": "8h",
+        "medium": "24h",
+        "low": "48h",
+        "informational": "96h"
+      },
+      "escalationRules": {
+        "autoEscalate": false,
+        "escalationTime": "75%",
+        "notificationChannels": ["email"]
+      }
+    },
+    "dashboards": {
+      "executive": {
+        "refreshInterval": "30m"
+      },
+      "analyst": {
+        "refreshInterval": "15m"
+      },
+      "operational": {
+        "refreshInterval": "5m"
+      }
+    }
+  },
+  "automationRules": {
+    "alertProcessing": {
+      "autoAssignment": {
+        "enabled": false
+      },
+      "enrichment": {
+        "enabled": true,
+        "sources": ["threat_intelligence"]
+      }
+    },
+    "incidentLifecycle": {
+      "autoClose": {
+        "enabled": false
+      },
+      "escalation": {
+        "enabled": false
+      }
+    }
+  },
+  "integrations": {
+    "ticketing": {
+      "enabled": false
+    },
+    "notifications": {
+      "enabled": true,
+      "channels": {
+        "email": {
+          "enabled": true,
+          "recipients": ["dev-team@company.com"]
+        },
+        "teams": {
+          "enabled": false
+        }
+      }
+    },
+    "threatIntelligence": {
+      "enabled": true,
+      "sources": ["microsoft_defender"]
+    }
+  },
+  "developmentSettings": {
+    "debugging": {
+      "enabled": true,
+      "logLevel": "debug",
+      "queryLogging": true
+    },
+    "testData": {
+      "generateSampleIncidents": true,
+      "sampleDataRetention": "30d"
+    },
+    "featureFlags": {
+      "experimentalCorrelations": true,
+      "advancedAnalytics": false,
+      "betaIntegrations": true
+    }
+  }
+}

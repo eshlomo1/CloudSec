@@ -2,7 +2,7 @@
 
 A comprehensive Model Context Protocol (MCP) configuration for Microsoft Sentinel security operations, incident management, and threat hunting.
 
-## 🔧 Overview
+## Overview
 
 This project provides an enhanced MCP configuration that enables:
 - **Automated incident correlation** across multiple data sources
@@ -11,7 +11,7 @@ This project provides an enhanced MCP configuration that enables:
 - **Operational dashboards** for different user roles
 - **SLA management** and escalation workflows
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Microsoft Sentinel workspace with appropriate permissions
 - Azure Active Directory with security monitoring enabled
@@ -22,7 +22,7 @@ This project provides an enhanced MCP configuration that enables:
   - `AADUserRiskEvents`, `AADRiskyUsers`
   - `Usage`
 
-## 🚀 Quick Start
+## Quick Start
 
 1. **Clone the repository**
    ```bash
@@ -44,7 +44,7 @@ This project provides an enhanced MCP configuration that enables:
    - Copy `mcp.json` to your MCP client configuration directory
    - Restart your MCP client
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sentinel-mcp-github/
@@ -70,7 +70,7 @@ sentinel-mcp-github/
     └── production.json
 ```
 
-## 🔍 Key Features
+## Key Features
 
 ### Incident Analysis
 - **Multi-table correlation**: Links incidents with alerts, sign-ins, and risk events
@@ -92,7 +92,7 @@ sentinel-mcp-github/
 - **Role-based dashboards**
 - **KPI tracking** (MTTR, MTTD, False Positive Rate)
 
-## 📊 Available Queries
+## Available Queries
 
 ### Incident Analysis
 - `incident-correlation.kql` - Link incidents with related alerts
@@ -109,7 +109,7 @@ sentinel-mcp-github/
 - `alert-confidence.kql` - Alert reliability assessment
 - `threat-landscape.kql` - Current threat environment overview
 
-## ⚙️ Configuration
+## Configuration
 
 ### Basic Configuration
 The main configuration is in `mcp.json`. Key sections:
@@ -130,7 +130,7 @@ The main configuration is in `mcp.json`. Key sections:
 - **Operational Metrics**: Adjust SLA thresholds and escalation rules
 - **Automation Rules**: Configure auto-assignment and lifecycle management
 
-## 📈 Dashboard Deployment
+## Dashboard Deployment
 
 Deploy pre-built Azure Workbook dashboards:
 
@@ -142,7 +142,7 @@ Deploy pre-built Azure Workbook dashboards:
 ./scripts/deploy_config.ps1 -Dashboard analyst -Environment production
 ```
 
-## 🔧 Customization
+## Customization
 
 ### Adding New Data Sources
 1. Update `dataSources.availableTables` in `mcp.json`
@@ -161,7 +161,7 @@ Extend `automationRules` for:
 - Advanced incident lifecycle management
 - Integration with external systems
 
-## 🧪 Testing
+## Testing
 
 Run the test suite to validate your configuration:
 
@@ -176,14 +176,14 @@ python scripts/query_tester.py --workspace your-workspace-id
 python scripts/performance_test.py
 ```
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - **Least Privilege**: Ensure MCP server has minimum required permissions
 - **Network Security**: Use secure connections (HTTPS) for all endpoints
 - **Credential Management**: Store sensitive information in Azure Key Vault
 - **Audit Logging**: Enable comprehensive logging for all MCP activities
 
-## 📚 Best Practices
+## Best Practices
 
 1. **Regular Updates**: Keep correlation rules and queries updated
 2. **Performance Monitoring**: Monitor query performance and optimize as needed
@@ -191,41 +191,13 @@ python scripts/performance_test.py
 4. **Documentation**: Keep custom modifications documented
 5. **Backup**: Maintain configuration backups and version history
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add appropriate tests
-5. Submit a pull request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Support
+## Support
 
 - **Documentation**: Check the `/docs` folder for detailed guides
 - **Issues**: Report bugs and feature requests via GitHub Issues
 - **Community**: Join our discussions for tips and best practices
 
-## 📝 Changelog
-
-### v2.1 (2025-10-04)
-- Enhanced multi-table correlations
-- Added risk assessment framework
-- Improved automation rules
-- Added dashboard templates
-
-### v2.0 (2025-09-15)
-- Complete configuration restructure
-- Added threat hunting profiles
-- Introduced operational metrics
-- Added enterprise integrations
-
-## 🔗 Related Resources
-
-- [Microsoft Sentinel Documentation](https://docs.microsoft.com/azure/sentinel/)
-- [KQL Query Language Reference](https://docs.microsoft.com/azure/data-explorer/kusto/)
-- [MITRE ATT&CK Framework](https://attack.mitre.org/)
-- [Azure Workbooks Documentation](https://docs.microsoft.com/azure/azure-monitor/workbooks/)

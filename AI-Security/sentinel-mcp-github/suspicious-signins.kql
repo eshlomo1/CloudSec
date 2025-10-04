@@ -1,0 +1,52 @@
+// Suspicious Sign-in Pattern Detection
+// Identifies anomalous authentication patterns and potential account compromise
+// Time Range: Last 14 days
+// Focus: Failed attempts, unusual locations, risk events
+
+let timeRange = 14d;
+let failureThreshold = 5;
+
+// Analyze failed sign-ins with geo-location context
+let failedSignins = SigninLogs
+| where TimeGenerated > ago(timeRange)
+| where ResultType != "0"  // Non-successful sign-ins
+| extend Country = tostring(LocationDetails.country)
+| summarize 
+    FailedAttempts = count(),
+    UniqueIPs = dcount(IPAddress),
+    Countries = make_set(Country),
+    Apps = make_set(AppDisplayName),
+    FirstFailed = min(TimeGenerated),
+    LastFailed = max(TimeGenerated)
+    by UserPrincipalName
+| where FailedAttempts >= failureThreshold;
+
+// Correlate with risk events
+let riskEvents = AADUserRiskEvents
+| where TimeGenerated > ago(timeRange)
+| summarize 
+    RiskEvents = make_set(RiskEventType),
+    MaxRiskLevel = max(RiskLevel),
+    RiskDetections = count()
+    by UserId;
+
+// Combine failed sign-ins with risk context
+failedSignins
+| join kind=leftouter (
+    SigninLogs 
+    | where TimeGenerated > ago(timeRange)
+    | distinct UserPrincipalName, UserId
+) on UserPrincipalName
+| join kind=leftouter riskEvents on UserId
+| project 
+    UserPrincipalName,
+    FailedAttempts,
+    UniqueIPs,
+    Countries,
+    Apps,
+    FirstFailed,
+    LastFailed,
+    RiskEvents,
+    MaxRiskLevel,
+    RiskDetections
+| sort by FailedAttempts desc, MaxRiskLevel desc

@@ -1,0 +1,41 @@
+// Privilege Escalation Detection
+// Identifies suspicious administrative actions and role assignments
+// Time Range: Last 7 days
+// Focus: Role assignments, permission grants, admin consent
+
+let timeRange = 7d;
+
+// High-privilege operations to monitor
+let privilegeOps = pack_array(
+    "Add member to role",
+    "Add service principal",
+    "Add application",
+    "Add owner to application", 
+    "Add owner to service principal",
+    "Consent to application",
+    "Update application",
+    "Update service principal"
+);
+
+AuditLogs
+| where TimeGenerated > ago(timeRange)
+| where OperationName in (privilegeOps) or OperationName has_any ("role", "permission", "consent")
+| extend 
+    InitiatedByUser = tostring(InitiatedBy.user.userPrincipalName),
+    InitiatedByApp = tostring(InitiatedBy.app.displayName),
+    TargetUser = tostring(TargetResources[0].userPrincipalName),
+    TargetObject = tostring(TargetResources[0].displayName),
+    TargetType = tostring(TargetResources[0].type)
+| project 
+    TimeGenerated,
+    OperationName,
+    Result,
+    ResultReason,
+    InitiatedByUser,
+    InitiatedByApp,
+    TargetUser,
+    TargetObject,
+    TargetType,
+    Category,
+    CorrelationId
+| sort by TimeGenerated desc

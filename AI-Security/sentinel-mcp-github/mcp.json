@@ -1,0 +1,343 @@
+{
+    "metadata": {
+        "version": "2.1",
+        "lastUpdated": "2025-10-04",
+        "description": "Enhanced Microsoft Sentinel MCP Configuration for Security Operations",
+        "maintainer": "Security Operations Team"
+    },
+    "servers": {
+        "sentinel-mcp-primary": {
+            "url": "https://sentinel.microsoft.com/mcp/data-exploration",
+            "type": "http",
+            "capabilities": [
+                "kql_execution",
+                "schema_discovery", 
+                "incident_correlation",
+                "threat_hunting",
+                "risk_assessment"
+            ],
+            "rateLimits": {
+                "requestsPerMinute": 100,
+                "maxConcurrentQueries": 5
+            }
+        }
+    },
+    "inputs": [],
+    "dataSources": {
+        "availableTables": {
+            "AuditLogs": {
+                "category": "Identity",
+                "priority": "high",
+                "description": "Azure AD administrative actions and changes",
+                "keyFields": ["OperationName", "InitiatedBy", "TargetResources", "Result"],
+                "useCase": "Administrative monitoring and compliance tracking"
+            },
+            "SigninLogs": {
+                "category": "Identity", 
+                "priority": "high",
+                "description": "User authentication events and access patterns",
+                "keyFields": ["UserPrincipalName", "AppDisplayName", "IPAddress", "Location", "RiskLevel"],
+                "useCase": "Authentication monitoring and risk detection"
+            },
+            "SecurityIncident": {
+                "category": "Security",
+                "priority": "critical",
+                "description": "Security incidents aggregating multiple alerts", 
+                "keyFields": ["Title", "Severity", "Status", "Owner", "AlertIds"],
+                "useCase": "Incident management and response coordination"
+            },
+            "SecurityAlert": {
+                "category": "Security",
+                "priority": "critical", 
+                "description": "Security alerts from multiple Azure products",
+                "keyFields": ["AlertName", "AlertSeverity", "CompromisedEntity", "Tactics", "Techniques"],
+                "useCase": "Alert investigation and threat analysis"
+            },
+            "AADUserRiskEvents": {
+                "category": "Identity Protection",
+                "priority": "high",
+                "description": "User risk events and behavioral anomalies",
+                "keyFields": ["UserId", "RiskEventType", "RiskLevel", "DetectedDateTime"],
+                "useCase": "User risk monitoring and identity protection"
+            },
+            "AADRiskyUsers": {
+                "category": "Identity Protection", 
+                "priority": "medium",
+                "description": "Users flagged as risky by Azure AD",
+                "keyFields": ["UserPrincipalName", "RiskLevel", "RiskState", "RiskLastUpdatedDateTime"],
+                "useCase": "Risky user identification and remediation"
+            },
+            "Usage": {
+                "category": "Operations",
+                "priority": "low",
+                "description": "Workspace usage and data ingestion metrics",
+                "keyFields": ["DataType", "Quantity", "IsBillable"],
+                "useCase": "Cost monitoring and capacity planning"
+            }
+        }
+    },
+    "workspaceBoundary": {
+        "primary": {
+            "workspaceId": "72e316b2-cc46-4d4b-93e1-3561ebae0b82",
+            "workspaceName": "purplesiem",
+            "description": "Primary Sentinel workspace for security monitoring"
+        }
+    },
+    "analysisProfiles": {
+        "incidentAnalysis": {
+            "timeRange": "7d",
+            "correlations": {
+                "primary": [
+                    {
+                        "table": "SecurityIncident",
+                        "key": "AlertIds",
+                        "correlateWith": "SecurityAlert", 
+                        "onField": "SystemAlertId",
+                        "joinType": "inner"
+                    },
+                    {
+                        "table": "SecurityAlert",
+                        "key": "CompromisedEntity",
+                        "correlateWith": "SigninLogs",
+                        "onField": "UserPrincipalName",
+                        "joinType": "left",
+                        "timeWindow": "1h"
+                    },
+                    {
+                        "table": "SecurityAlert", 
+                        "key": "CompromisedEntity",
+                        "correlateWith": "AADUserRiskEvents",
+                        "onField": "UserId",
+                        "joinType": "left",
+                        "timeWindow": "24h"
+                    }
+                ],
+                "enrichment": {
+                    "incidentContext": [
+                        "Title",
+                        "Severity", 
+                        "Status",
+                        "CreatedTime",
+                        "LastActivityTime",
+                        "Owner",
+                        "Classification",
+                        "Description",
+                        "IncidentUrl",
+                        "FirstActivityTime",
+                        "Labels",
+                        "Tasks",
+                        "Comments"
+                    ],
+                    "alertContext": [
+                        "AlertName",
+                        "AlertSeverity",
+                        "Tactics",
+                        "Techniques", 
+                        "CompromisedEntity",
+                        "Description",
+                        "RemediationSteps",
+                        "ConfidenceScore"
+                    ],
+                    "identityContext": [
+                        "UserPrincipalName",
+                        "IPAddress",
+                        "Location",
+                        "RiskLevel",
+                        "AuthenticationDetails",
+                        "ConditionalAccessStatus"
+                    ]
+                }
+            },
+            "workspaceScope": {
+                "defaultWorkspace": "72e316b2-cc46-4d4b-93e1-3561ebae0b82",
+                "allowedWorkspaces": ["72e316b2-cc46-4d4b-93e1-3561ebae0b82"]
+            }
+        },
+        "threatHunting": {
+            "timeRange": "30d",
+            "focusAreas": [
+                "credential_access",
+                "lateral_movement", 
+                "privilege_escalation",
+                "persistence",
+                "data_exfiltration"
+            ],
+            "huntingQueries": {
+                "suspiciousSignins": {
+                    "tables": ["SigninLogs", "AADUserRiskEvents"],
+                    "indicators": ["multiple_failures", "unusual_location", "risk_events"],
+                    "threshold": "RiskLevel >= 'Medium'"
+                },
+                "privilegeEscalation": {
+                    "tables": ["AuditLogs", "SecurityAlert"],
+                    "indicators": ["role_assignment", "permission_grant", "admin_consent"],
+                    "threshold": "Severity >= 'High'"
+                },
+                "identityAnomalies": {
+                    "tables": ["SigninLogs", "AuditLogs", "AADRiskyUsers"],
+                    "indicators": ["impossible_travel", "anonymous_ip", "malware_ip"],
+                    "correlationWindow": "4h"
+                }
+            }
+        },
+        "riskAssessment": {
+            "timeRange": "14d",
+            "riskFactors": {
+                "userRisk": {
+                    "tables": ["AADUserRiskEvents", "AADRiskyUsers", "SigninLogs"],
+                    "weightings": {
+                        "riskLevel": 0.4,
+                        "signInFrequency": 0.3,
+                        "locationVariability": 0.3
+                    }
+                },
+                "alertRisk": {
+                    "tables": ["SecurityAlert"],
+                    "weightings": {
+                        "severity": 0.5,
+                        "confidenceScore": 0.3,
+                        "tacticsCoverage": 0.2
+                    }
+                }
+            }
+        }
+    },
+    "operationalMetrics": {
+        "incidentCategories": [
+            "Identity Compromise",
+            "Credential Access", 
+            "Privilege Escalation",
+            "Lateral Movement",
+            "Data Exfiltration",
+            "Persistence",
+            "Defense Evasion",
+            "Discovery",
+            "Collection",
+            "Command and Control"
+        ],
+        "severityLevels": {
+            "informational": {
+                "value": 0,
+                "color": "#0078d4",
+                "sla": "72h"
+            },
+            "low": {
+                "value": 1, 
+                "color": "#107c10",
+                "sla": "24h"
+            },
+            "medium": {
+                "value": 2,
+                "color": "#ff8c00", 
+                "sla": "12h"
+            },
+            "high": {
+                "value": 3,
+                "color": "#d13438",
+                "sla": "4h"
+            },
+            "critical": {
+                "value": 4,
+                "color": "#8b0000",
+                "sla": "1h"
+            }
+        },
+        "responseMetrics": {
+            "slaThresholds": {
+                "critical": "1h",
+                "high": "4h", 
+                "medium": "12h",
+                "low": "24h",
+                "informational": "72h"
+            },
+            "escalationRules": {
+                "autoEscalate": true,
+                "escalationTime": "50%", 
+                "notificationChannels": ["email", "teams", "slack"]
+            },
+            "kpis": {
+                "mttr": "Mean Time To Response",
+                "mttd": "Mean Time To Detection", 
+                "mttr_resolution": "Mean Time To Resolution",
+                "false_positive_rate": "Percentage of false positive alerts"
+            }
+        },
+        "dashboards": {
+            "executive": {
+                "widgets": ["incident_count", "severity_distribution", "sla_compliance"],
+                "refreshInterval": "15m"
+            },
+            "analyst": {
+                "widgets": ["active_incidents", "alert_queue", "investigation_status", "threat_landscape"],
+                "refreshInterval": "5m"
+            },
+            "operational": {
+                "widgets": ["data_ingestion", "query_performance", "system_health"],
+                "refreshInterval": "1m"
+            }
+        }
+    },
+    "automationRules": {
+        "alertProcessing": {
+            "autoAssignment": {
+                "enabled": true,
+                "rules": [
+                    {
+                        "condition": "AlertSeverity == 'Critical'",
+                        "action": "assign_to_tier3",
+                        "priority": 1
+                    },
+                    {
+                        "condition": "Tactics contains 'CredentialAccess'",
+                        "action": "assign_to_identity_team",
+                        "priority": 2
+                    }
+                ]
+            },
+            "enrichment": {
+                "enabled": true,
+                "sources": ["threat_intelligence", "asset_inventory", "user_context"]
+            }
+        },
+        "incidentLifecycle": {
+            "autoClose": {
+                "enabled": true,
+                "conditions": [
+                    "Status == 'Resolved' AND age > 30d",
+                    "Classification == 'FalsePositive' AND age > 7d"
+                ]
+            },
+            "escalation": {
+                "enabled": true, 
+                "triggers": [
+                    "sla_breach",
+                    "severity_increase",
+                    "manual_escalation"
+                ]
+            }
+        }
+    },
+    "integrations": {
+        "ticketing": {
+            "enabled": false,
+            "systems": ["servicenow", "jira", "azure_devops"]
+        },
+        "notifications": {
+            "enabled": true,
+            "channels": {
+                "email": {
+                    "enabled": true,
+                    "recipients": ["soc@company.com"]
+                },
+                "teams": {
+                    "enabled": true,
+                    "webhook": "https://company.webhook.office.com/..."
+                }
+            }
+        },
+        "threatIntelligence": {
+            "enabled": true,
+            "sources": ["microsoft_defender", "azure_sentinel_ti"]
+        }
+    }
+}

@@ -1,0 +1,329 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# Security Executive Dashboard\n## Microsoft Sentinel - High-Level Security Metrics\n\nThis dashboard provides executive-level visibility into your organization's security posture, incident trends, and operational performance.\n\n---"
+      },
+      "name": "Header"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "timeRange",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 604800000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 86400000
+                },
+                {
+                  "durationMs": 604800000
+                },
+                {
+                  "durationMs": 2592000000
+                },
+                {
+                  "durationMs": 7776000000
+                }
+              ],
+              "allowCustom": true
+            },
+            "resourceType": "microsoft.insights/components"
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components"
+      },
+      "name": "TimeRangeParameter"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityIncident\n| where TimeGenerated {TimeRange}\n| summarize \n    TotalIncidents = count(),\n    CriticalIncidents = countif(Severity == \"Critical\"),\n    HighIncidents = countif(Severity == \"High\"),\n    ActiveIncidents = countif(Status in (\"New\", \"Active\")),\n    ResolvedIncidents = countif(Status == \"Closed\")\n| extend \n    CriticalPercentage = round(CriticalIncidents * 100.0 / TotalIncidents, 1),\n    HighPercentage = round(HighIncidents * 100.0 / TotalIncidents, 1),\n    ResolutionRate = round(ResolvedIncidents * 100.0 / TotalIncidents, 1)\n| project \n    TotalIncidents,\n    CriticalIncidents,\n    HighIncidents,\n    ActiveIncidents,\n    ResolutionRate",
+        "size": 3,
+        "title": "Incident Overview",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "tiles",
+        "tileSettings": {
+          "titleContent": {
+            "columnMatch": "TotalIncidents",
+            "formatter": 1,
+            "formatOptions": {
+              "showIcon": true
+            }
+          },
+          "subtitleContent": {
+            "formatter": 1,
+            "formatOptions": {
+              "showIcon": true
+            }
+          },
+          "leftContent": {
+            "columnMatch": "TotalIncidents",
+            "formatter": 12,
+            "formatOptions": {
+              "palette": "auto",
+              "showIcon": true
+            },
+            "numberFormat": {
+              "unit": 17,
+              "options": {
+                "maximumSignificantDigits": 3,
+                "maximumFractionDigits": 2
+              }
+            }
+          },
+          "showBorder": false
+        }
+      },
+      "customWidth": "33",
+      "name": "IncidentOverviewTiles"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityIncident\n| where TimeGenerated {TimeRange}\n| extend ResponseTime = datetime_diff('hour', LastModifiedTime, CreatedTime)\n| summarize \n    AvgResponseTime = avg(ResponseTime),\n    MedianResponseTime = percentile(ResponseTime, 50),\n    P95ResponseTime = percentile(ResponseTime, 95)\n| project \n    AvgResponseTime = round(AvgResponseTime, 1),\n    MedianResponseTime = round(MedianResponseTime, 1),\n    P95ResponseTime = round(P95ResponseTime, 1)",
+        "size": 3,
+        "title": "Response Time Metrics (Hours)",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "AvgResponseTime",
+              "formatter": 0,
+              "numberFormat": {
+                "unit": 0,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 1
+                }
+              }
+            }
+          ]
+        }
+      },
+      "customWidth": "33",
+      "name": "ResponseTimeMetrics"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityAlert\n| where TimeGenerated {TimeRange}\n| summarize AlertCount = count() by AlertSeverity\n| order by case(AlertSeverity == \"Critical\", 1, AlertSeverity == \"High\", 2, AlertSeverity == \"Medium\", 3, AlertSeverity == \"Low\", 4, 5)",
+        "size": 3,
+        "title": "Alert Distribution by Severity",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "piechart",
+        "chartSettings": {
+          "seriesLabelSettings": [
+            {
+              "seriesName": "Critical",
+              "color": "redBright"
+            },
+            {
+              "seriesName": "High",
+              "color": "orange"
+            },
+            {
+              "seriesName": "Medium",
+              "color": "yellow"
+            },
+            {
+              "seriesName": "Low",
+              "color": "green"
+            }
+          ]
+        }
+      },
+      "customWidth": "33",
+      "name": "AlertDistribution"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityIncident\n| where TimeGenerated {TimeRange}\n| make-series IncidentCount = count() default = 0 on TimeGenerated step 1d\n| extend (anomalies, score, baseline) = series_decompose_anomalies(IncidentCount, 1.5, -1, 'linefit')\n| render timechart with (title=\"Daily Incident Trend with Anomaly Detection\")",
+        "size": 0,
+        "title": "Security Incident Trends",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "timechart"
+      },
+      "customWidth": "50",
+      "name": "IncidentTrends"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityAlert\n| where TimeGenerated {TimeRange}\n| extend TacticsList = split(Tactics, \",\")\n| mv-expand Tactic = TacticsList to typeof(string)\n| where isnotempty(Tactic)\n| summarize AlertCount = count() by tostring(Tactic)\n| top 10 by AlertCount desc\n| render barchart with (title=\"Top Attack Tactics (MITRE ATT&CK)\")",
+        "size": 0,
+        "title": "Attack Tactics Overview",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "barchart"
+      },
+      "customWidth": "50",
+      "name": "AttackTactics"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityIncident\n| where TimeGenerated {TimeRange}\n| where Status in (\"New\", \"Active\")\n| extend DaysOpen = datetime_diff('day', now(), CreatedTime)\n| project IncidentNumber, Title, Severity, Owner, CreatedTime, DaysOpen\n| top 10 by DaysOpen desc",
+        "size": 0,
+        "title": "Longest Open Incidents",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Severity",
+              "formatter": 18,
+              "formatOptions": {
+                "thresholdsOptions": "colors",
+                "thresholdsGrid": [
+                  {
+                    "operator": "==",
+                    "thresholdValue": "Critical",
+                    "representation": "redBright",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": "==",
+                    "thresholdValue": "High",
+                    "representation": "orange",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": "==",
+                    "thresholdValue": "Medium",
+                    "representation": "yellow",
+                    "text": "{0}{1}"
+                  },
+                  {
+                    "operator": "==",
+                    "thresholdValue": "Low",
+                    "representation": "green",
+                    "text": "{0}{1}"
+                  }
+                ]
+              }
+            },
+            {
+              "columnMatch": "DaysOpen",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "redGreen",
+                "aggregation": "Max"
+              }
+            }
+          ]
+        }
+      },
+      "customWidth": "50",
+      "name": "LongestOpenIncidents"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "SecurityIncident\n| where TimeGenerated {TimeRange}\n| summarize IncidentCount = count() by Owner\n| where isnotempty(Owner)\n| top 10 by IncidentCount desc\n| render barchart with (title=\"Incidents by Owner\")",
+        "size": 0,
+        "title": "Workload Distribution",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "barchart"
+      },
+      "customWidth": "50",
+      "name": "WorkloadDistribution"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "// SLA Compliance Calculation\nSecurityIncident\n| where TimeGenerated {TimeRange}\n| extend \n    ResponseTime = datetime_diff('hour', LastModifiedTime, CreatedTime),\n    SLAThreshold = case(\n        Severity == \"Critical\", 1,\n        Severity == \"High\", 4,\n        Severity == \"Medium\", 12,\n        Severity == \"Low\", 24,\n        72  // Default\n    )\n| extend SLAMet = iff(ResponseTime <= SLAThreshold, \"Met\", \"Breached\")\n| summarize \n    TotalIncidents = count(),\n    SLAMet = countif(SLAMet == \"Met\"),\n    SLABreached = countif(SLAMet == \"Breached\")\n    by Severity\n| extend SLAComplianceRate = round(SLAMet * 100.0 / TotalIncidents, 1)\n| project Severity, TotalIncidents, SLAComplianceRate\n| order by case(Severity == \"Critical\", 1, Severity == \"High\", 2, Severity == \"Medium\", 3, Severity == \"Low\", 4, 5)",
+        "size": 0,
+        "title": "SLA Compliance by Severity",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "visualization": "table",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "SLAComplianceRate",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "max": 100,
+                "palette": "redGreen"
+              },
+              "numberFormat": {
+                "unit": 1,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 1
+                }
+              }
+            }
+          ]
+        }
+      },
+      "name": "SLACompliance"
+    }
+  ],
+  "fallbackResourceIds": [],
+  "fromTemplateId": "sentinel-executive-dashboard",
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

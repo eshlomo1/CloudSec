@@ -191,7 +191,7 @@ python scripts/performance_test.py
 4. **Documentation**: Keep custom modifications documented
 5. **Backup**: Maintain configuration backups and version history
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 

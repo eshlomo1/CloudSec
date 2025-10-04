@@ -1,0 +1,439 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/your-org/sentinel-mcp/schema.json",
+  "title": "Microsoft Sentinel MCP Configuration Schema",
+  "description": "JSON Schema for validating Microsoft Sentinel MCP configuration files",
+  "type": "object",
+  "required": ["servers", "workspaceBoundary"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+(\\.\\d+)?$"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "maintainer": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "required": ["version", "lastUpdated"],
+      "additionalProperties": false
+    },
+    "servers": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https://"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["http", "websocket"]
+            },
+            "capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["kql_execution", "schema_discovery", "incident_correlation", "threat_hunting", "risk_assessment"]
+              }
+            },
+            "rateLimits": {
+              "type": "object",
+              "properties": {
+                "requestsPerMinute": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000
+                },
+                "maxConcurrentQueries": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 20
+                }
+              }
+            }
+          },
+          "required": ["url", "type"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "workspaceBoundary": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "object",
+          "properties": {
+            "workspaceId": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "workspaceName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 63
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "required": ["workspaceId", "workspaceName"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["primary"],
+      "additionalProperties": false
+    },
+    "dataSources": {
+      "type": "object",
+      "properties": {
+        "availableTables": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "enum": ["Security", "Identity", "Identity Protection", "Operations", "Network", "Endpoint"]
+                },
+                "priority": {
+                  "type": "string",
+                  "enum": ["critical", "high", "medium", "low"]
+                },
+                "description": {
+                  "type": "string",
+                  "maxLength": 500
+                },
+                "keyFields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "useCase": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "required": ["category", "priority", "description", "keyFields", "useCase"],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "analysisProfiles": {
+      "type": "object",
+      "properties": {
+        "incidentAnalysis": {
+          "type": "object",
+          "properties": {
+            "timeRange": {
+              "type": "string",
+              "pattern": "^\\d+[dhm]$"
+            },
+            "correlations": {
+              "type": "object",
+              "properties": {
+                "primary": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "table": {
+                        "type": "string"
+                      },
+                      "key": {
+                        "type": "string"
+                      },
+                      "correlateWith": {
+                        "type": "string"
+                      },
+                      "onField": {
+                        "type": "string"
+                      },
+                      "joinType": {
+                        "type": "string",
+                        "enum": ["inner", "left", "right", "outer"]
+                      },
+                      "timeWindow": {
+                        "type": "string",
+                        "pattern": "^\\d+[dhm]$"
+                      }
+                    },
+                    "required": ["table", "key", "correlateWith", "onField"],
+                    "additionalProperties": false
+                  }
+                },
+                "enrichment": {
+                  "type": "object",
+                  "properties": {
+                    "incidentContext": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "alertContext": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "identityContext": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "workspaceScope": {
+              "type": "object",
+              "properties": {
+                "defaultWorkspace": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                },
+                "allowedWorkspaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                  }
+                }
+              },
+              "required": ["defaultWorkspace", "allowedWorkspaces"]
+            }
+          },
+          "required": ["timeRange", "correlations", "workspaceScope"]
+        },
+        "threatHunting": {
+          "type": "object",
+          "properties": {
+            "timeRange": {
+              "type": "string",
+              "pattern": "^\\d+[dhm]$"
+            },
+            "focusAreas": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["credential_access", "lateral_movement", "privilege_escalation", "persistence", "data_exfiltration"]
+              }
+            },
+            "huntingQueries": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z][a-zA-Z0-9_]*$": {
+                  "type": "object",
+                  "properties": {
+                    "tables": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "indicators": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "threshold": {
+                      "type": "string"
+                    },
+                    "correlationWindow": {
+                      "type": "string",
+                      "pattern": "^\\d+[dhm]$"
+                    }
+                  },
+                  "required": ["tables", "indicators"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "operationalMetrics": {
+      "type": "object",
+      "properties": {
+        "incidentCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "severityLevels": {
+          "type": "object",
+          "patternProperties": {
+            "^(informational|low|medium|high|critical)$": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "color": {
+                  "type": "string",
+                  "pattern": "^#[0-9a-fA-F]{6}$"
+                },
+                "sla": {
+                  "type": "string",
+                  "pattern": "^\\d+[dhm]$"
+                }
+              },
+              "required": ["value", "color", "sla"]
+            }
+          }
+        },
+        "responseMetrics": {
+          "type": "object",
+          "properties": {
+            "slaThresholds": {
+              "type": "object",
+              "patternProperties": {
+                "^(informational|low|medium|high|critical)$": {
+                  "type": "string",
+                  "pattern": "^\\d+[dhm]$"
+                }
+              }
+            },
+            "escalationRules": {
+              "type": "object",
+              "properties": {
+                "autoEscalate": {
+                  "type": "boolean"
+                },
+                "escalationTime": {
+                  "type": "string",
+                  "pattern": "^\\d+%$"
+                },
+                "notificationChannels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["email", "teams", "slack", "webhook"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "automationRules": {
+      "type": "object",
+      "properties": {
+        "alertProcessing": {
+          "type": "object",
+          "properties": {
+            "autoAssignment": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "condition": {
+                        "type": "string"
+                      },
+                      "action": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "integer",
+                        "minimum": 1
+                      }
+                    },
+                    "required": ["condition", "action", "priority"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "properties": {
+        "ticketing": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "systems": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["servicenow", "jira", "azure_devops"]
+              }
+            }
+          }
+        },
+        "notifications": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "recipients": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "email"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -78,8 +78,8 @@
     },
     "workspaceBoundary": {
         "primary": {
-            "workspaceId": "72e316b2-cc46-4d4b-93e1-3561ebae0b82",
-            "workspaceName": "purplesiem",
+            "workspaceId": "   ",
+            "workspaceName": " ",
             "description": "Primary Sentinel workspace for security monitoring"
         }
     },

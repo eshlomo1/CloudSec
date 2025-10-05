@@ -183,21 +183,7 @@ python scripts/performance_test.py
 - **Credential Management**: Store sensitive information in Azure Key Vault
 - **Audit Logging**: Enable comprehensive logging for all MCP activities
 
-## Best Practices
-
-1. **Regular Updates**: Keep correlation rules and queries updated
-2. **Performance Monitoring**: Monitor query performance and optimize as needed
-3. **False Positive Management**: Regularly review and tune detection rules
-4. **Documentation**: Keep custom modifications documented
-5. **Backup**: Maintain configuration backups and version history
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-- **Documentation**: Check the `/docs` folder for detailed guides
-- **Issues**: Report bugs and feature requests via GitHub Issues
-- **Community**: Join our discussions for tips and best practices
 

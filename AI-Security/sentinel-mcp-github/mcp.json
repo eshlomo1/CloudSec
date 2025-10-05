@@ -149,8 +149,8 @@
                 }
             },
             "workspaceScope": {
-                "defaultWorkspace": "72e316b2-cc46-4d4b-93e1-3561ebae0b82",
-                "allowedWorkspaces": ["72e316b2-cc46-4d4b-93e1-3561ebae0b82"]
+                "defaultWorkspace": "  ",
+                "allowedWorkspaces": [" "]
             }
         },
         "threatHunting": {

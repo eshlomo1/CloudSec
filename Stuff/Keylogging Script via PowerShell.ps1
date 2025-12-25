@@ -67,3 +67,4 @@ for ($i=0; $i -lt 3; $i++) {
     [void][$KL]::GetAsyncKeyState($i)
 }
 
+Write-Host "Multi-module PowerShell noise emulation executed."

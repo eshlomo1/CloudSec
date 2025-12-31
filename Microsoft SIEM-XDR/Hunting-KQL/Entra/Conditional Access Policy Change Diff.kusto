@@ -1,0 +1,19 @@
+// Conditional Access Policy Change Diff
+AuditLogs
+| where Category == "Policy"
+| where ActivityDisplayName has "Update conditional access policy"
+| mv-expand TargetResources
+| mv-expand ModifiedProperties = TargetResources.modifiedProperties
+| extend PolicyName = tostring(TargetResources.displayName),
+         PolicyId = tostring(TargetResources.id),
+         PropertyName = tostring(ModifiedProperties.displayName),
+         OldValue = tostring(ModifiedProperties.oldValue),
+         NewValue = tostring(ModifiedProperties.newValue)
+| project TimeGenerated,
+          PolicyName,
+          PolicyId,
+          PropertyName,
+          OldValue,
+          NewValue,
+          InitiatedBy
+| order by TimeGenerated desc

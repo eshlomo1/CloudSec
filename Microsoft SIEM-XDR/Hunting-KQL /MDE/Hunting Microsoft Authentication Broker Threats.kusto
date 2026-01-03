@@ -18,3 +18,4 @@ DeviceEvents
 ) on $left.AccountName == $right.AuditUser
 | where SigninTime between (DeviceTime .. DeviceTime + 1h)
 | project AccountName, DeviceName, DeviceIP, SigninIP, SigninLoc, SigninTime, AuditActivity, AuditTime
+//

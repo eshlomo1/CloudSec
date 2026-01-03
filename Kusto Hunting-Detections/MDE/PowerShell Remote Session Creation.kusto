@@ -1,0 +1,10 @@
+// PowerShell remote session creation
+// Description: This query will return all PowerShell commands that create a remote session.
+// Reference: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/new-pssession?view=powershell-7.1
+// Mitre ATT&CK: https://attack.mitre.org/techniques/T1021/001/
+DeviceEvents
+| where ActionType == "PowerShellCommand"
+| where ((AdditionalFields contains @'New-PSSession' 
+or InitiatingProcessCommandLine contains @'New-PSSession') 
+and (AdditionalFields contains @'-ComputerName ' 
+or InitiatingProcessCommandLine contains @'-ComputerName '))

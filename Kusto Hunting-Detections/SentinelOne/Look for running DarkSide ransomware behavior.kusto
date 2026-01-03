@@ -1,0 +1,9 @@
+// Look for running DarkSide ransomware behavior
+// Description: This query looks for rundll32.exe running with a command line that matches the DarkSide ransomware behavior.
+// Reference: https://www.sentinelone.com/blog/darkside-ransomware-what-you-need-to-know/
+// Mitre ATT&CK: T1059.001
+SentinelOne_CL
+| extend FileName = tostring(parse_json(DataFields_s).sourceprocessfilepath)
+| extend ProcessCommandLine  = tostring(parse_json(DataFields_s).sourceprocesscommandline)
+| where FileName =~ "rundll32.exe"
+| where ProcessCommandLine matches regex @".dll,#(?:1|3) worker[0-9]\sjob[0-9]-[0-9]{4,}"

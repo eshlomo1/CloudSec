@@ -1,0 +1,16 @@
+// Multiple failed login attempts in 30 minutes
+// Description: This query will return the logon failures for a specific device and process
+// MITRE ATT&CK: T1110
+// Reference: https://attack.mitre.org/techniques/T1110/
+DeviceLogonEvents
+| where TimeGenerated > ago(30m)
+| where ActionType == "LogonAttempted"
+| summarize LogonFailures=count() by DeviceName, LogonType, InitiatingProcessCommandLine, AccountName, InitiatingProcessAccountUpn, ActionType, 1stTime = TimeGenerated
+| join kind=inner 
+(
+    DeviceLogonEvents
+    | where ActionType == "LogonFailed"
+    | summarize LogonFailures=count() by DeviceName, LogonType, InitiatingProcessCommandLine, AccountName, InitiatingProcessAccountUpn, ActionType, 2ndTime = TimeGenerated
+) on DeviceName
+| where 2ndTime > 1stTime and DeviceName == DeviceName1 and InitiatingProcessCommandLine == InitiatingProcessCommandLine1
+| summarize arg_max(1stTime,*) by DeviceName 

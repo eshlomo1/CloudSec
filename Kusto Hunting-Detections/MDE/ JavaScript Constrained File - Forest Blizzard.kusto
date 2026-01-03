@@ -1,0 +1,16 @@
+// Title: JavaScript Constrained File - Forest Blizzard  
+// Description: Detects creation of JavaScript files in DriverStore directory.
+// MITRE: T1106
+// Mitre Tactics: Execution
+// References: https://www.microsoft.com/en-us/security/blog/2024/04/22/analyzing-forest-blizzards-custom-post-compromise-tool-for-exploiting-cve-2022-38028-to-obtain-credentials
+DeviceFileEvents
+| where (FolderPath startswith @'C:\Windows\System32\DriverStore\FileRepository\' 
+    and FolderPath endswith @'\.js')
+| project InitiatingProcessFileName, 
+     InitiatingProcessFolderPath, 
+     InitiatingProcessCommandLine, 
+     FolderPath, 
+     FileName, 
+     FileSize, 
+     ActionType, 
+     ReportId

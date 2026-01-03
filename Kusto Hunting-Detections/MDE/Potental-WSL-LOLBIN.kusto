@@ -1,0 +1,13 @@
+// This query you provided searches for events on the device’s event on certain conditions. 
+// it filters events where the initiating process’s file name ends with “wsl.exe” 
+// addtional substrings: ” -e”, ” –exec”, ” –system”, or ” /mnt/c”.
+// Mitre: T1086 
+DeviceProcessEvents
+| where InitiatingProcessFileName endswith @'\wsl.exe'
+  and InitiatingProcessCommandLine contains ' -e '
+  or InitiatingProcessCommandLine contains ' --exec '
+  or InitiatingProcessCommandLine contains ' --system '
+  or InitiatingProcessCommandLine contains ' /mnt/c'
+
+//Additionally, the query can contain the following command lines:
+// :  - ' -e '  - ' --exec'  - ' --system'  - ' --shell-type '  - ' /mnt/c' # Path to mounted "C:\" partition - ' --user root'  - ' -u root

@@ -1,0 +1,14 @@
+# Entra ID Access 
+# This query is used to identify the users who have accessed the Entra ID application using the ZTNA Network Access Client.
+# The query will return the TimeGenerated, UserDisplayName, TransactionId, TrafficType, SourceIp, ResultType, DeviceDisplayName.
+# MiTRE ATT&CK: T1078 
+# Reference: https://docs.microsoft.com/en-us/azure/sentinel/quickstart-microsoft-365-apps
+NetworkAccessTraffic
+| where TimeGenerated >= ago(3d)
+| where ResultType != "0"
+| where TrafficType contains "microsoft365" 
+    and DestinationFqdn == "aps.globalsecureaccess.microsoft.com"
+| join SigninLogs on UserPrincipalName    
+| extend DeviceDisplayName = tostring(DeviceDetail.displayName)
+| where AppDisplayName contains "ZTNA Network Access Client"
+| project TimeGenerated, UserDisplayName, TransactionId, TrafficType, SourceIp, ResultType, DeviceDisplayName 

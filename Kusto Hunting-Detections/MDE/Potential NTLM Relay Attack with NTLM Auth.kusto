@@ -1,0 +1,22 @@
+// Potential NTLM Relay Attack with NTLM Auth
+// This query is used to detect potential NTLM relay attacks by looking for NTLM authentications from computer accounts.
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624
+// Mitre ATT&CK: T1557.001
+let DCS = dynamic([
+     "add your dc name here",
+     "add your dc name here"
+     ]);
+DeviceLogonEvents
+| where Protocol == "NTLM"
+| where AccountName endswith "$"
+| where DCS has replace_string(AccountName,"$","")
+// | where DCS has replace_string(AccountName,"$","")
+//| project TimeGenerated, AccountName, DCS, DeviceName, 
+     DeviceType, DeviceOS, DeviceOSVersion, DeviceIPAddress, 
+     DeviceMACAddress, DeviceID, DeviceLogonType, DeviceLogonResult, 
+     DeviceLogonFailureReason, DeviceLogonFailureReasonDetail, 
+     DeviceLogonFailureReasonDetailCode, DeviceLogonFailureReasonDetailMessage, 
+     DeviceLogonFailureReasonDetailMessageCode, DeviceLogonFailureReasonDetailMessageDetail, 
+     DeviceLogonFailureReasonDetailMessageDetailCode, DeviceLogonFailureReasonDetailMessageDetailMessage, 
+     DeviceLogonFailureReasonDetailMessageDetailMessageCode, DeviceLogonFailureReasonDetailMessageDetailMessageDetail, 
+     DeviceLogonFailureReasonDetailMessageDetailMessageDetailCode, DeviceLogonFailureReasonDetailMessageDetailMessageDetailMessage

@@ -1,0 +1,29 @@
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where AuthenticationProtocol == "deviceCode"
+| extend 
+    User = UserPrincipalName,
+    App = AppDisplayName,
+    IP = IPAddress,
+    Location = tostring(LocationDetails.countryOrRegion),
+    Browser = tostring(DeviceDetail.browser),
+    OS = tostring(DeviceDetail.operatingSystem),
+    StatusCode = ResultType,
+    StatusDesc = ResultDescription,
+    CAStatus = tostring(ConditionalAccessStatus),
+    RiskDetail = tostring(RiskDetail)
+| extend 
+    SuspiciousDevice = iff(isempty(Browser) or Browser has_any ("python", "curl", "powershell", "rest"), "Yes", "No"),
+    SuspiciousLocation = iff(Location !in ("Trusted"), "Yes", "No"), // Tweak to match org norms
+    MFABypassed = iff(CAStatus == "notApplied" or CAStatus == "reportOnly", "Yes", "No"),
+    RiskySignin = iff(RiskDetail !in ("none", ""), "Yes", "No")
+| summarize 
+    Events = count(),
+    UniqueIPs = dcount(IP),
+    Countries = make_set(Location, 5),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by User, App, SuspiciousDevice, SuspiciousLocation, MFABypassed, RiskySignin
+| where SuspiciousDevice == "Yes" or MFABypassed == "Yes" or RiskySignin == "Yes" or SuspiciousLocation == "Yes"
+| order by LastSeen desc
+

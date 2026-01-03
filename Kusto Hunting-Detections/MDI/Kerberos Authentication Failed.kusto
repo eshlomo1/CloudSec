@@ -1,0 +1,8 @@
+// Kerberos Authentication Failed
+// Description: This query provides information about failed Kerberos authentication attempts.
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4771
+// MITRE ATT&CK: T1552.001
+IdentityLogonEvents
+| where ActionType == "LogonFailed"
+| where Application == "Active Directory"
+| where Protocol == "Kerberos"

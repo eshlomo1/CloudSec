@@ -1,0 +1,10 @@
+// Show the traffic pattern from the last 15 days
+// This query shows the traffic pattern from the last 15 days.
+// Mitre ATT&CK: TA0001 Initial Access, TA0002 Execution, TA0003 Persistence, TA0004 Privilege Escalation, TA0005 Defense Evasion, TA0006 Credential Access, TA0007 Discovery, TA0008 Lateral Movement, TA0009 Collection, TA0010 Exfiltration, TA0011 Command and Control
+DeviceNetworkEvents
+| where ActionType == "NetworkSignatureInspected"
+| where Timestamp > ago(15d)
+| extend SigName = parse_json(AdditionalFields).SignatureName,
+     SigMatchedContent = parse_json(AdditionalFields).SignatureMatchedContent,
+     SigSampleContent = parse_json(AdditionalFields).SignatureSampleContent
+| project Timestamp, DeviceName, ActionType,SigName, RemoteIP, RemotePort

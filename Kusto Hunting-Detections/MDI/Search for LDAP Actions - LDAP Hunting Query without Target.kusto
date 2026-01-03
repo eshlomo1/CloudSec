@@ -1,0 +1,19 @@
+// Search for LDAP Actions - LDAP Hunting Query without Target
+// Description: This query searches for LDAP queries that do not have a target specified.
+// Mitre ATT&CK Techniques: T1003.003
+let LDAP_Filter = dynamic([
+"objectGUID=*",
+"(objectClass=*)",
+"(schemaIDGUID=*)",
+"(samAccountType=805306368)",
+"(&(objectclass=computer)(userAccountControl&8192))",
+"( | (objectClass=user) (objectClass=group) ) (objectSid=S-1-5-21-1960408961-838170752-1801674531-512) )",
+"objectCategory=CN=Organizational-Unit,CN=Schema,CN=Configuration",
+"(|(samAccountType=805306368)(samAccountType=805306369)(objectclass=organizationalUnit))",
+"(|(samaccounttype=268435456)(samaccounttype=268435457)(samaccounttype=536870912)(samaccounttype=536870913))",
+"(objectCategory=computer)(userAccountControl:1.2.840.113556.1.4.803:=8192)"
+]);
+IdentityQueryEvents
+| where Timestamp >= ago(1d)
+| where ActionType == "LDAP query"
+| where Query has_any (LDAP_Filter)

@@ -1,0 +1,11 @@
+// Title: Detect AWS console signin token Abuse 
+// Description: Detects the use of AWS console signin token abuse 
+// MITRE: T1078
+// MITRE Tactics: Credential Access
+// Reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html
+// Reference: https://github.com/NetSPI/aws_consoler 
+AWSCloudTrail 
+| where ((EventSource =~ @'signin.amazonaws.com' 
+     and EventName =~ @'GetSigninToken') 
+     and not (UserAgent contains @'Jersey/${project.version}'))
+| project TimeGenerated, UserIdentity, EventName, EventSource, UserAgent, SourceIPAddress, AdditionalEventData

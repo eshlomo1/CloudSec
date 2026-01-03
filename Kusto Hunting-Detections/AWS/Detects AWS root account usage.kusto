@@ -1,0 +1,9 @@
+// Title: Detects AWS root account usage
+// Description: Detects usage of the AWS root account, which should be avoided for security reasons.
+// MITRE: T1078
+// MITRE Tactics: Defense Evasion
+// References: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html
+AWSCloudTrail 
+| where (UserIdentityType =~ @'Root' 
+     and not (EventTypeName =~ @'AwsServiceEvent'))
+| project TimeGenerated, EventName, EventSource, UserIdentityType, UserIdentityPrincipalId, UserIdentityArn, UserIdentityUserName, UserIdentitySessionContext, EventName, EventSource, EventCategory, EventId, EventTime, SourceIPAddress, UserAgent, ErrorCode, ErrorMessage, ResourceName, ResourceType, ResourceARN, ResourceCreationTime, ResourceRegion, ResourceConfiguration, RequestParameters, ResponseElements, AdditionalEventData, CloudTrailEvent, CloudTrailEventData, CloudTrailEventDataElement, CloudTrailEventDataElementName, CloudTrailEventDataElementValue

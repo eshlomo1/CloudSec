@@ -1,0 +1,7 @@
+// Detects Possible usage of WSL binary as a LOLBIN
+DeviceProcessEvents
+| where InitiatingProcessFileName endswith @'\wsl.exe' 
+    and InitiatingProcessCommandLine contains ' -e ' 
+    or InitiatingProcessCommandLine contains ' --exec ' 
+    or InitiatingProcessCommandLine contains ' --system ' 
+    or InitiatingProcessCommandLine contains ' /mnt/c'

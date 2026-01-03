@@ -1,0 +1,20 @@
+// Hunting Microsoft Authentication Broker Threats with specific actions
+// MITRE ATT&CK: T1078, T1550, T1098
+DeviceEvents
+| where InitiatingProcessFileName has "Microsoft Authentication Broker"
+| extend AccountName = tostring(AccountName)
+| project DeviceName, AccountName, DeviceIP = LocalIP, DeviceTime = TimeGenerated
+| join kind=inner (
+    SigninLogs
+    | where AppDisplayName == "Microsoft Authentication Broker"
+    | extend UserPrincipal = tostring(UserPrincipalName)
+    | project UserPrincipal, SigninIP = IPAddress, SigninLoc = Location, SigninTime = TimeGenerated
+) on $left.AccountName == $right.UserPrincipal
+| join kind=inner (
+    AuditLogs
+    | where ActivityDisplayName in ("Add member to role", "Update Conditional Access policy", "Add application credentials")
+    | extend AuditUser = tostring(InitiatedBy.user.displayName)
+    | project AuditUser, AuditActivity = ActivityDisplayName, AuditTime = TimeGenerated
+) on $left.AccountName == $right.AuditUser
+| where SigninTime between (DeviceTime .. DeviceTime + 1h)
+| project AccountName, DeviceName, DeviceIP, SigninIP, SigninLoc, SigninTime, AuditActivity, AuditTime

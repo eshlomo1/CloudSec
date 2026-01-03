@@ -1,0 +1,18 @@
+// Detect Follina by Connection and Office Process
+// Description: This query detects the Follina exploit by looking for connections to public IPs from msdt.exe and sdiagnhost.exe, and Office processes launching msdt.exe.
+// Mitre ATT&CK: T1190
+// https://thedfirreport.com/2022/10/31/follina-exploit-leads-to-domain-compromise/
+(union isfuzzy=true
+(DeviceProcessEvents
+| where ProcessCommandLine contains "msdt.exe"
+| where InitiatingProcessFileName has_any (@"outlook.exe", @"winword.exe", @"excel.exe")),
+(DeviceProcessEvents
+| where InitiatingProcessCommandLine contains "msdt.exe" 
+    and ProcessCommandLine !contains "msdt.exe"),
+(DeviceNetworkEvents
+| where InitiatingProcessFileName has_any ("sdiagnhost.exe", "msdt.exe")
+| where RemoteIPType == "Public"
+| where ActionType == "ConnectionSuccess"
+    and RemoteUrl !endswith ".visualstudio.com"
+    and RemoteUrl !endswith ".microsoft.com")
+)

@@ -1,0 +1,24 @@
+// MDI Log Inactivity Detection – Last Log Older Than 30 Minutes
+// This query checks key Microsoft Defender for Identity (MDI) telemetry tables (IdentityDirectoryEvents, IdentityQueryEvents, and IdentityLogonEvents) for recent activity. 
+// It identifies any table where the last log was more than 30 minutes ago, helping detect silent telemetry disruption, sensor misbehavior, or communication issues with the MDI cloud service.
+
+let Now=now();
+let ThresholdAgo=Now - 1h;
+let IdentityDirectoryEventsLogs=
+    IdentityDirectoryEvents
+    | where Timestamp > ThresholdAgo
+    | project Timestamp, Table="IdentityDirectoryEvents";
+let IdentityQueryEventsLogs=
+    IdentityQueryEvents
+    | where Timestamp > ThresholdAgo
+    | project Timestamp, Table="IdentityQueryEvents";
+let IdentityLogonEventsLogs=
+    IdentityLogonEvents
+    | where Timestamp > ThresholdAgo
+    | project Timestamp, Table="IdentityLogonEvents";
+union IdentityDirectoryEventsLogs, IdentityQueryEventsLogs, IdentityLogonEventsLogs
+| summarize LastLog=max(Timestamp) by Table
+| extend MinutesSinceLastLog=datetime_diff("minute", Now, LastLog)
+| where MinutesSinceLastLog > 30
+| project Table, LastLog, MinutesSinceLastLog
+| order by MinutesSinceLastLog desc

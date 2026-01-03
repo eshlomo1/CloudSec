@@ -1,0 +1,37 @@
+// Searching for Devices who used Anydesk with specific signer and certificate 
+// Reference: https://download.anydesk.com/changelog.txt
+
+
+DeviceFileCertificateInfo
+| where TimeGenerated >= ago(31d)
+| where CertificateSerialNumber == "0dbf152deaf0b981a8a938d53f769db8" 
+    and Signer == "philandro Software GmbH"
+| project TimeGenerated, DeviceName, CertificateSerialNumber, Signer
+
+------------------------------------------------------------------------------------------
+
+// Anydesk Success Connection to Remote IP's with a specific Process Version
+DeviceNetworkEvents
+| where TimeGenerated >= ago(31d)
+| where InitiatingProcessVersionInfoCompanyName == "philandro Software GmbH"
+    and InitiatingProcessVersionInfoProductName == "AnyDesk"
+| where ActionType == "ConnectionSuccess"
+| project TimeGenerated, ActionType, DeviceName, RemoteIP, RemoteUrl
+
+------------------------------------------------------------------------------------------
+
+DeviceEvents
+| where TimeGenerated >= ago(30d)
+| extend Flags_ = tostring(AdditionalFields.Flags)
+| extend OperationType = tostring(AdditionalFields.OperationType)
+| where InitiatingProcessFileName == "anydesk.exe"
+| summarize count() by InitiatingProcessVersionInfoProductVersion, DeviceName, OperationType, InitiatingProcessFileName, InitiatingProcessCommandLine 
+
+------------------------------------------------------------------------------------------
+
+DeviceFileEvents
+| where TimeGenerated >= ago(31d)
+| where FileName == "AnyDesk.exe"
+| summarize count() by InitiatingProcessCommandLine, ActionType, FolderPath, FileName
+
+------------------------------------------------------------------------------------------

@@ -1,0 +1,10 @@
+// Unknown User Failed Logon from Unknown Device with Unknown Protocol
+// Description: This query will return all failed logon events with unknown user from unknown device with unknown protocol
+// Mitre ATT&CK Tactic: Credential Access
+IdentityLogonEvents
+| where Timestamp > ago(1h)
+| where ActionType == "LogonFailed"
+| where LogonType == "Failed logon"
+| where FailureReason == "UnknownUser" 
+| extend TO_DEVICE = tostring(AdditionalFields.["TO.DEVICE"])
+| summarize count() by DeviceName, FailureReason, Protocol, AccountName, DestinationDeviceName

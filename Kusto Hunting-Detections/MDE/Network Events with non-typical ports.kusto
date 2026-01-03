@@ -1,0 +1,19 @@
+// Network Events with non-typical ports
+// This query will return network events with non-typical ports for SMB and DNS protocols
+// Reference: https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/advanced-hunting-schema-reference
+// Mitre ATT&CK: https://attack.mitre.org/techniques/T1043/
+DeviceNetworkEvents 
+| where ActionType == "NetworkSignatureInspected" 
+| where Timestamp > ago(1d)
+| extend json = parse_json(AdditionalFields)
+| project DeviceName, LocalIP,LocalPort,RemoteIP,RemotePort, RemoteIPType,
+    SignatureName = tostring(json.SignatureName),
+    SignatureMatchedContent = tostring(json.SignatureMatchedContent),
+    SamplePacketContent = tostring(json.SamplePacketContent)
+| where (SignatureName == "SMB_Client" 
+    and LocalPort !in(445,139) // You can addtional ports
+    and RemotePort !in(445,139)) // You can addtional ports
+    or (SignatureName == "DNS_Request" 
+    and LocalPort !in(53,137,5353,5355) // You can addtional ports
+    and RemotePort !in(53,137,5353,5355)) // You can addtional ports
+| summarize count() by RemoteIP, DeviceName, RemotePort, SignatureName 

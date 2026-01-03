@@ -1,0 +1,10 @@
+# Title: ASR Hit Count
+# Description: This query will return the number of ASR hits in the last hour
+# Mitre ATT&CK: T1480
+
+DeviceEvents
+| where TimeGenerated > ago(1h)
+| where ActionType startswith "asr"
+| where isnotempty(InitiatingProcessCommandLine)
+| extend AuditMode = tostring(AdditionalFields.IsAudit)
+| summarize ['ASR Hit Count']=count()by ActionType, InitiatingProcessCommandLine, DeviceName, AuditMode

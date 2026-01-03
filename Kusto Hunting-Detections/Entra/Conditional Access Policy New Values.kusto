@@ -1,0 +1,29 @@
+// Conditional Access Policy New Values 
+AuditLogs
+| where Category == "Policy"
+| where ActivityDisplayName has "conditional access"
+| mv-expand TargetResources
+| mv-expand ModifiedProperties = TargetResources.modifiedProperties
+| extend
+    PolicyName = tostring(TargetResources.displayName),
+    PolicyId = tostring(TargetResources.id),
+    NewPolicy = parse_json(ModifiedProperties.newValue)
+| extend
+    NewApplications = tostring(NewPolicy.conditions.applications.includeApplications),
+    NewIncludedUsers = tostring(NewPolicy.conditions.users.includeUsers),
+    NewExcludedUsers = tostring(NewPolicy.conditions.users.excludeUsers),
+    NewIncludedRoles = tostring(NewPolicy.conditions.users.includeRoles),
+    NewGrantControls = tostring(NewPolicy.grantControls.builtInControls),
+    NewSessionFrequency = tostring(NewPolicy.sessionControls.signInFrequency.value)
+| project
+    TimeGenerated,
+    PolicyName,
+    PolicyId,
+    NewApplications,
+    NewIncludedUsers,
+    NewExcludedUsers,
+    NewIncludedRoles,
+    NewGrantControls,
+    NewSessionFrequency,
+    InitiatedBy
+| order by TimeGenerated desc

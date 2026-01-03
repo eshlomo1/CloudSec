@@ -1,0 +1,18 @@
+// The identityinfo table contains user profile information such as groups membership, Entra ID roles assigned and more information
+// It retrieves identity information related to disabled accounts that were changed within the last 24 hours, and projects the account name, 
+// user principal name (UPN), account status, group membership, user state, user state changed date, user type, and assigned roles.
+// ---------------------------------------------------
+IdentityInfo
+| where TimeGenerated >= ago(1d)
+| where IsAccountEnabled == "0" 
+| summarize arg_max(AccountName,*) by AccountUPN 
+| extend GroupMember = tostring(GroupMembership[0])
+| project 
+    AccountName, 
+    AccountUPN, 
+    IsAccountEnabled, 
+    GroupMember, 
+    UserState, 
+    UserStateChangedOn, 
+    UserType, 
+    AssignedRoles

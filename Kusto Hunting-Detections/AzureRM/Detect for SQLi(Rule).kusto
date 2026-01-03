@@ -1,0 +1,10 @@
+// Title: Detect SQL injection by rules
+// Description: This query will help you to detect SQL injection attacks by rules
+// Mitre ATT&CK: T1190
+// Mitre ATT&CK Tactic: Defense Evasion
+// Description: This query will help you to detect SQL injection attacks by rules
+AzureDiagnostics
+| where Category == "ApplicationGatewayFirewallLog" 
+  and action_s == "Matched" 
+  and details_file_s == "rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf"
+| project hostname_s , requestUri_s , clientIp_s, conditions_destinationIP_s

@@ -1,0 +1,12 @@
+// Title: Detect creation of registry key / value events - - Forest Blizzard    
+// Description: Detect creation of registry key / value events that are associated with the creation of a registry key or value.
+// MITRE: T1102
+// MITRE Tactic: Defense Evasion
+// References: https://www.microsoft.com/en-us/security/blog/2024/04/22/analyzing-forest-blizzards-custom-post-compromise-tool-for-exploiting-cve-2022-38028-to-obtain-credentials
+DeviceRegistryEvents
+  | where TimeGenerated > ago(60d) // change the duration according to your requirement
+  | where ActionType == "RegistryValueSet"
+  | where RegistryKey contains "HKEY_CURRENT_USER\\Software\\Classes\\CLSID\\{026CC6D7-34B2-33D5-B551-CA31EB6CE345}\\Server"
+  | where RegistryValueName has "(Default)"
+  | where RegistryValueData has "wayzgoose.dll" or RegistryValueData contains ".dll"
+  | project TimeGenerated, Computer, RegistryKey, RegistryValueName, RegistryValueData, ActionType, InitiatingProcessFileName, InitiatingProcessCommandLine, InitiatingProcessParentFileName, InitiatingProcessParentCommandLine, InitiatingProcessParentCreationTime, InitiatingProcess

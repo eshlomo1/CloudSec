@@ -1,0 +1,15 @@
+// Search for Reconnaissance in Active Directory
+// Description: This query will search for Reconnaissance in Active Directory
+// Reference: https://techcommunity.microsoft.com/t5/security-compliance-and-identity/azure-sentinel-hunting-queries/ba-p/2070127
+// Mitre ATT&CK: https://attack.mitre.org/techniques/T1018/
+AlertInfo
+| where Timestamp > ago(TimeRange)
+| where DetectionSource == "Microsoft Defender for Identity"
+| join (AlertEvidence
+| where Timestamp > ago(1h)
+| where EntityType == "Machine" 
+    and EvidenceDirection == "Source" 
+    and ServiceSource == "Microsoft Defender for Identity" 
+) on AlertId
+| summarize by Timestamp,DeviceName, AttackTechniques, Category, Severity, EvidenceRole
+//| project Timestamp,DeviceName, AttackTechniques, Category, Severity, EvidenceRole 

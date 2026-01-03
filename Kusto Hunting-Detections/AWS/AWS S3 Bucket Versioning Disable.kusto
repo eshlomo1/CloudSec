@@ -1,0 +1,10 @@
+// Title: AWS S3 Bucket Versioning Disable
+// Description: This policy checks if versioning is enabled for an S3 bucket and disables it if it is enabled.
+// MITRE: T1049
+// MITRE Tactics: Impact
+// Reference: https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html
+AWSCloudTrail 
+| where (EventSource =~ @'s3.amazonaws.com' 
+     and EventName =~ @'PutBucketVersioning' 
+     and RequestParameters contains @'Suspended')
+| project Resource=Resource, EventName, EventTime, UserIdentity, RequestParameters

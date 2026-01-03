@@ -1,0 +1,21 @@
+// Hosts File Tampering Detection - Process Attribution and Timeline
+
+// Detects suspicious modifications to the Windows hosts file, including create, modify, rename, or delete actions. 
+// Correlates the initiating process, command line, hash, device, and user for forensic analysis and anomaly detection. 
+
+DeviceFileEvents
+| where FileName == @"hosts"
+| where FolderPath == @"C:\Windows\System32\drivers\etc\hosts"
+| where ActionType in ("FileModified", "FileCreated", "FileRenamed", "FileDeleted")
+| extend Initiator = tostring(InitiatingProcessFileName),
+         InitiatorCmd = tostring(InitiatingProcessCommandLine),
+         InitiatorHash = tostring(SHA256),
+         FolderDepth = array_length(split(FolderPath, @"\"))
+| summarize 
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    Count = count(),
+    UniqueDevices = dcount(DeviceName),
+    UniqueUsers = dcount(InitiatingProcessAccountName)
+  by Initiator, InitiatorCmd, InitiatorHash, DeviceName, FileName, InitiatingProcessAccountName, ReportId
+| order by LastSeen desc

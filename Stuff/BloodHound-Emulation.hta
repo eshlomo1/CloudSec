@@ -1,0 +1,218 @@
+<html>
+<head>
+<title>BloodHound Emulation — SentinelOne EDR Test</title>
+<HTA:APPLICATION
+  ID="BloodHoundEmulation"
+  APPLICATIONNAME="BloodHound Emulation"
+  BORDER="thin"
+  BORDERSTYLE="normal"
+  INNERBORDER="no"
+  SCROLL="yes"
+  SINGLEINSTANCE="yes"
+  WINDOWSTATE="normal"
+/>
+<style>
+  body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 0; }
+  .header { background: #161b22; border-bottom: 1px solid #30363d; padding: 16px 24px; display: flex; align-items: center; }
+  .logo { width: 32px; height: 32px; background: linear-gradient(135deg, #4f6cf7, #6366f1); border-radius: 8px; margin-right: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 16px; }
+  .header h1 { font-size: 16px; font-weight: 700; margin: 0; }
+  .header p { font-size: 11px; color: #8b949e; margin: 2px 0 0 0; }
+  .container { max-width: 800px; margin: 0 auto; padding: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .card-head { padding: 12px 16px; border-bottom: 1px solid #30363d; font-size: 13px; font-weight: 600; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-body { padding: 16px; }
+  .mitre { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(188,140,255,0.15); color: #bc8cff; font-family: Consolas, monospace; margin-right: 6px; margin-bottom: 4px; }
+  .safe-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(63,185,80,0.15); color: #3fb950; font-weight: 600; }
+  .code-block { background: #010409; border: 1px solid #30363d; border-radius: 8px; padding: 14px 16px; font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px; line-height: 1.6; color: #e6edf3; white-space: pre-wrap; overflow-x: auto; margin: 12px 0; }
+  .comment { color: #8b949e; }
+  .str { color: #a5d6ff; }
+  .var { color: #79c0ff; }
+  .fn { color: #d2a8ff; }
+  .btn { padding: 10px 24px; border-radius: 8px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; margin-right: 8px; font-family: inherit; }
+  .btn-run { background: #238636; color: #fff; }
+  .btn-run:hover { background: #2ea043; }
+  .btn-run:disabled { background: #30363d; color: #8b949e; cursor: not-allowed; }
+  .btn-stop { background: rgba(248,81,73,0.15); color: #f85149; border: 1px solid rgba(248,81,73,0.3); }
+  .btn-stop:hover { background: rgba(248,81,73,0.25); }
+  .status { margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-size: 13px; display: none; }
+  .status-running { display: block; background: rgba(210,153,34,0.1); border: 1px solid rgba(210,153,34,0.3); color: #d29922; }
+  .status-done { display: block; background: rgba(63,185,80,0.1); border: 1px solid rgba(63,185,80,0.3); color: #3fb950; }
+  .status-error { display: block; background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.3); color: #f85149; }
+  .output-box { background: #010409; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; font-family: Consolas, monospace; font-size: 12px; line-height: 1.5; color: #3fb950; min-height: 60px; margin-top: 12px; white-space: pre-wrap; display: none; }
+  .info-row { display: flex; padding: 6px 0; border-bottom: 1px solid rgba(48,54,61,0.5); font-size: 13px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: #8b949e; width: 130px; flex-shrink: 0; }
+  .info-value { color: #e6edf3; font-family: Consolas, monospace; font-size: 12px; }
+  .footer { text-align: center; color: #8b949e; font-size: 11px; padding: 16px; border-top: 1px solid #30363d; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">&#9763;</div>
+  <div>
+    <h1>BloodHound Execution Emulation</h1>
+    <p>SentinelOne EDR Detection Validation</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <div class="card-head">MITRE ATT&CK Coverage</div>
+    <div class="card-body">
+      <span class="mitre">T1087.002 — Account Discovery</span>
+      <span class="mitre">T1069.002 — Permission Groups Discovery</span>
+      <span class="mitre">T1482 — Domain Trust Discovery</span>
+      <span class="safe-badge">LOW RISK — SAFE EMULATION</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">What This Does</div>
+    <div class="card-body">
+      <div class="info-row"><span class="info-label">Real Action</span><span class="info-value">Writes "benign" to a temp file via echo</span></div>
+      <div class="info-row"><span class="info-label">Fake Wrapper</span><span class="info-value">Invoke-BloodHound -CollectionMethod All -Domain CONTOSO.LOCAL</span></div>
+      <div class="info-row"><span class="info-label">Process</span><span class="info-value">powershell.exe -Command (hidden window)</span></div>
+      <div class="info-row"><span class="info-label">Outcome</span><span class="info-value">BH cmdlets don't exist → fails harmlessly → EDR captures command line</span></div>
+      <div class="info-row"><span class="info-label">Expected Alert</span><span class="info-value">BloodHound/SharpHound Activity (string match on AD recon signatures)</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">Embedded Script</div>
+    <div class="card-body">
+      <div class="code-block"><span class="comment"># SentinelOne Emulation: BloodHound AD Recon (T1087.002)</span>
+<span class="comment"># SAFE — BloodHound cmdlets don't exist, only command-line telemetry.</span>
+
+<span class="var">$fakeOut</span> = <span class="str">"$env:TEMP\bloodhound_test.txt"</span>
+
+<span class="comment"># Harmless command that just writes to a file</span>
+<span class="var">$harmless</span> = <span class="str">"echo benign &gt; `"$fakeOut`""</span>
+
+<span class="comment"># Suspicious-looking parameters that SentinelOne will detect</span>
+<span class="var">$bhCmd</span> = <span class="str">"Invoke-BloodHound -CollectionMethod All -Domain CONTOSO.LOCAL; Get-BloodHoundData; $harmless"</span>
+
+<span class="comment"># Execute powershell.exe with BH-like command line</span>
+<span class="fn">Start-Process</span> -FilePath <span class="str">"powershell.exe"</span> `
+    -ArgumentList <span class="str">"-Command $bhCmd"</span> `
+    -WindowStyle Hidden -Wait
+
+<span class="fn">Write-Host</span> <span class="str">"BloodHound execution emulation completed safely."</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">Execute</div>
+    <div class="card-body">
+      <button class="btn btn-run" id="btnRun" onclick="runEmulation()">Run Emulation</button>
+      <div class="status" id="statusBox"></div>
+      <div class="output-box" id="outputBox"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">SentinelOne Deep Visibility Query</div>
+    <div class="card-body">
+      <div class="code-block">EventType = "Process Creation"
+AND (
+    CmdLine ContainsCIS "Invoke-BloodHound"
+    OR CmdLine ContainsCIS "Get-BloodHoundData"
+    OR CmdLine ContainsCIS "CollectionMethod"
+    OR CmdLine ContainsCIS "SharpHound"
+)
+| columns SrcProcName, SrcProcCmdLine, SrcProcParentName, SrcProcUser, EndpointName, EventTime</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">No Alert? Troubleshooting</div>
+    <div class="card-body">
+      <div class="info-row"><span class="info-label">Static AI</span><span class="info-value">Policy → Engine Settings → Verify "Static AI" is Detect or Protect</span></div>
+      <div class="info-row"><span class="info-label">Behavioral AI</span><span class="info-value">Ensure Behavioral AI engine is enabled for command-line patterns</span></div>
+      <div class="info-row"><span class="info-label">PS Visibility</span><span class="info-value">Deep Visibility → confirm PowerShell command-line logging is active</span></div>
+      <div class="info-row"><span class="info-label">STAR Rules</span><span class="info-value">Create custom rule: CmdLine Contains "Invoke-BloodHound" OR "SharpHound"</span></div>
+      <div class="info-row"><span class="info-label">Agent Version</span><span class="info-value">Ensure 22.x+ for full PowerShell command-line capture</span></div>
+    </div>
+  </div>
+
+  <div class="footer">BloodHound Execution Emulation — EDR Detection Validation — Safe for production testing</div>
+
+</div>
+
+<script language="VBScript">
+Dim shell
+
+Sub runEmulation()
+  Dim statusBox, outputBox, btnRun
+  Set statusBox = document.getElementById("statusBox")
+  Set outputBox = document.getElementById("outputBox")
+  Set btnRun = document.getElementById("btnRun")
+
+  ' Disable button
+  btnRun.disabled = True
+  btnRun.innerText = "Running..."
+
+  ' Show running status
+  statusBox.className = "status status-running"
+  statusBox.innerText = "[*] Launching BloodHound emulation via PowerShell..."
+  outputBox.style.display = "block"
+  outputBox.innerText = ""
+
+  ' Base64-encoded PowerShell script (UTF-16LE) — avoids all quoting issues
+  ' Decoded script:
+  '   $fakeOut = "$env:TEMP\bloodhound_test.txt"
+  '   $harmless = "echo benign > `"$fakeOut`""
+  '   $bhCmd = "Invoke-BloodHound -CollectionMethod All -Domain CONTOSO.LOCAL; Get-BloodHoundData; $harmless"
+  '   Start-Process -FilePath 'powershell.exe' -ArgumentList "-Command $bhCmd" -WindowStyle Hidden -Wait
+  '   Write-Host 'BloodHound execution emulation completed safely.'
+  Dim encodedCmd
+  encodedCmd = "JABmAGEAawBlAE8AdQB0ACAAPQAgACIAJABlAG4AdgA6AFQARQBNAFAAXABiAGwAbwBvAGQAaABvAHUAbgBkAF8AdABlAHMAdAAuAHQAeAB0ACIACgAkAGgAYQByAG0AbABlAHMAcwAgAD0AIAAiAGUAYwBoAG8AIABiAGUAbgBpAGcAbgAgAD4AIABgAFwAIgAkAGYAYQBrAGUATwB1AHQAYABcACIAIgAKACQAYgBoAEMAbQBkACAAPQAgACIASQBuAHYAbwBrAGUALQBCAGwAbwBvAGQASABvAHUAbgBkACAALQBDAG8AbABsAGUAYwB0AGkAbwBuAE0AZQB0AGgAbwBkACAAQQBsAGwAIAAtAEQAbwBtAGEAaQBuACAAQwBPAE4AVABPAFMATwAuAEwATwBDAEEATAA7ACAARwBlAHQALQBCAGwAbwBvAGQASABvAHUAbgBkAEQAYQB0AGEAOwAgACQAaABhAHIAbQBsAGUAcwBzACIACgBTAHQAYQByAHQALQBQAHIAbwBjAGUAcwBzACAALQBGAGkAbABlAFAAYQB0AGgAIAAnAHAAbwB3AGUAcgBzAGgAZQBsAGwALgBlAHgAZQAnACAALQBBAHIAZwB1AG0AZQBuAHQATABpAHMAdAAgACIALQBDAG8AbQBtAGEAbgBkACAAJABiAGgAQwBtAGQAIgAgAC0AVwBpAG4AZABvAHcAUwB0AHkAbABlACAASABpAGQAZABlAG4AIAAtAFcAYQBpAHQACgBXAHIAaQB0AGUALQBIAG8AcwB0ACAAJwBCAGwAbwBvAGQASABvAHUAbgBkACAAZQB4AGUAYwB1AHQAaQBvAG4AIABlAG0AdQBsAGEAdABpAG8AbgAgAGMAbwBtAHAAbABlAHQAZQBkACAAcwBhAGYAZQBsAHkALgAnAA=="
+
+  Set shell = CreateObject("WScript.Shell")
+
+  On Error Resume Next
+
+  Dim exec
+  Set exec = shell.Exec("powershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand " & encodedCmd)
+
+  If Err.Number <> 0 Then
+    statusBox.className = "status status-error"
+    statusBox.innerText = "[!] Error: " & Err.Description
+    btnRun.disabled = False
+    btnRun.innerText = "Run Emulation"
+    Exit Sub
+  End If
+
+  ' Read output
+  Dim output
+  output = ""
+  Do While Not exec.StdOut.AtEndOfStream
+    output = output & exec.StdOut.ReadLine() & vbCrLf
+  Loop
+
+  Dim errOutput
+  errOutput = ""
+  Do While Not exec.StdErr.AtEndOfStream
+    errOutput = errOutput & exec.StdErr.ReadLine() & vbCrLf
+  Loop
+
+  On Error GoTo 0
+
+  If Len(output) > 0 Then
+    outputBox.innerText = output
+  End If
+
+  If Len(errOutput) > 0 Then
+    outputBox.innerText = outputBox.innerText & vbCrLf & "[stderr] " & errOutput
+  End If
+
+  statusBox.className = "status status-done"
+  statusBox.innerText = "[+] Emulation complete. Check SentinelOne for BloodHound/SharpHound alert."
+
+  btnRun.disabled = False
+  btnRun.innerText = "Run Again"
+End Sub
+</script>
+</body>
+</html>

@@ -35,10 +35,10 @@ In addition to the core resources, this repo features tools and scripts specific
 - 🛡️ Microsoft Sentinel
 - 🔐 Microsoft Defender XDR
 - 🆔 Entra ID
-- 🔍 Azure Security 
+- 🔍 Azure Security
 - 🔒 Multi-Cloud Security (Microsoft 365, Azure, AWS, GCP, GWS)
 - 🌟 And other essential cloud security tools
 
 Stay secure and happy exploring! 🌐🔐
 
-Note: This Hub replaces the Microsoft-Sentinel-SecOps repo. The content from the Microsoft-Sentinel-SecOps repo is being migrated to this new repository. 
+Note: This Hub replaces the Microsoft-Sentinel-SecOps repo. The content from the Microsoft-Sentinel-SecOps repo is being migrated to this new repository.

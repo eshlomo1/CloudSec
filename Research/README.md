@@ -1,8 +1,8 @@
-# Research Laboratory 🧪
+# Offensive Security Research 🧪
 
 ## Overview
 
-This directory contains offensive security research, vulnerability analysis, and deep dives into cloud-native services and identity platforms. The goal is to identify new attack vectors and document security boundary escapes.
+This directory contains specialized security research, vulnerability analysis, and deep dives into cloud-native services and identity platforms. The goal is to identify new attack vectors and document security boundary escapes.
 
 ## Current Research Projects
 

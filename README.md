@@ -1,6 +1,6 @@
 # Cloud Security Toolkit
 
-## � The Art of Cloud Exploitation 🌩️⚡
+## The Art of Cloud Exploitation
 
 Welcome to the Cloud Security Toolkit—a specialized laboratory designed for offensive security researchers, red teamers, and adversaries. This repository is dedicated to the systematic weaponization of vulnerabilities, advanced attack simulations, and the breakdown of defense mechanisms across the cloud ecosystem.
 

@@ -1,0 +1,12 @@
+// Windows - Security Log Was Cleared
+// Use-Case: Detects when the security log was cleared on a Windows device.
+// Mitre ATT&CK: T1070.001
+// Mitre tactics: Defense Evasion, Privilege Escalation, Persistence
+// Mitre refence: https://attack.mitre.org/techniques/T1070/001/ 
+DeviceEvents
+| where ActionType == "SecurityLogCleared"
+| project
+    TimeGenerated,
+    DeviceName,
+    InitiatingProcessAccountDomain,
+    InitiatingProcessAccountName

@@ -1,0 +1,32 @@
+// 
+resources
+| where type in (
+    'microsoft.web/sites/config',
+    'microsoft.storage/storageaccounts',
+    'microsoft.sql/servers',
+    'microsoft.keyvault/vaults',
+    'microsoft.network/applicationgateways',
+    'microsoft.cdn/profiles/endpoints',
+    'microsoft.apimanagement/service',
+    'microsoft.network/virtualnetworkgateways',
+    'microsoft.signalrservice/signalr',
+    'microsoft.cache/redis',
+    'microsoft.servicebus/namespaces',
+    'microsoft.containerservice/managedclusters'
+)
+| extend TlsVersion = case(
+        type == 'microsoft.web/sites/config', properties.minTlsVersion,
+        type == 'microsoft.storage/storageaccounts', properties.minimumTlsVersion,
+        type == 'microsoft.sql/servers', properties.minimalTlsVersion,
+        type == 'microsoft.keyvault/vaults', 'Not directly applicable (managed by service)',
+        type == 'microsoft.network/applicationgateways', properties.sslPolicy.minProtocolVersion,
+        type == 'microsoft.cdn/profiles/endpoints', properties.tlsSettings.protocolType,
+        type == 'microsoft.apimanagement/service', tostring(properties.protocols),
+        type == 'microsoft.network/virtualnetworkgateways', tostring(properties.vpnClientConfiguration.vpnClientProtocols),
+        type == 'microsoft.signalrservice/signalr', properties.tls.minimalTlsVersion,
+        type == 'microsoft.cache/redis', properties.sku.family, // Redis may not directly expose TLS version
+        type == 'microsoft.servicebus/namespaces', properties.minimumTlsVersion,
+        type == 'microsoft.containerservice/managedclusters', 'TLS managed by individual deployments',
+        'Unknown'
+    )
+| project ResourceType = type, ResourceName = name, Location = location, TlsVersion

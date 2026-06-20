@@ -1,0 +1,9 @@
+// This query will search for mail items with a specific subject in the last 3 days
+// Ref: https://techcommunity.microsoft.com/t5/exchange-team-blog/using-the-search-mailbox-cmdlet-to-look-for-items-with-a/ba-p/607507
+OfficeActivity
+| where TimeGenerated > ago(3d) 
+| where OfficeWorkload == "Exchange"
+| extend Subject_ = tostring(parse_json(AffectedItems)[0].Subject)
+| where Subject_ contains "The relevant subject"
+| project TimeGenerated, UserId, ClientIP, ExternalAccess,ClientVersion 
+| sort by TimeGenerated

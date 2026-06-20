@@ -1,0 +1,11 @@
+// Title: Launch Agent Execution Via Launchctl
+// Description: Detects execution of programs as Launch Agents or Daemons using launchctl on macOS devices.
+// MITRE: T1569
+// Mitre Tactics: Persistence 
+DeviceProcessEvents 
+| where (NewProcessName endswith @'/launchctl' 
+     and (CommandLine contains @'submit' 
+     or CommandLine contains @'load' 
+     or CommandLine contains @'start'))
+| extend Description = "Launch Agent Execution Via Launchctl"
+| project DeviceName, Timestamp, Description, NewProcessName, ProcessCommandLine, InitiatingProcessName, InitiatingProcessCommandLine, AccountName, FolderPath

@@ -10,12 +10,12 @@ Note: This repository is actively evolving. Exploits, attack scripts, payload li
 
 Equip your red team engagements with mission-critical resources:
 
-- 🧪 **Weaponized Kusto Queries**: Targeting misconfigurations and sensitive data exposure.
-- ⚡ **Offensive PowerShell & Python**: Custom scripts for credential harvesting, lateral movement, and persistence.
-- 🏗️ **Attack Surface Mapping**: Architecture diagrams detailing breach vectors and trust boundary escapes.
-- 🤖 **AI Exploitation**: Prompt injection techniques and LLM security bypasses.
-- 🚪 **Bypass Strategies**: Real-world techniques to evade XDR, SIEM, and Entra ID protections.
-- 🌐 **Curated Intel**: Direct links to top-tier offensive security tools and research.
+- 📂 **[01-Offensive-Operations](01-Offensive-Operations)**: Weaponized exploits and attack simulations for Entra ID, Azure, AWS, and AI.
+- 📂 **[02-Vulnerability-Research](02-Vulnerability-Research)**: Deep dives into Intune bypasses, Edge memory extraction, and boundary escapes.
+- 📂 **[03-Threat-Intelligence](03-Threat-Intelligence)**: TTPs, compromised infrastructure intel, and adversary tracking.
+- 📂 **[04-Anti-Forensics-IR](04-Anti-Forensics-IR)**: Techniques for Evasion, blinding SIEM/XDR, and incident response neutralization.
+- 📂 **[05-Tooling-Scripts](05-Tooling-Scripts)**: Custom offensive toolsets, scanners, and multi-cloud automation.
+- 📂 **[99-Archive-Backups](99-Archive-Backups)**: Legacy resources and architecture backups.
 
 Every component in this toolkit is battle-hardened, extracted from high-stakes penetration tests, red team operations, and vulnerability research. This is where theory meets the metal.
 

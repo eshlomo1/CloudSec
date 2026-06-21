@@ -1,0 +1,31 @@
+# Credentials and Secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+auth.json
+
+# Tool-specific Sensitive Files
+03-Threat-Intelligence/Compromised_IPS_1.txt
+03-Threat-Intelligence/Compromised_IPs_2.txt
+/04-Anti-Forensics-IR/Forensics/EntraID/*.log
+/04-Anti-Forensics-IR/Forensics/Microsoft365/*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# IDE and Project Files
+.vscode/
+.idea/
+*.swp
+*.bak
+
+# Temporary Files and Backups
+99-Archive-Backups/
+tmp/
+temp/

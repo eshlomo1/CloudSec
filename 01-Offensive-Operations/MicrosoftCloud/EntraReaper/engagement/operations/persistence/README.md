@@ -2,14 +2,14 @@
 
 Live inventory of active backdoors. What's currently planted and needs teardown.
 
-NOT the same as `creds/` (what was captured) — this tracks what's RUNNING.
+NOT the same as `creds/` (what was captured) - this tracks what's RUNNING.
 
 ## Structure
 
 ```
 persistence/{engagement}/
-  inventory.md            — Live backdoor inventory (auto-updated)
-  cleanup_status.md       — Teardown progress tracker
+  inventory.md            - Live backdoor inventory (auto-updated)
+  cleanup_status.md       - Teardown progress tracker
 ```
 
 ## Inventory Format (markdown-kv)

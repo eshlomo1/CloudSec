@@ -12,16 +12,16 @@
 
 | # | Check | Severity logic |
 |---|---|---|
-| C01 | AI Vendor App Inventory | LOW (baseline) — one row per AI-named SP |
+| C01 | AI Vendor App Inventory | LOW (baseline) - one row per AI-named SP |
 | C02 | Critical Graph Scopes (Mail/Files/Sites/Directory/Calendar/Teams/Security) | MEDIUM → HIGH → CRITICAL based on scope count |
-| C03 | Application (App-Only) Permissions — runs with no user in the loop | HIGH, CRITICAL if any scope is in the critical list |
+| C03 | Application (App-Only) Permissions - runs with no user in the loop | HIGH, CRITICAL if any scope is in the critical list |
 | C04 | Tenant-Wide Admin Consent (`consentType=AllPrincipals`) | HIGH, CRITICAL if a critical scope is tenant-wide |
 | C05 | Unverified Publisher (no MPN attestation) | MEDIUM, HIGH if paired with critical scopes |
-| C06 | Recently Added (< `RecentDays`, default 30) — supply-chain window | MEDIUM, HIGH if also has critical scopes / app-only perms |
-| C07 | Multi-Tenant App Reach (`AzureADMultipleOrgs` / MSA) — cross-tenant pivot | MEDIUM, HIGH if paired with critical scopes |
-| C08 | Directory Role Assignments to the app — Entra privilege escalation | CRITICAL |
+| C06 | Recently Added (< `RecentDays`, default 30) - supply-chain window | MEDIUM, HIGH if also has critical scopes / app-only perms |
+| C07 | Multi-Tenant App Reach (`AzureADMultipleOrgs` / MSA) - cross-tenant pivot | MEDIUM, HIGH if paired with critical scopes |
+| C08 | Directory Role Assignments to the app - Entra privilege escalation | CRITICAL |
 | C09 | Risky Redirect URIs (`http://`, `localhost`, ngrok/serveo/trycloudflare/loca.lt/tunnelmole) | MEDIUM, HIGH for plain `http://` |
-| C10 | Multiple App Credentials (secrets + certs ≥ 2) — persistence pattern | MEDIUM, HIGH if ≥ 4 |
+| C10 | Multiple App Credentials (secrets + certs ≥ 2) - persistence pattern | MEDIUM, HIGH if ≥ 4 |
 
 Severity weights: `CRITICAL=40`, `HIGH=20`, `MEDIUM=8`, `LOW=2`. Each app's score is the sum of weights across all checks it trips.
 
@@ -29,12 +29,12 @@ Severity weights: `CRITICAL=40`, `HIGH=20`, `MEDIUM=8`, `LOW=2`. Each app's scor
 
 Everything lands in a timestamped folder: `shadow-ai-audit-YYYYMMDD-HHMM/`
 
-- `shadow-ai.html` — self-contained dashboard with severity tiles, severity doughnut, per-check bar chart, Top Risk Apps table, and a CSV download dropdown. Auto-opens unless `-NoOpen`.
-- `01_Summary.csv` — one row per check with CRITICAL/HIGH/MEDIUM/LOW counts.
-- `02_Apps-Rollup.csv` — composite risk per app (score, max severity, checks hit).
-- `03_All-Findings.csv` — every finding row.
-- `C01_*.csv` … `C10_*.csv` — one CSV per check (empty header file if zero findings).
-- `shadow-ai-csvs.zip` — all CSVs bundled for one-click download from the HTML.
+- `shadow-ai.html` - self-contained dashboard with severity tiles, severity doughnut, per-check bar chart, Top Risk Apps table, and a CSV download dropdown. Auto-opens unless `-NoOpen`.
+- `01_Summary.csv` - one row per check with CRITICAL/HIGH/MEDIUM/LOW counts.
+- `02_Apps-Rollup.csv` - composite risk per app (score, max severity, checks hit).
+- `03_All-Findings.csv` - every finding row.
+- `C01_*.csv` … `C10_*.csv` - one CSV per check (empty header file if zero findings).
+- `shadow-ai-csvs.zip` - all CSVs bundled for one-click download from the HTML.
 
 > Note: the HTML dashboard intentionally excludes the "Unverified Publisher" check (C05) to reduce noise, but it is always present in the CSVs.
 
@@ -55,7 +55,7 @@ Everything lands in a timestamped folder: `shadow-ai-audit-YYYYMMDD-HHMM/`
 # Tighten / widen the "recently added" window for check C06
 .\ShadowAIAudit.ps1 -RecentDays 7
 
-# CI / scheduled runs — don't launch the browser
+# CI / scheduled runs - don't launch the browser
 .\ShadowAIAudit.ps1 -NoOpen
 ```
 
@@ -72,8 +72,8 @@ Everything lands in a timestamped folder: `shadow-ai-audit-YYYYMMDD-HHMM/`
 
 ## Requirements
 
-- **PowerShell 5.1+ or PowerShell 7+** (cross-platform: Windows / macOS / Linux — the script auto-detects and opens the report via `open` / `xdg-open` / `Start-Process`).
-- **Microsoft Graph PowerShell SDK** — auto-installed on first run (`-Scope CurrentUser`):
+- **PowerShell 5.1+ or PowerShell 7+** (cross-platform: Windows / macOS / Linux - the script auto-detects and opens the report via `open` / `xdg-open` / `Start-Process`).
+- **Microsoft Graph PowerShell SDK** - auto-installed on first run (`-Scope CurrentUser`):
   - `Microsoft.Graph.Authentication`
   - `Microsoft.Graph.Applications`
   - `Microsoft.Graph.Identity.SignIns`
@@ -83,7 +83,7 @@ Everything lands in a timestamped folder: `shadow-ai-audit-YYYYMMDD-HHMM/`
   - `Directory.Read.All`
   - `DelegatedPermissionGrant.Read.All`
   - `RoleManagement.Read.Directory`
-- **Internet access** to `cdn.jsdelivr.net` for the Chart.js reference in the HTML (charts only; the report renders fine offline — you just lose the two charts).
+- **Internet access** to `cdn.jsdelivr.net` for the Chart.js reference in the HTML (charts only; the report renders fine offline - you just lose the two charts).
 
 ---
 
@@ -101,4 +101,4 @@ No data leaves the host running the script.
 
 ## License
 
-Same as the root repository — see [../../../LICENSE](../../../LICENSE).
+Same as the root repository - see [../../../LICENSE](../../../LICENSE).

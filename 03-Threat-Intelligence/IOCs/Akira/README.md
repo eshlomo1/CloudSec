@@ -1,4 +1,4 @@
-# IOC Package: Akira Ransomware — Case Notes (“Seven Seconds to Stop Akira”)
+# IOC Package: Akira Ransomware - Case Notes (“Seven Seconds to Stop Akira”)
 
 **Purpose:** Indicators and incident context from a single defended-environment engagement, formatted for CTI and detection use. **Malware sample is a per-victim build** and may not match public corpus hashes.
 
@@ -13,7 +13,7 @@
 | **Author** | Elli Shlomo |
 | **Publication date** | 2026-03-29 |
 | **Threat** | Akira ransomware (RaaS) |
-| **MITRE group** | [G1024 — Akira](https://attack.mitre.org/groups/G1024/) |
+| **MITRE group** | [G1024 - Akira](https://attack.mitre.org/groups/G1024/) |
 
 ---
 
@@ -71,7 +71,7 @@
 |------|-------------------|
 | **Tor (C2, per article)** | `akiralkzxzq2dsrzsrvbr2xgbbu2wgsmxryd4csgfameg52n7efvr2id[.]onion` |
 | **Tor (leak site, per article)** | `akira1iz6a7qgd3ayp3l6yub7xx2uep76idk3u2kollpj5z3z636bad[.]onion` |
-| **Internal origin (class)** | RFC1918 **/24** segment; unmanaged host; **no EDR** (per article—exact subnet not published) |
+| **Internal origin (class)** | RFC1918 **/24** segment; unmanaged host; **no EDR** (per article-exact subnet not published) |
 
 ---
 
@@ -99,9 +99,9 @@
 
 ---
 
-## Footer — source
+## Footer - source
 
-**Primary reference:** [Seven Seconds to Stop Akira](https://guardz.com/blog/seven-seconds-to-stop-akira/) — Guardz blog, 2026-03-29.
+**Primary reference:** [Seven Seconds to Stop Akira](https://guardz.com/blog/seven-seconds-to-stop-akira/) - Guardz blog, 2026-03-29.
 
 **Related:** [Guardz Security Research Labs (GitHub)](https://github.com/guardzcom/security-research-labs)
 
@@ -109,4 +109,4 @@
 
 ## License
 
-Same as the root repository — see [../../../LICENSE](../../../LICENSE).
+Same as the root repository - see [../../../LICENSE](../../../LICENSE).

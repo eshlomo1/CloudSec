@@ -1,15 +1,15 @@
 # Noise
 
-Actual telemetry footprint — what logs and alerts our actions generated.
+Actual telemetry footprint - what logs and alerts our actions generated.
 Compares OPSEC profile predictions vs reality.
 
 ## Structure
 
 ```
 noise/{engagement}/
-  footprint.md            — Per-tool noise log (auto-appended)
-  opsec_delta.md          — Predicted vs actual noise comparison
-  rate_limits.md          — Throttling events with timestamps
+  footprint.md            - Per-tool noise log (auto-appended)
+  opsec_delta.md          - Predicted vs actual noise comparison
+  rate_limits.md          - Throttling events with timestamps
 ```
 
 ## Entry Format (markdown-kv)
@@ -23,7 +23,7 @@ noise/{engagement}/
 | actual_noise | Low + THROTTLED (26 requests rate-limited after 80) |
 | logs_expected | None (GetCredentialType) |
 | logs_actual | Possible rate-limit alert on Microsoft side |
-| delta | Rate limiting was NOT in OPSEC profile — update opsec.py |
+| delta | Rate limiting was NOT in OPSEC profile - update opsec.py |
 
 ## Why This Matters
 

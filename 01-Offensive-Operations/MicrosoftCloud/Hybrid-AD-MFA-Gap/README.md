@@ -1,4 +1,4 @@
-# Hybrid AD MFA Gap — Scripts & Queries
+# Hybrid AD MFA Gap - Scripts & Queries
 
 Scripts and queries referenced in the blog post: *"The Hidden MFA Gap in Hybrid Active Directory"*
 

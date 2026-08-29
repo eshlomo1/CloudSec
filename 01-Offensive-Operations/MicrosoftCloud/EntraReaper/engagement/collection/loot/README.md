@@ -6,11 +6,11 @@ Downloaded files and data from collection phase. Evidence preservation.
 
 ```
 loot/{engagement}/{target_upn}/
-  onedrive/       — Files from collect_onedrive
-  sharepoint/     — Files from collect_sharepoint
-  email/          — Mailbox exports from collect_email
-  teams/          — Teams messages from collect_teams
-  manifest.md     — What was collected, when, from whom
+  onedrive/       - Files from collect_onedrive
+  sharepoint/     - Files from collect_sharepoint
+  email/          - Mailbox exports from collect_email
+  teams/          - Teams messages from collect_teams
+  manifest.md     - What was collected, when, from whom
 ```
 
 ## Auto-populated by

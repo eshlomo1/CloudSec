@@ -1,4 +1,4 @@
-# EntraReaper — 65 Attack Scenarios
+# EntraReaper - 65 Attack Scenarios
 
 65 scenarios across all tool categories. Each has a hat color (engagement type),
 perspective (internal/external), MITRE mapping, OPSEC level, and step-by-step tool calls.

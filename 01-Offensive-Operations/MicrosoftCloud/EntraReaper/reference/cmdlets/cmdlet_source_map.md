@@ -1,5 +1,5 @@
 ========================================================================================================================
-AADInternals v0.9.8 — COMPLETE CMDLET REFERENCE
+AADInternals v0.9.8 - COMPLETE CMDLET REFERENCE
 Repository: https://github.com/Gerenios/AADInternals
 Author: Dr Nestori Syynimaa (@DrAzureAD), Gerenios Ltd
 DefaultCommandPrefix: AADInt (all cmdlets called as e.g. Get-AADIntAccessToken)

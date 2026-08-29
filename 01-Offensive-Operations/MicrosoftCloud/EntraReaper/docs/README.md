@@ -581,7 +581,7 @@ AADInternals uses `HttpUtility.UrlEncode/UrlDecode/HtmlEncode/HtmlDecode` and `J
 aadinternalsMCP/
 |
 |-- CORE (Python modules)
-|   server.py                MCP server — 44 tools across 12 phases
+|   server.py                MCP server - 44 tools across 12 phases
 |   bridge.py                PowerShell subprocess bridge (injection-safe)
 |   token_store.py           Named token cache with persistence
 |   opsec.py                 OPSEC profiles for 18 tools

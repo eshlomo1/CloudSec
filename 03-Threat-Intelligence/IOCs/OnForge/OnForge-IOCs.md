@@ -47,7 +47,7 @@ Subdomains often align with **query-parameter variants** used in landing URLs (f
 
 ---
 
-## 4. Network indicators — IP addresses
+## 4. Network indicators - IP addresses
 
 | Type | Value | Notes |
 |------|--------|--------|
@@ -106,7 +106,7 @@ Block or alert on request URIs containing these substrings when paired with susp
 - `bcda=`
 - `Kuph=`
 
-### 8.2 Broad pattern — on-forge.com with phone-style parameters
+### 8.2 Broad pattern - on-forge.com with phone-style parameters
 
 ```regex
 https?://[a-z0-9\-]{5,60}\.on-forge\.com/.+\?(ph0ne|Anph|bcda|Kuph)=
@@ -145,4 +145,4 @@ usa-monday-admin-[a-z0-9]{8}\.on-forge\.com
 
 ## License
 
-Same as the root repository — see [../../../LICENSE](../../../LICENSE).
+Same as the root repository - see [../../../LICENSE](../../../LICENSE).

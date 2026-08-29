@@ -1,6 +1,6 @@
 # /entrareaper
 
-> EntraReaper — Autonomous Entra ID red team platform.
+> EntraReaper - Autonomous Entra ID red team platform.
 > 65 tools | 87 scenarios | 13 kill chains | 15 engagement folders | 9 Python modules
 > Proven: Kill Chain A (domain → Global Admin) in single session, 3/100 noise budget.
 
@@ -284,7 +284,7 @@ Do NOT execute impact actions (S50) unless explicitly authorized. Document capab
 
 ## Mandatory Rules (Enforced at All Phases)
 
-### Data Persistence — ALWAYS SAVE
+### Data Persistence - ALWAYS SAVE
 
 **CRITICAL: After EVERY tool execution or recon cycle, save ALL findings to the engagement folders. This is not optional.**
 
@@ -382,7 +382,7 @@ If the operator specifies a kill chain, execute only those scenarios in order:
 
 All paths relative to EntraReaper root:
 
-### Recon (what you learn) — `engagement/recon/`
+### Recon (what you learn) - `engagement/recon/`
 
 | Folder | Contents | Save Function |
 |--------|----------|---------------|
@@ -391,7 +391,7 @@ All paths relative to EntraReaper root:
 | `engagement/recon/results/` | Point-in-time recon snapshots | `save_recon_result()` |
 | `engagement/recon/iocs/` | Indicators of compromise | `IOCStore().add()` + `save_markdown()` |
 
-### Credentials (what you capture) — `engagement/credentials/`
+### Credentials (what you capture) - `engagement/credentials/`
 
 | Folder | Contents | Save Function |
 |--------|----------|---------------|
@@ -399,13 +399,13 @@ All paths relative to EntraReaper root:
 | `engagement/credentials/creds/` | NT hashes, MFA secrets, cookies | `save_credential()` |
 | `engagement/credentials/certs/` | Signing certs, device certs | `save_cert_reference()` |
 
-### Collection (what you take) — `engagement/collection/`
+### Collection (what you take) - `engagement/collection/`
 
 | Folder | Contents | Save Function |
 |--------|----------|---------------|
 | `engagement/collection/loot/` | Downloaded files, emails, docs | Manual save |
 
-### Operations (how you operate) — `engagement/operations/`
+### Operations (how you operate) - `engagement/operations/`
 
 | Folder | Contents | Save Function |
 |--------|----------|---------------|
@@ -413,14 +413,14 @@ All paths relative to EntraReaper root:
 | `engagement/operations/noise/` | Footprint + budget tracking | `log_noise()` |
 | `engagement/operations/persistence/` | Active backdoor inventory | `add_persistence()` |
 
-### Defense + Delivery — `engagement/defense/` + `engagement/delivery/`
+### Defense + Delivery - `engagement/defense/` + `engagement/delivery/`
 
 | Folder | Contents | Save Function |
 |--------|----------|---------------|
 | `engagement/defense/signals/` | Detection opportunities | `save_signal()` |
 | `engagement/delivery/reports/` | Final deliverables | `report_generate()` |
 
-### Reference (read-only) — `reference/`
+### Reference (read-only) - `reference/`
 
 | Folder | Contents |
 |--------|----------|

@@ -4,10 +4,10 @@ Validates **Microsoft Entra ID Smart Lockout** policy in cloud-only and hybrid (
 
 Unlike ROPC-only approaches, this flow:
 
-- **Bypasses ROPC blocks** — Works when Conditional Access or Security Defaults block legacy auth.
-- **Works without legacy auth** — No dependency on ROPC being enabled in the tenant.
-- **Uses the same pipeline as a real browser** — Credentials are submitted via the standard login form.
-- **Detects MFA** — If the password is correct but MFA is required, the script detects the challenge and stops (no need for a non-MFA test account when using wrong passwords).
+- **Bypasses ROPC blocks** - Works when Conditional Access or Security Defaults block legacy auth.
+- **Works without legacy auth** - No dependency on ROPC being enabled in the tenant.
+- **Uses the same pipeline as a real browser** - Credentials are submitted via the standard login form.
+- **Detects MFA** - If the password is correct but MFA is required, the script detects the challenge and stops (no need for a non-MFA test account when using wrong passwords).
 
 If modern auth initialization fails, the script **falls back to ROPC** automatically.
 
@@ -31,9 +31,9 @@ Use only on tenants and accounts you **own** or have **explicit written authoriz
 
 ## How it works (per attempt)
 
-1. **GET /authorize** — Obtain login context (flow token, sCtx).
-2. **POST /login** — Submit credentials via form POST.
-3. **Parse response** — 50126 (bad password), 50053 (locked), or MFA (password correct, script stops).
+1. **GET /authorize** - Obtain login context (flow token, sCtx).
+2. **POST /login** - Submit credentials via form POST.
+3. **Parse response** - 50126 (bad password), 50053 (locked), or MFA (password correct, script stops).
 
 If the modern auth flow cannot be initialized, the script uses **ROPC** (token endpoint) for that attempt or the rest of the run.
 
@@ -117,8 +117,8 @@ The script also detects MFA from the login page (redirect or MFA challenge) and 
 
 The script writes:
 
-- **Log file:** `Entra-ID-DOS_yyyyMMdd_HHmmss.log` — timestamped events and PASS/FAIL/WARN.
-- **CSV file:** `Entra-ID-DOS_yyyyMMdd_HHmmss.csv` — per-attempt results. Each row includes timestamps, HTTP status, error codes, trace/correlation IDs, **AuthMethod** (`modern` or `ropc-fallback`), and **Phase** (e.g. `lockout-test`, `hash-tracking`, `probe`).
+- **Log file:** `Entra-ID-DOS_yyyyMMdd_HHmmss.log` - timestamped events and PASS/FAIL/WARN.
+- **CSV file:** `Entra-ID-DOS_yyyyMMdd_HHmmss.csv` - per-attempt results. Each row includes timestamps, HTTP status, error codes, trace/correlation IDs, **AuthMethod** (`modern` or `ropc-fallback`), and **Phase** (e.g. `lockout-test`, `hash-tracking`, `probe`).
 
 During auto-detection, the script reports **Probe Method** (modern vs ropc-fallback) so you can see which auth path was used for the PTA/PHS probe.
 
@@ -144,4 +144,4 @@ Entra-ID-DOS/
 
 ## License
 
-Same as the root repository — see [../../LICENSE](../../LICENSE).
+Same as the root repository - see [../../LICENSE](../../LICENSE).

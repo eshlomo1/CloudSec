@@ -6,8 +6,8 @@ Per-engagement exported token dumps. Separated from the global `~/.entrareaper/t
 
 ```
 tokens/{engagement}/
-  {alias}_{timestamp}.json    — Full token export (JWT, refresh, PRT, SAML)
-  inventory.md                — Live token inventory (alias, resource, expiry, obtained_via)
+  {alias}_{timestamp}.json    - Full token export (JWT, refresh, PRT, SAML)
+  inventory.md                - Live token inventory (alias, resource, expiry, obtained_via)
 ```
 
 ## Auto-populated by

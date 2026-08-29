@@ -1,4 +1,4 @@
-# Entra ID Enterprise Applications — Known Client IDs
+# Entra ID Enterprise Applications - Known Client IDs
 
 > Reference: Microsoft first-party apps, FOCI members, BroCI brokers, phishing targets, and known-bad apps.
 > Sources: Secureworks FOCI Research, merill/microsoft-info, GraphPreConsentExplorer, entrascopes.com, Microsoft Learn, SpecterOps, Red Canary.
@@ -15,7 +15,7 @@
 
 ---
 
-## FOCI — Family of Client IDs (36 members)
+## FOCI - Family of Client IDs (36 members)
 
 Apps that share a Family Refresh Token (FRT). Authenticate as App A, refresh token works for App B.
 Source: [secureworks/family-of-client-ids-research](https://github.com/secureworks/family-of-client-ids-research)
@@ -62,7 +62,7 @@ Source: [secureworks/family-of-client-ids-research](https://github.com/securewor
 
 ---
 
-## BroCI — Broker Client IDs (NAA-Enabled)
+## BroCI - Broker Client IDs (NAA-Enabled)
 
 Apps that can broker token requests for nested apps. Carries MFA state across apps.
 Source: [SpecterOps NAA/BroCI Research](https://specterops.io/blog/2025/10/15/naa-or-broci-let-me-explain/)
@@ -79,7 +79,7 @@ Source: [SpecterOps NAA/BroCI Research](https://specterops.io/blog/2025/10/15/na
 
 ---
 
-## Device Code Phishing — High-Value Targets
+## Device Code Phishing - High-Value Targets
 
 First-party client IDs used in device code phishing to appear legitimate.
 Source: Storm-2372 (Microsoft), Volexity, Proofpoint
@@ -96,7 +96,7 @@ Source: Storm-2372 (Microsoft), Volexity, Proofpoint
 
 ---
 
-## Core Microsoft Services — Well-Known App IDs
+## Core Microsoft Services - Well-Known App IDs
 
 | Client ID | Application | Category |
 |-----------|-------------|----------|
@@ -316,17 +316,17 @@ Source: ByteIntoCyber, Mitiga ConsentFix, Push Security
 
 ---
 
-## Implicit Grant Risk — m.grdz.org
+## Implicit Grant Risk - m.grdz.org
 
 The OpenID config for m.grdz.org shows these response_types_supported:
 
 | Response Type | Flow | Risk |
 |---------------|------|------|
-| `code` | Authorization Code | Safe — standard |
-| `id_token` | Implicit (ID token) | Medium — token in URL fragment |
+| `code` | Authorization Code | Safe - standard |
+| `id_token` | Implicit (ID token) | Medium - token in URL fragment |
 | `code id_token` | Hybrid | Medium |
-| `token id_token` | Implicit (access + ID) | HIGH — access token in URL |
-| `token` | Implicit (bare token) | HIGH — token in referrer/logs |
+| `token id_token` | Implicit (access + ID) | HIGH - access token in URL |
+| `token` | Implicit (bare token) | HIGH - token in referrer/logs |
 
 Any app with a misconfigured redirect_uri can steal tokens via implicit grant.
 To check: enumerate registered apps in the tenant, look for `http://` or wildcard redirect URIs.

@@ -7,13 +7,13 @@ Cryptographic material for persistent access. HIGH sensitivity.
 ```
 certs/{engagement}/
   federation/
-    backdoor.pfx          — Golden SAML signing cert from persist_federation
-    issuer_uri.txt        — Backdoor issuer URI
+    backdoor.pfx          - Golden SAML signing cert from persist_federation
+    issuer_uri.txt        - Backdoor issuer URI
   devices/
-    {device_name}.pfx     — Device cert from persist_device (AAD Join)
-    {device_name}.pem     — Device cert (Intune enrollment)
+    {device_name}.pfx     - Device cert from persist_device (AAD Join)
+    {device_name}.pem     - Device cert (Intune enrollment)
   pta/
-    pta_agent.pfx         — PTA agent cert from persist_pta_agent
+    pta_agent.pfx         - PTA agent cert from persist_pta_agent
 ```
 
 ## Auto-populated by

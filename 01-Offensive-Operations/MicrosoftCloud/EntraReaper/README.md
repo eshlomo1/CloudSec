@@ -1,6 +1,6 @@
 # EntraReaper
 
-![EntraReaper — autonomous red team platform for Microsoft Entra ID](assets/entra-reaper-banner.png)
+![EntraReaper - autonomous red team platform for Microsoft Entra ID](assets/entra-reaper-banner.png)
 
 **Autonomous Red Team Platform for Microsoft Entra ID**
 

@@ -1,6 +1,6 @@
 # AADInternals Cmdlet Reference
 
-> Complete reference for AADInternals v0.9.8 — 238 cmdlets across 42 source files.
+> Complete reference for AADInternals v0.9.8 - 238 cmdlets across 42 source files.
 > Auto-extracted from locally installed module on macOS.
 > Source: https://github.com/Gerenios/AADInternals
 > Docs: https://aadinternals.com/aadinternals/
@@ -17,7 +17,7 @@
 
 ## Cmdlets by Source File
 
-### Access Tokens (AccessToken.ps1) — 30 cmdlets
+### Access Tokens (AccessToken.ps1) - 30 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -52,7 +52,7 @@
 | `Remove-AADIntUserFromEstsAuthPersistentCookie` | `-Cookie` [String], `-SessionID` [String], `-ShowContent` [Boolean], `-SubScope` [String], `-UserName` [String] |
 | `Unprotect-AADIntEstsAuthPersistentCookie` | `-Cookie` [String], `-SubScope` [String] |
 
-### Token Utilities (AccessToken_utils.ps1) — 10 cmdlets
+### Token Utilities (AccessToken_utils.ps1) - 10 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -67,7 +67,7 @@
 | `Get-AADIntTenantDomains` | `-Domain` [String], `-SubScope` [String] |
 | `Get-AADIntTenantID` | `-AccessToken` [String], `-Domain` [String], `-UserName` [String] |
 
-### Kill Chain (Recon + Phishing) (KillChain.ps1) — 7 cmdlets
+### Kill Chain (Recon + Phishing) (KillChain.ps1) - 7 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -79,7 +79,7 @@
 | `Invoke-AADIntUserEnumerationAsInsider` | `-GroupId` [String], `-GroupMembers` [SwitchParameter], `-Groups` [SwitchParameter], `-MaxResults` [Int32] |
 | `Invoke-AADIntUserEnumerationAsOutsider` | `-Domain` [String], `-External` [SwitchParameter], `-Method` [String], `-UserName` [String[]] |
 
-### Azure AD Connect / Sync (AzureADConnectAPI.ps1) — 17 cmdlets
+### Azure AD Connect / Sync (AzureADConnectAPI.ps1) - 17 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -101,7 +101,7 @@
 | `Set-AADIntSyncFeatures` | `-AccessToken` [String], `-DisableFeatures` [String[]], `-EnableFeatures` [String[]] |
 | `Set-AADIntUserPassword` | `-AccessToken` [String], `-ChangeDate` [DateTime], `-CloudAnchor` [String], `-Hash` [String], `-IncludeLegacy` [SwitchParameter], `-Iterations` [Int32], `-Password` [String], `-PfxFileName` [String], ... |
 
-### Microsoft Graph API (MSGraphAPI.ps1) — 15 cmdlets
+### Microsoft Graph API (MSGraphAPI.ps1) - 15 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -121,7 +121,7 @@
 | `Set-AADIntRolloutPolicy` | `-AccessToken` [String], `-Enable` [Boolean], `-EnableToOrganization` [Boolean], `-Policy` [String], `-PolicyId` [Guid] |
 | `Set-AADIntTenantGuestAccess` | `-AccessToken` [String], `-Level` [String] |
 
-### Azure AD Graph API (GraphAPI.ps1) — 12 cmdlets
+### Azure AD Graph API (GraphAPI.ps1) - 12 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -138,14 +138,14 @@
 | `Set-AADIntAzureADFeature` | `-AccessToken` [String], `-Enabled` [Boolean], `-Feature` [String] |
 | `Set-AADIntAzureADPolicyDetails` | `-AccessToken` [String], `-DisplayName` [String], `-ObjectId` [Guid], `-PolicyDetail` [String] |
 
-### AD Federation Services (ADFS.ps1) — 2 cmdlets
+### AD Federation Services (ADFS.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `New-AADIntADFSRefreshToken` | `-ClientID` [Guid], `-ExpiresOn` [DateTime], `-Issuer` [String], `-Name` [String], `-NotBefore` [DateTime], `-PfxFileName_encryption` [String], `-PfxFileName_signing` [String], `-PfxPassword_encryptio... |
 | `Unprotect-AADIntADFSRefreshToken` | `-PfxFileName_encryption` [String], `-PfxFileName_signing` [String], `-PfxPassword_encryption` [String], `-PfxPassword_signing` [String], `-RefreshToken` [String] |
 
-### Access Packages (AccessPackages.ps1) — 3 cmdlets
+### Access Packages (AccessPackages.ps1) - 3 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -153,7 +153,7 @@
 | `Get-AADIntAccessPackageCatalogs` | `-AccessToken` [String] |
 | `Get-AADIntAccessPackages` | `-AccessToken` [String] |
 
-### Exchange ActiveSync (ActiveSync.ps1) — 6 cmdlets
+### Exchange ActiveSync (ActiveSync.ps1) - 6 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -164,7 +164,7 @@
 | `Send-AADIntEASMessage` | `-AccessToken` [String], `-Credentials` [PSCredential], `-DeviceId` [String], `-DeviceOS` [String], `-DeviceType` [String], `-Message` [String], `-Recipient` [String], `-Subject` [String] |
 | `Set-AADIntEASSettings` | `-AccessToken` [String], `-Credentials` [PSCredential], `-DeviceId` [String], `-DeviceType` [String], `-FriendlyName` [String], `-IMEI` [String], `-MobileOperator` [String], `-Model` [String], `-OS` [... |
 
-### Admin API / Partner (AdminAPI.ps1) — 5 cmdlets
+### Admin API / Partner (AdminAPI.ps1) - 5 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -174,7 +174,7 @@
 | `Get-AADIntTenantOrganisationInformation` | `-AccessToken` [String], `-Domain` [String], `-TenantId` [Guid] |
 | `Remove-AADIntMSPartnerDelegatedAdminRoles` | `-AccessToken` [String], `-Domain` [String], `-TenantId` [Guid] |
 
-### AzureCoreManagement (AzureCoreManagement.ps1) — 14 cmdlets
+### AzureCoreManagement (AzureCoreManagement.ps1) - 14 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -193,7 +193,7 @@
 | `Set-AADIntAzureDiagnosticSettingsDetails` | `-AccessToken` [String], `-Enabled` [Boolean], `-Logs` [String[]], `-Name` [String], `-RetentionDays` [Int32], `-RetentionEnabled` [Boolean] |
 | `Set-AADIntAzureRoleAssignment` | `-AccessToken` [String], `-RoleName` [String], `-SubscriptionId` [String], `-UserName` [String] |
 
-### Azure Management (AzureManagementAPI.ps1) — 4 cmdlets
+### Azure Management (AzureManagementAPI.ps1) - 4 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -202,33 +202,33 @@
 | `New-AADIntGuestInvitation` | `-AccessToken` [Object], `-EmailAddress` [String], `-Message` [String] |
 | `New-AADIntMOERADomain` | `-AccessToken` [String], `-Domain` [String] |
 
-### Azure Management (AzureManagementAPI_utils.ps1) — 1 cmdlets
+### Azure Management (AzureManagementAPI_utils.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Get-AADIntAccessTokenForAzureMgmtAPI` | `-Credentials` [PSCredential], `-SaveToCache` [SwitchParameter] |
 
-### Azure AD B2C (B2C.ps1) — 2 cmdlets
+### Azure AD B2C (B2C.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `New-AADIntB2CAuthorizationCode` | `-Certificate` [X509Certificate2], `-Claims` [Hashtable], `-ClientId` [Guid], `-ExpiresOn` [DateTime], `-KeyId` [String], `-NotBefore` [DateTime], `-PfxFileName` [String], `-PfxPassword` [String], `-P... |
 | `New-AADIntB2CRefreshToken` | `-Certificate` [X509Certificate2], `-Claims` [Hashtable], `-ClientId` [Guid], `-ExpiresOn` [DateTime], `-KeyId` [String], `-NotBefore` [DateTime], `-PfxFileName` [String], `-PfxPassword` [String], `-P... |
 
-### CBA (CBA.ps1) — 2 cmdlets
+### CBA (CBA.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Get-AADIntAdminPortalAccessTokenUsingCBA` | `-Certificate` [X509Certificate2], `-PfxFileName` [String], `-PfxPassword` [String] |
 | `Get-AADIntPortalAccessTokenUsingCBA` | `-Certificate` [X509Certificate2], `-PfxFileName` [String], `-PfxPassword` [String] |
 
-### Azure Cloud Shell (CloudShell.ps1) — 1 cmdlets
+### Azure Cloud Shell (CloudShell.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Start-AADIntCloudShell` | `-AccessToken` [String], `-FileShareName` [String], `-ResourceGroup` [String], `-Shell` [String], `-StorageAccount` [String], `-SubscriptionId` [Guid] |
 
-### Common Utilities (CommonUtils.ps1) — 5 cmdlets
+### Common Utilities (CommonUtils.ps1) - 5 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -238,13 +238,13 @@
 | `Read-AADIntAccesstoken` | `-AccessToken` [String], `-ShowDate` [SwitchParameter], `-Validate` [SwitchParameter] |
 | `Set-AADIntUserAgent` | `-Device` [String] |
 
-### ComplianceAPI (ComplianceAPI.ps1) — 1 cmdlets
+### ComplianceAPI (ComplianceAPI.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Search-AADIntUnifiedAuditLog` | `-AccessToken` [String], `-All` [SwitchParameter], `-End` [DateTime], `-IpAddresses` [String[]], `-Operations` [String[]], `-Start` [DateTime], `-Target` [String], `-Users` [String[]] |
 
-### Configuration (Configuration.ps1) — 4 cmdlets
+### Configuration (Configuration.ps1) - 4 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -253,13 +253,13 @@
 | `Save-AADIntConfiguration` | (no parameters) |
 | `Set-AADIntSetting` | `-Setting` [String], `-Value` [PSObject] |
 
-### DCaaS (DCaaS.ps1) — 1 cmdlets
+### DCaaS (DCaaS.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Get-AADIntUserNTHash` | `-ClientId` [Guid], `-ClientPassword` [String], `-ClientPfxFileName` [String], `-ClientPfxPassword` [String], `-PfxFileName` [String], `-PfxPassword` [String], `-TenantId` [Guid], `-UseBuiltInCertific... |
 
-### FederatedIdentityTools (FederatedIdentityTools.ps1) — 5 cmdlets
+### FederatedIdentityTools (FederatedIdentityTools.ps1) - 5 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -269,7 +269,7 @@
 | `New-AADIntSAMLToken` | `-ByPassMFA` [Boolean], `-Certificate` [X509Certificate2], `-DeviceGUID` [Guid], `-ImmutableID` [String], `-Issuer` [String], `-NotAfter` [DateTime], `-NotBefore` [DateTime], `-PfxFileName` [String], ... |
 | `Open-AADIntOffice365Portal` | `-Browser` [Object], `-ByPassMFA` [Boolean], `-Certificate` [X509Certificate2], `-ImmutableID` [String], `-Issuer` [String], `-NotAfter` [DateTime], `-NotBefore` [DateTime], `-PfxFileName` [String], `... |
 
-### Hybrid Health (HybridHealthServices.ps1) — 9 cmdlets
+### Hybrid Health (HybridHealthServices.ps1) - 9 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -283,19 +283,19 @@
 | `Remove-AADIntHybridHealthServiceMember` | `-AccessToken` [String], `-ServiceMemberId` [Guid], `-ServiceName` [String] |
 | `Send-AADIntHybridHealthServiceEvents` | `-AgentInfo` [PSObject], `-AgentKey` [String], `-Events` [Array], `-MachineId` [Guid], `-ServiceId` [Guid], `-TenantId` [Guid] |
 
-### HybridHealthServices_utils (HybridHealthServices_utils.ps1) — 1 cmdlets
+### HybridHealthServices_utils (HybridHealthServices_utils.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `New-AADIntHybridHealtServiceEvent` | `-ActivityId` [Guid], `-ActivityIdAutoGenerated` [Boolean], `-AppTokenFailureType` [String], `-ClaimsProvider` [String], `-DeviceAuthentication` [Boolean], `-DeviceID` [String], `-Endpoint` [String], ... |
 
-### Kerberos (Kerberos.ps1) — 1 cmdlets
+### Kerberos (Kerberos.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `New-AADIntKerberosTicket` | `-AADUserPrincipalName` [String], `-ADUserPrincipalName` [String], `-AccessToken` [String], `-Crypto` [String], `-DomainName` [String], `-Hash` [String], `-Password` [String], `-Realm` [String], `-Sal... |
 
-### MDM (MDM.ps1) — 4 cmdlets
+### MDM (MDM.ps1) - 4 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -304,7 +304,7 @@
 | `Set-AADIntDeviceCompliant` | `-AccessToken` [String], `-Compliant` [SwitchParameter], `-DeviceId` [String], `-Intune` [SwitchParameter], `-Managed` [SwitchParameter], `-ObjectId` [String] |
 | `Start-AADIntDeviceIntuneCallback` | `-Certificate` [X509Certificate2], `-DeviceName` [String], `-PfxFileName` [String], `-PfxPassword` [String], `-Scope` [String], `-SessionId` [Int32] |
 
-### Multi-Factor Auth (MFA.ps1) — 7 cmdlets
+### Multi-Factor Auth (MFA.ps1) - 7 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -316,7 +316,7 @@
 | `Set-AADIntUserMFA` | `-AccessToken` [String], `-AlternativePhoneNumber` [String], `-DefaultMethod` [Object], `-Email` [String], `-PhoneNumber` [String], `-StartTime` [DateTime], `-State` [Object], `-UserPrincipalName` [Ob... |
 | `Set-AADIntUserMFAApps` | `-AccessToken` [String], `-AuthenticationType` [String], `-DeviceName` [String], `-DeviceTag` [String], `-DeviceToken` [String], `-Id` [Guid], `-NotificationType` [String], `-OathSecretKey` [String], ... |
 
-### Application Proxy (MSAppProxy.ps1) — 3 cmdlets
+### Application Proxy (MSAppProxy.ps1) - 3 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -324,14 +324,14 @@
 | `Get-AADIntProxyAgentGroups` | `-AccessToken` [String] |
 | `Get-AADIntProxyAgents` | `-AccessToken` [String] |
 
-### MSCommerce (MSCommerce.ps1) — 2 cmdlets
+### MSCommerce (MSCommerce.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Get-AADIntSelfServicePurchaseProducts` | `-AccessToken` [String] |
 | `Set-AADIntSelfServicePurchaseProduct` | `-AccessToken` [String], `-Enabled` [Boolean], `-Id` [String] |
 
-### MSPartner (MSPartner.ps1) — 4 cmdlets
+### MSPartner (MSPartner.ps1) - 4 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -340,33 +340,33 @@
 | `Get-AADIntMSPartnerRoleMembers` | `-AccessToken` [String] |
 | `New-AADIntMSPartnerDelegatedAdminRequest` | `-Domain` [String], `-TenantId` [Guid] |
 
-### OneDrive / SharePoint (OneDrive.ps1) — 2 cmdlets
+### OneDrive / SharePoint (OneDrive.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Get-AADIntOneDriveFiles` | `-DomainGuid` [Guid], `-FoldersOnly` [SwitchParameter], `-Mac` [SwitchParameter], `-MaxItems` [Int32], `-OneDriveSettings` [Object], `-PrintOnly` [SwitchParameter] |
 | `Send-AADIntOneDriveFile` | `-DomainGuid` [Guid], `-ETag` [String], `-FileName` [String], `-FolderId` [String], `-Mac` [SwitchParameter], `-OneDriveSettings` [Object] |
 
-### OneDrive_utils (OneDrive_utils.ps1) — 1 cmdlets
+### OneDrive_utils (OneDrive_utils.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `New-AADIntOneDriveSettings` | `-Credentials` [PSCredential], `-Domain` [String], `-KerberosTicket` [String], `-SAMLToken` [String] |
 
-### OneNote (OneNote.ps1) — 1 cmdlets
+### OneNote (OneNote.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Start-AADIntSpeech` | `-AccessToken` [String], `-Language` [String], `-PreferredVoice` [String], `-Text` [String] |
 
-### Outlook / Exchange (OutlookAPI.ps1) — 2 cmdlets
+### Outlook / Exchange (OutlookAPI.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Open-AADIntOWA` | `-AccessToken` [String], `-Mode` [String] |
 | `Send-AADIntOutlookMessage` | `-AccessToken` [String], `-Message` [String], `-Recipient` [String], `-SaveToSentItems` [SwitchParameter], `-Subject` [String] |
 
-### Primary Refresh Token (PRT.ps1) — 11 cmdlets
+### Primary Refresh Token (PRT.ps1) - 11 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -382,13 +382,13 @@
 | `Set-AADIntDeviceTransportKey` | `-AccessToken` [String], `-Certificate` [X509Certificate2], `-DeviceId` [String], `-JsonFileName` [String], `-ObjectId` [String], `-PfxFileName` [String], `-PfxPassword` [String], `-UseBuiltInCertific... |
 | `Set-AADIntDeviceWHfBKey` | `-AccessToken` [String], `-Certificate` [X509Certificate2], `-PfxFileName` [String], `-PfxPassword` [String] |
 
-### Pass-Through Auth (PTA.ps1) — 1 cmdlets
+### Pass-Through Auth (PTA.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Register-AADIntPTAAgent` | `-AccessToken` [String], `-Bootstrap` [String], `-FileName` [String], `-MachineName` [String], `-PfxFileName` [String], `-PfxPassword` [String], `-UpdateTrust` [SwitchParameter] |
 
-### Provisioning API (ProvisioningAPI.ps1) — 16 cmdlets
+### Provisioning API (ProvisioningAPI.ps1) - 16 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -409,7 +409,7 @@
 | `Set-AADIntDomainAuthentication` | `-AccessToken` [String], `-ActiveLogOnUri` [String], `-Authentication` [String], `-DefaultInteractiveAuthenticationMethod` [String], `-DomainName` [String], `-FederationBrandName` [String], `-IssuerUr... |
 | `Set-AADIntUser` | `-AccessToken` [String], `-AlternateEmailAddresses` [Object], `-AlternateMobilePhones` [Object], `-AlternativeSecurityIds` [Object], `-BlockCredential` [Object], `-City` [Object], `-CloudExchangeRecip... |
 
-### Support & Recovery (SARA.ps1) — 4 cmdlets
+### Support & Recovery (SARA.ps1) - 4 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -418,14 +418,14 @@
 | `Resolve-AADIntSARAHost` | `-AccessToken` [String], `-Host` [String] |
 | `Test-AADIntSARAPort` | `-AccessToken` [String], `-Host` [String], `-Port` [String] |
 
-### SPMT (SPMT.ps1) — 2 cmdlets
+### SPMT (SPMT.ps1) - 2 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Add-AADIntSPOSiteFiles` | `-Files` [String[]], `-FolderName` [String], `-Site` [String], `-TimeCreated` [DateTime], `-TimeLastModified` [DateTime], `-UserName` [String] |
 | `Update-AADIntSPOSiteFile` | `-File` [String], `-Id` [Guid], `-RelativePath` [String], `-Site` [String], `-TimeCreated` [DateTime], `-TimeLastModified` [DateTime], `-UserName` [String] |
 
-### SharePoint Online (SPO.ps1) — 5 cmdlets
+### SharePoint Online (SPO.ps1) - 5 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -435,13 +435,13 @@
 | `Get-AADIntSPOUserProperties` | `-AccessToken` [String], `-Site` [String], `-UserName` [String] |
 | `Set-AADIntSPOSiteMembers` | `-AuthHeader` [String], `-Site` [String], `-SiteName` [String], `-UserPrincipalName` [String] |
 
-### Sync Agent (SyncAgent.ps1) — 1 cmdlets
+### Sync Agent (SyncAgent.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
 | `Register-AADIntSyncAgent` | `-AccessToken` [String], `-FileName` [String], `-MachineName` [String], `-PfxFileName` [String], `-PfxPassword` [String], `-UpdateTrust` [SwitchParameter] |
 
-### Microsoft Teams (Teams.ps1) — 13 cmdlets
+### Microsoft Teams (Teams.ps1) - 13 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|
@@ -459,7 +459,7 @@
 | `Set-AADIntTeamsMessageEmotion` | `-AccessToken` [String], `-Clear` [SwitchParameter], `-ConversationID` [String], `-Emotion` [String], `-MessageID` [String], `-TeamsSettings` [PSObject] |
 | `Set-AADIntTeamsStatusMessage` | `-AccessToken` [String], `-Expires` [DateTime], `-Message` [String] |
 
-### Teams_utils (Teams_utils.ps1) — 1 cmdlets
+### Teams_utils (Teams_utils.ps1) - 1 cmdlets
 
 | Cmdlet | Parameters |
 |--------|-----------|

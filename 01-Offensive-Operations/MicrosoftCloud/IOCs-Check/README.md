@@ -1,6 +1,6 @@
 # OAuth IOCs Check
 
-**Goal:** Scan your Microsoft 365 / Entra ID tenant for indicators of compromise (IOCs) associated with known OAuth abuse campaigns. Connects via Microsoft Graph (interactive/delegated auth) and checks for malicious app IDs, permission grants, and—with Entra ID P1/P2—sign-in and audit patterns.
+**Goal:** Scan your Microsoft 365 / Entra ID tenant for indicators of compromise (IOCs) associated with known OAuth abuse campaigns. Connects via Microsoft Graph (interactive/delegated auth) and checks for malicious app IDs, permission grants, and-with Entra ID P1/P2-sign-in and audit patterns.
 
 **Authorized use only.** Run only on tenants you own or have explicit permission to test.
 
@@ -33,4 +33,4 @@
 
 ## License
 
-Same as the root repository — see [../../../../LICENSE](../../../../LICENSE).
+Same as the root repository - see [../../../../LICENSE](../../../../LICENSE).

@@ -1,4 +1,4 @@
-# EntraReaper v2.0 (superseded by v2.1) — Architecture
+# EntraReaper v2.0 (superseded by v2.1) - Architecture
 
 > Autonomous Red Team Platform for Entra ID
 > 59 MCP tools | 9 modules | 15 engagement folders | 10-phase workflow
@@ -130,7 +130,7 @@
 ┌──────────────────────────────┼───────────────────────────────────────────────┐
 │                    BRIDGE LAYER (bridge.py)                                   │
 │                                                                              │
-│  asyncio.create_subprocess_exec (NO SHELL — injection-safe)                  │
+│  asyncio.create_subprocess_exec (NO SHELL - injection-safe)                  │
 │                                                                              │
 │  ┌─────────────────────┐  ┌──────────────────┐  ┌────────────────────────┐  │
 │  │  Cmdlet Validation  │  │  String Sanitize  │  │  Timeout Protection    │  │
@@ -155,7 +155,7 @@
 
 ---
 
-## Data Flow — Per Tool Execution
+## Data Flow - Per Tool Execution
 
 ```
 Operator Request
@@ -247,7 +247,7 @@ server.py (59 tools, entry point)
 
 ---
 
-## 15 Engagement Folders — Data Model
+## 15 Engagement Folders - Data Model
 
 ```
                     ┌───────────────────────────────────────────┐
@@ -515,11 +515,11 @@ Budget Report Example:
 | Collection | 4 | Medium | onedrive, sharepoint, teams, email |
 | Impact | 2 | LOUD | user_ops, config |
 | Azure | 1 | Low-Medium | enum |
-| Kerberos | 1 | — | ticket |
+| Kerberos | 1 | - | ticket |
 | Raw | 1 | Varies | invoke |
-| Session | 2 | — | status, clear_tokens |
-| **OPSEC Governance** | **4** | — | **opsec_check, budget_check, budget_set, budget_report** |
-| **Evasion** | **4** | — | **set_ua, jitter, foci_list, audience_switch** |
+| Session | 2 | - | status, clear_tokens |
+| **OPSEC Governance** | **4** | - | **opsec_check, budget_check, budget_set, budget_report** |
+| **Evasion** | **4** | - | **set_ua, jitter, foci_list, audience_switch** |
 | **Analysis** | **3** | Medium | **analyze_ca, analyze_privesc, analyze_attack_graph** |
-| **Reporting** | **5** | — | **report_generate, mitre_layer, evidence_package, cleanup, narrative** |
-| **Engagement** | **1** | — | **engagement_status** |
+| **Reporting** | **5** | - | **report_generate, mitre_layer, evidence_package, cleanup, narrative** |
+| **Engagement** | **1** | - | **engagement_status** |

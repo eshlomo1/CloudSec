@@ -1,4 +1,4 @@
-# EntraReaper v2.1 — Architecture
+# EntraReaper v2.1 - Architecture
 
 > Autonomous Red Team Platform for Entra ID
 > 65 MCP tools | 9 Python modules | 15 engagement folders | 87 scenarios | 13 kill chains
@@ -24,7 +24,7 @@
 └──────────────────────────────┼──────────────────────────────────────────────────┘
                                │
 ┌──────────────────────────────┼──────────────────────────────────────────────────┐
-│                      MCP SERVER (server.py — 65 tools)                          │
+│                      MCP SERVER (server.py - 65 tools)                          │
 │                                                                                 │
 │  ┌─── LAYER 1: GOVERNANCE ──────────────────────────────────────────────────┐  │
 │  │                                                                          │  │
@@ -109,7 +109,7 @@
 
 ---
 
-## Data Flow — Single Tool Execution
+## Data Flow - Single Tool Execution
 
 ```
                     ┌──────────────┐
@@ -215,29 +215,29 @@ server.py (65 tools, entry point)
 aadinternalsMCP/
 │
 ├── INTELLIGENCE (what you learn)
-│   ├── fingerprints/        Tenant identity — per-target, markdown-kv, static
-│   ├── behavior/            Attack surface — evolving, grows per cycle
-│   ├── results/             Recon snapshots — per-tool, immutable
-│   └── iocs/                Indicators — JSON + markdown, for blue team
+│   ├── fingerprints/        Tenant identity - per-target, markdown-kv, static
+│   ├── behavior/            Attack surface - evolving, grows per cycle
+│   ├── results/             Recon snapshots - per-tool, immutable
+│   └── iocs/                Indicators - JSON + markdown, for blue team
 │
 ├── CREDENTIALS (what you capture)
-│   ├── tokens/              JWT/refresh/PRT/SAML — per-engagement, per-alias
-│   ├── creds/               NT hashes, MFA secrets, cookies — per-type JSON
-│   └── certs/               Signing certs, device certs — per-type subdirs
+│   ├── tokens/              JWT/refresh/PRT/SAML - per-engagement, per-alias
+│   ├── creds/               NT hashes, MFA secrets, cookies - per-type JSON
+│   └── certs/               Signing certs, device certs - per-type subdirs
 │
 ├── COLLECTION (what you take)
-│   └── loot/                Downloaded files — per-target, per-service
+│   └── loot/                Downloaded files - per-target, per-service
 │
 ├── OPERATIONS (how you operate)
-│   ├── playbooks/           Execution journal — auto-appended, every tool
-│   ├── noise/               Footprint — predicted vs actual, budget tracking
-│   └── persistence/         Live backdoors — MUST be cleaned up at end
+│   ├── playbooks/           Execution journal - auto-appended, every tool
+│   ├── noise/               Footprint - predicted vs actual, budget tracking
+│   └── persistence/         Live backdoors - MUST be cleaned up at end
 │
 ├── DEFENSE (what defenders should see)
-│   └── signals/             Detection opportunities — auto from OPSEC profiles
+│   └── signals/             Detection opportunities - auto from OPSEC profiles
 │
 ├── REPORTING (what you deliver)
-│   └── reports/             Final deliverables — report, MITRE, evidence, cleanup
+│   └── reports/             Final deliverables - report, MITRE, evidence, cleanup
 │
 └── REFERENCE (read-only)
     ├── scenarios/           87 scenarios + 13 kill chains
@@ -432,7 +432,7 @@ Manual │ LOUD        Auto │ None
 
 | Module | Lines | Purpose |
 |--------|-------|---------|
-| server.py | 2,140 | MCP server — 65 tools, auto-save hooks |
+| server.py | 2,140 | MCP server - 65 tools, auto-save hooks |
 | bridge.py | 230 | PowerShell subprocess (injection-safe) |
 | token_store.py | 186 | Named token cache with persistence |
 | opsec.py | 188 | 18 OPSEC profiles (noise/detection) |
@@ -450,7 +450,7 @@ Manual │ LOUD        Auto │ None
 
 | File | Lines | Content |
 |------|-------|---------|
-| architecture_v2.1.md | — | This file — system diagrams, data flow |
+| architecture_v2.1.md | - | This file - system diagrams, data flow |
 | README.md | 600 | Tool reference, security design |
 | cmdlet_reference.md | 710 | 238 cmdlets with parameter signatures |
 | cmdlet_documentation.md | 2,416 | 246 cmdlets with descriptions/examples |

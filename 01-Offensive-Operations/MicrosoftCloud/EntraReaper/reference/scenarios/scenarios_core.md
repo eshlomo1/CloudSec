@@ -1,4 +1,4 @@
-# EntraReaper — Attack Scenarios
+# EntraReaper - Attack Scenarios
 
 Chains the 43 MCP tools into real-world attack sequences.
 Each scenario maps to MITRE ATT&CK with OPSEC ratings.

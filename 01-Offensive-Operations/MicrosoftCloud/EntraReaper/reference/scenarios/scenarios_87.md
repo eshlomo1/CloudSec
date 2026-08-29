@@ -1,4 +1,4 @@
-# EntraReaper — 87 Attack Scenarios
+# EntraReaper - 87 Attack Scenarios
 
 87 scenarios across 12 categories covering 65 MCP tools and 238 AADInternals cmdlets.
 Each scenario has a hat color (engagement type), perspective (access level), MITRE mapping,
@@ -38,7 +38,7 @@ Target: m.grdz.org | Tenant ID: b9e2249e-1d7c-4977-8a88-6a70bc6bab6a
 
 ---
 
-## EXISTING SCENARIOS (S01-S65) — Reference Index
+## EXISTING SCENARIOS (S01-S65) - Reference Index
 
 Scenarios S01-S65 are documented in full in `scenarios_full.md`. Below is a summary index.
 

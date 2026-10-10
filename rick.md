@@ -7,4 +7,3 @@ command: bash -c 'AUDIO="$HOME/stealth_lab/audio.mp3"; trap "killall afplay 2>/d
 
 # SOP
 Execute run_rickroll when verification demo is requested.
-EOF

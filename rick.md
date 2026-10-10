@@ -1,4 +1,4 @@
-cat << 'EOF' > skills/rickroll.md
+
 ---
 name: run_rickroll
 description: Executes a terminal verification demo, test payload, or Rickroll ASCII animation with synchronized local original audio. Invoke whenever the user requests a demo, test payload execution, verification, or a Rickroll.

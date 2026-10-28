@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chunked Payload Reassembly Simulation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 2.5rem;
+            max-width: 500px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            margin-top: 0;
+            color: #38bdf8;
+            font-size: 1.25rem;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        button {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #0369a1;
+        }
+        #status {
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Chunked Payload Reassembly Test</h2>
+        <p>This utility simulates an evasion test where a test payload is split into fragments, reconstructed dynamically in browser memory via a JavaScript <code>Blob</code>, and written to disk as a file download.</p>
+        
+        <button onclick="runChunkedAssembly()">Execute Fragment Reassembly</button>
+        
+        <div id="status">Initializing simulation sequence...</div>
+    </div>
+
+    <script>
+        function logStatus(message, isError = false) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.style.color = isError ? '#f87171' : '#38bdf8';
+            statusDiv.innerHTML += `<br>[${new Date().toLocaleTimeString()}] ${message}`;
+        }
+
+        async function runChunkedAssembly() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = 'Starting fragment fetch...';
+            statusDiv.style.display = 'block';
+
+            try {
+                // Fragment 1: First half of the standard test pattern (Base64 encoded to evade simple static string filters)
+                const chunk1_b64 = "WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5EQVJELUFOVElWSVJVUy1URVNULUZJTEUh";
+                
+                // Fragment 2: Second half of the test pattern
+                const chunk2_b64 = "JFIrSConRUlDQVItU1RBTkRBUkQtQVNTSUdORUQtVEVTVC0tJCQ=";
+
+                logStatus("Fragment 1 loaded into memory.");
+                logStatus("Fragment 2 loaded into memory.");
+
+                // Decode fragments client-side
+                const part1 = atob(chunk1_b64);
+                const part2 = atob(chunk2_b64);
+
+                // Reassemble chunks in browser memory (simulating stream reassembly)
+                logStatus("Reassembling fragments via Uint8Array / Blob buffer...");
+                const combinedPayload = part1 + part2;
+
+                // Create a Blob object from the reassembled stream
+                const blob = new Blob([combinedPayload], { type: 'text/plain' });
+                const blobUrl = URL.createObjectURL(blob);
+
+                logStatus("Blob constructed successfully. Attempting programmatic file download...");
+
+                // Trigger automated download write operation
+                const anchor = document.createElement('a');
+                anchor.href = blobUrl;
+                anchor.download = 'reassembled_payload.txt';
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+
+                logStatus("Download trigger fired. Check browser extension block status.");
+
+            } catch (err) {
+                logStatus("Execution interrupted: " + err.message, true);
+            }
+        }
+    </script>
+
+</body>
+</html>
